@@ -1,0 +1,10 @@
+www.mindphp.com
+www.php.net/manual
+www.softmelt.com
+www.programmerthailand.com
+www.techtalkthai.com
+www.codetwo.com/admins-blog/difference-differential-incremental-backup
+$handle = fopen("ftp://user:password@example.com/somefile.txt", "w");
+https://theitbros.com/how-to-setup-an-ftp-server-in-windows-10/
+pakinackermen@hotmail.com
+MING2539
