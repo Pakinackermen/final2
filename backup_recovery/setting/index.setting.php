@@ -41,13 +41,12 @@
               $result = $conn->query($sql);
            
             ?>
-          <form action="setting\database\update.php" method="post">
+          <form action="setting\database\formedit.php" method="post">
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ชื่อ</th>
-                    <th scope="col">ไฟล์ต้นทาง</th>
+                    <th scope="col">ชื่อ</th>                    
                     <th scope="col">จัดการ</th>
                   </tr>
                 </thead>
@@ -59,16 +58,13 @@
               ?>
                   
                   <tr>
-                    <th scope="row">1</th>
-                    <td><?= $row["name"] ?></td>
+                    <th scope="row">1</th>                    
                     <td><?= $row["dir_src"] ?></td>
                     <td>
                       <button type="submit" name="edit_setting" value="<?= $row["id_setting"] ?>">แก้ไข</button>
                     </td>
                   </tr>                
-                
-              
-
+                          
                <?php 
                } // end loop 
                 $conn->close();

@@ -1,14 +1,12 @@
 
 <?php 
-    include 'config/connectDB.php';
+    include_once( '/../config/connectDB.php');
     
     $class = new allDB();
-    $row = $class->select("report_new_fileserver ORDER BY id_newfileserver ASC");
+    $row = $class->select("report_new_fileserver ORDER BY id_newfileserver DESC");
     
 ?>
 <script>
-
-
 
 </script>
 <div class="main-content-container container-fluid px-4">

@@ -45,7 +45,7 @@
                 <div class="form-group col-md-12">
                   <label>เลือกไดเรกทอรี่ที่ต้องการ</label>
                   <select id="pathBackup" class="form-control" name="idSetting">
-                    <option value=NULL>ไดเรกทอรี่...</option>
+                    <option value="NULL">ไดเรกทอรี่...</option>
                     <?php
                       while($row = $result->fetch_assoc()) {
                           echo "<option value='".$row['id_setting']."'> ".$row['dir_src']."</option>";                        

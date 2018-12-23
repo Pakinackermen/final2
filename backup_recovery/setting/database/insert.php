@@ -1,9 +1,11 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "backup";
+include_once "connect.php";
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 
 $namedata = $_POST['namedata'] = "NULL";
 
@@ -36,12 +38,7 @@ if (isset($_POST['month'])) {
     $ismouth = "N";
 }
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+
 mysqli_set_charset($conn, "utf8");
 
 $sql = "INSERT INTO `setting` (
@@ -82,9 +79,7 @@ $sql .= "INSERT INTO `ftp` (
         );";
 
 if ($conn->multi_query($sql) === true) {
-    include_once "success.php";
-    include_once "fail.php";
-
+    include_once "success.php";    
 } else {
    include_once "fail.php";
 
