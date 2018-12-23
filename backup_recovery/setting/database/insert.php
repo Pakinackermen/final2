@@ -6,7 +6,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
 $namedata = $_POST['namedata'] = "NULL";
 
 $dir_src = $_POST['dir_src'];
@@ -79,9 +78,9 @@ $sql .= "INSERT INTO `ftp` (
         );";
 
 if ($conn->multi_query($sql) === true) {
-    include_once "success.php";    
+    include_once "tamplat/success.php";    
 } else {
-   include_once "fail.php";
+   include_once "tamplat/fail.php";
 
 }
 

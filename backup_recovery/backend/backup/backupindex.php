@@ -1,20 +1,21 @@
 <?php
 include_once "../config/connectDB.php";
-echo "CWD=".getcwd()."<br>" ;
-$idSetting = $_POST['idSetting'];
+
+"CWD=" . getcwd() . "<br>";
+echo $idSetting = $_POST['idSetting'];
 $id_ftp = $_POST['id_ftp'];
 
 if (isset($_POST['idSetting'])) {
     $class = new allDB();
-    $row = $class->select("setting where id_setting = " . $idSetting);
-    $path = "";
+    $row = $class->select("setting where id_setting = " . $idSetting);    
     $filename = "";
     $Row = $row->fetch_assoc();
     $filename = $Row['id_setting'];
-    $path .= $Row['dir_src'];
+    // $path .= $Row['dir_src'];
+    $path .= str_replace('\\', '/', $Row['dir_src']);
 
-    echo "PATH=" . $path . " filename=" . $filename."<br>";
-    // backupfile($filename, $path, $id_ftp);
+    echo "PATH=" . $path . "<BR> filename=" . $filename . ".ZIP<br>";
+    backupfile($filename, $path, $id_ftp);
     //  echo $_POST['name_zip_file']; เปลี่ยน get id from DB=>{ backupPathname}
 } else {
     echo '<h1>ข้อมูลไม่ถูกต้อง</h1>';
@@ -61,17 +62,14 @@ function backupfile($filename, $path, $id_ftp)
 
     $upload = ftp_put($connection, $name_zip_file, $name_zip_file, FTP_BINARY);
     if ($upload) {
-        echo '
-            <form action="../../core.php">
-                <div style="text-align: center;">
-                    <h2>สำรองข้อมูลแล้ว</h2>
-                    <button
-                    style="width: 100px; height: 50px; type="submit">กลับหน้าหลัก</button>
-                </div>
-            </form>';
-
+        $h4 = "สำเร็จ";
+        $txt = "ท่านได้ทำการสำรองข้อมูลเรียบร้อยแล้ว";
+        include_once "tamplat/success.php";
     } else {
-        echo 'FTP upload failed!';
+        $h4 = "ไม่สามารถทำรายการได้";
+        $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";
+        include_once "tamplat/fail.php";
+        'FTP upload failed!';
     }
 
     ftp_close($connection);

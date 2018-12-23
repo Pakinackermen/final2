@@ -1,9 +1,26 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "backup";
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT * FROM setting";
+$result = $conn->query($sql);
+
+// $ftp = "SELECT * FROM ftp";
+// $selectftp = $conn->query($ftp);
+
+?>
 <div class="col-lg-6">
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
     <div class="col-12 col-sm-12 text-center text-sm-left mb-0">
       <!-- <span class="text-uppercase page-subtitle">Overview</span> -->
-      <h3 class="page-title">ระบบตรวจสอบ</h3>
+      <h3 class="page-title">ระบบตรวจสอบด้วยตัวเอง</h3>
     </div>
   </div>
   <!-- End Page Header -->
@@ -16,21 +33,22 @@
       <li class="list-group-item p-4">
         <div class="row">
           <div class="col">
-            <form>
+            <form action="backend\checkData\checkNewFile.php" method="post">
               <div class="form-row h-10">
                 <div class="form-group col-md-12">
                   <label>เลือกไดเรกทอรี่ที่ต้องการ</label>
-                  <select id="pathBackup" class="form-control">
+                  <select id="pathBackup" class="form-control" name="npathBackup">
                     <option selected>ตรวจสอบไดเรกทอรี่...</option>
-                    <option>Path 1</option>
-                    <option>Path 2</option>
+                    <?php
+                       while($row = $result->fetch_assoc()) {
+                          echo "<option value='".$row['dir_src']."'> ".$row['dir_src']."</option>";                        
+                      }  
+                    ?>
                   </select>
                 </br>
-                 
                   <span class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-accent col-md-3 ">ยืนยัน</button>
                   </span>
-                  
             </form>
             </div>
             </div>
@@ -38,6 +56,3 @@
     </ul>
     </div>
     </div>
-   
-  
-

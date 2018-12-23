@@ -21,7 +21,7 @@
         }elseif($page == 'recovery'){
           include 'core/recovery/index.php';
         }elseif($page == 'check'){
-          include 'core/checkData/index.php';
+          include_once 'core/checkData/index.php';
         }elseif($page == 'report'){
           $report  = (isset($_GET['report'])) ?  $_GET['report'] : 'No page' ; 
           include 'core/report/index.php';
