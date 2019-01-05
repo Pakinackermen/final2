@@ -1,18 +1,20 @@
 <?php
 
-// $sql = "SELECT * FROM setting";
-// $ftp = "SELECT * FROM ftp";
-// $result = $conn->query($sql);
-// $selectftp = $conn->query($ftp);
-echo "TEST CHECKDATA<br>";
-echo $_POST["npathBackup"];
 
+ "TEST CHECKDATA123<br>";
+ $_POST["npathBackup"];
+directoryToArray('../checkData', true);
 function directoryToArray($directory, $recursive)
-{
+{   
+    date_default_timezone_set("Asia/Bangkok");
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "backup";
+    $json = array();
+    $data = array();
+    $str_value ="";
+
     $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
     if ($conn->connect_error) {
@@ -31,18 +33,37 @@ function directoryToArray($directory, $recursive)
 
                     $file = $directory . '/' . $file;
                     $newplace = preg_replace('/\/\//si', '/', $file);
-                    $Table = "report_new_fileserver";
-                    $colume = "`id_newfileserver`, `name`, `hash`, `size`, `date_newfileserver`";
-                    $value = "NULL, '" . $file . "','" . md5_file($file) . "', '";
-                    $value .= filesize($file) . "', '" . date('d-m-Y') . "'";
-                    // insert data base
-                    $conn->insert($Table, $colume, $value);
-                    $array_items[] = $newplace;
+                    $newplace = str_replace('..', '', $newplace);
+                    
+
+
+                    //set json
+                    $str_value = "{";
+                    $str_value .= "path:".$newplace;
+                    $str_value .= "|hash:".md5_file($file);
+                    $str_value .= "|size:".filesize($file);
+                  echo  $str_value .= "}";                                                                               
+                    $array_items[] = $str_value;
                 }
             }
-        }
-        $conn->closeDB();
+        }//while                
+
         closedir($handle);
     }
+    $Table = "checkdata";
+    $column = ' (`id`, `value`, `datetime`, `status`)';
+    $value = "NULL,";
+    $value .= "'".$str_value."',";
+    $value .= "'".date("Y-m-d H:i:s")."',";
+    $value .= "'C'";
+    echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $value . ")";
+    // if ($conn->query($insertDB)) {
+    //     echo "=::TRUE::=";
+    // }else{
+    //     echo "=::FALSE::=";
+
+    // }        
+
+    $conn->close();
     return $array_items;
 }

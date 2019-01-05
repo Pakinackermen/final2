@@ -1,6 +1,6 @@
 
 <?php 
-    include_once( '/../config/connectDB.php');
+    include_once('config/connectDB.php');
     
     $class = new allDB();
     $row = $class->select("report_new_fileserver ORDER BY id_newfileserver DESC");
