@@ -37,7 +37,7 @@ $result = $conn->query($sql);
               <div class="form-row h-10">
                 <div class="form-group col-md-12">
                   <label>เลือกไดเรกทอรี่ที่ต้องการ</label>
-                  <select id="pathBackup" class="form-control" name="npathBackup">
+                  <select id="pathBackup" class="form-control" name="checkdata">
                     <option selected>ตรวจสอบไดเรกทอรี่...</option>
                     <?php
                        while($row = $result->fetch_assoc()) {
@@ -45,9 +45,9 @@ $result = $conn->query($sql);
                       }  
                     ?>
                   </select>
-                </br>
+                </br>                
                   <span class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-accent col-md-3 ">ยืนยัน</button>
+                    <button type="submit" name="status" value="C" class="btn btn-accent col-md-3 ">ยืนยัน</button>
                   </span>
             </form>
             </div>

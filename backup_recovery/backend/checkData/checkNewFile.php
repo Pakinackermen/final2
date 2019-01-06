@@ -1,25 +1,46 @@
 <?php
 
-
- "TEST CHECKDATA123<br>";
- $_POST["npathBackup"];
-directoryToArray('../checkData', true);
-function directoryToArray($directory, $recursive)
-{   
+$_POST["checkdata"];
+$_POST['status'];
+function databaseInsert(Type $var = null)
+{
     date_default_timezone_set("Asia/Bangkok");
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "backup";
-    $json = array();
-    $data = array();
-    $str_value ="";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    //get path
+    $str_value = implode(directoryToArray('../manage', true));
+    $Table = "checkdata";
+    $column = ' `id`, `value`, `datetime`, `status`';
+    $value = "NULL,";
+    $value .= "'" . $str_value . "',";
+    $value .= "'" . date("Y-m-d H:i:s") . "',";
+    $value .= "'".$_POST['status']."'";
+
+    echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $value . ")";
+    if ($conn->query($insertDB)) {
+        echo "=::TRUE::=";
+    } else {
+        echo "=::FALSE::=". $conn->connect_error;
+
+    }
+    $conn->close();
+
+}
+
+function directoryToArray($directory, $recursive)
+{
+
+    $json = array();
+    $data = array();
+    $str_value = "";
 
     $array_items = array();
     if ($handle = opendir($directory)) {
@@ -34,36 +55,23 @@ function directoryToArray($directory, $recursive)
                     $file = $directory . '/' . $file;
                     $newplace = preg_replace('/\/\//si', '/', $file);
                     $newplace = str_replace('..', '', $newplace);
-                    
-
-
-                    //set json
+                    //set value
                     $str_value = "{";
-                    $str_value .= "path:".$newplace;
-                    $str_value .= "|hash:".md5_file($file);
-                    $str_value .= "|size:".filesize($file);
-                  echo  $str_value .= "}";                                                                               
+                    $str_value .= "path:" . $newplace;
+                    $str_value .= "|hash:" . md5_file($file);
+                    $str_value .= "|size:" . filesize($file);
+                    $str_value .= "}";
                     $array_items[] = $str_value;
                 }
             }
-        }//while                
+        } //while
 
         closedir($handle);
     }
-    $Table = "checkdata";
-    $column = ' (`id`, `value`, `datetime`, `status`)';
-    $value = "NULL,";
-    $value .= "'".$str_value."',";
-    $value .= "'".date("Y-m-d H:i:s")."',";
-    $value .= "'C'";
-    echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $value . ")";
-    // if ($conn->query($insertDB)) {
-    //     echo "=::TRUE::=";
-    // }else{
-    //     echo "=::FALSE::=";
 
-    // }        
-
-    $conn->close();
+   
     return $array_items;
 }
+
+//Start checkData
+//databaseInsert();
