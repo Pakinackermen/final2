@@ -1,8 +1,11 @@
 <?php
 
-$_POST["checkdata"];
-$_POST['status'];
-function databaseInsert(Type $var = null)
+echo "CheckData=".$_POST["checkdata"];
+if($_POST["checkdata"]){
+    databaseInsert($_POST["checkdata"]);
+}
+echo  $_POST['status'];
+function databaseInsert($path)
 {
     date_default_timezone_set("Asia/Bangkok");
     $servername = "localhost";
@@ -22,13 +25,20 @@ function databaseInsert(Type $var = null)
     $value = "NULL,";
     $value .= "'" . $str_value . "',";
     $value .= "'" . date("Y-m-d H:i:s") . "',";
-    $value .= "'".$_POST['status']."'";
+    $value .= "'" . $_POST['status'] . "'";
 
     echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $value . ")";
     if ($conn->query($insertDB)) {
         echo "=::TRUE::=";
+        $h4 = "สำเร็จ";
+        $txt = "ท่านได้ทำการสำรองข้อมูลเรียบร้อยแล้ว";
+        include_once "tamplat/success.php";
+
     } else {
-        echo "=::FALSE::=". $conn->connect_error;
+        echo "=::FALSE::=" . $conn->connect_error;
+        $h4 = "ไม่สามารถดำเดินการได้ กรุณาลองใหม่อีกครั้ง";
+        $txt = "กรุณาลองใหม่อีกครั้ง";
+        include_once "tamplat/fail.php";
 
     }
     $conn->close();
@@ -69,7 +79,6 @@ function directoryToArray($directory, $recursive)
         closedir($handle);
     }
 
-   
     return $array_items;
 }
 

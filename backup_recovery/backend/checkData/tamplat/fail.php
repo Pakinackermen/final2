@@ -2,7 +2,7 @@
 <?php
 include_once "../../link/linkup.php";
 ?>
-<form action="/backup_recovery/core.php?page=backup" method="post">
+<form action="/backup_recovery/core.php?page=setting" method="post">
 <div class="card card-small  text-center mb-4 ">
   <div class="card-header border-bottom">
     <h4 class="m-0" ><?=$h4?></h4>
