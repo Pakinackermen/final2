@@ -1,20 +1,24 @@
 <?php
 include_once "../config/connectDB.php";
-include_once "../checkData/checkNewFile.php";
-//set not show wanning
+// include_once "../checkData/checkNewFile.php";
 
-ini_set('log_errors', 'On');
-ini_set('display_errors', 'Off');
-ini_set('error_reporting', E_ALL);
-define('WP_DEBUG', false);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
+//set not show wanning and error
+// ini_set('log_errors', 'On');
+// ini_set('display_errors', 'Off');
+// ini_set('error_reporting', E_ALL);
+// define('WP_DEBUG', false);
+// define('WP_DEBUG_LOG', true);
+// define('WP_DEBUG_DISPLAY', false);
 
 "CWD=" . getcwd() . "<br>";
- $idSetting = $_POST['idSetting'];
+$idSetting = $_POST['idSetting'];
 $id_ftp = $_POST['id_ftp'];
 
-if (isset($_POST['idSetting'])) {
+if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
+    isset($_POST['id_ftp']) && $_POST['id_ftp'] != "NULL") {
+    echo $_POST['idSetting'];
+    echo $_POST['id_ftp'];
+    
     $class = new allDB();
     $row = $class->select("setting where id_setting = " . $idSetting);
     $filename = "";
@@ -22,22 +26,24 @@ if (isset($_POST['idSetting'])) {
     $filename = $Row['id_setting'];
     $path = null;
     $path .= str_replace('\\', '/', $Row['dir_src']);
-
-    //echo "PATH=" . $path . "<BR> filename=" . $filename . ".ZIP<br>";
-    backupfile($filename, $path, $id_ftp);
-    //  echo $_POST['name_zip_file']; เปลี่ยน get id from DB=>{ backupPathname}
+    //databaseInsert($path);//from checkData        
+    backupfile($filename, $path, $id_ftp);    
 } else {
-    echo '<h1>ข้อมูลไม่ถูกต้อง</h1>';
+    $h4 = "ไม่สามารถทำรายการได้";
+    $txt = "โปรดตรวจสอบข้อมูลที่กรอก";
+    include_once "tamplat/fail.php";
+
 }
 
 function backupfile($filename, $path, $id_ftp)
 {
-     "PATH=" . $path . " filename=" . $filename;
+    //  "PATH=" . $path . " filename=" . $filename;
 
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "backup";
+    $files_to_zip = array();
     $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
     if ($conn->connect_error) {
@@ -49,14 +55,13 @@ function backupfile($filename, $path, $id_ftp)
 
     $name_zip_file = $filename; /* get date now  */
     $name_zip_file .= '.zip';
-    $files_to_zip = directoryToArray($path, true);
+    $files_to_zip = directoryToArray($path, true);  
+    
 
     /*Zip file*/
     $result = create_zip($files_to_zip, $name_zip_file);
 
     /*Transfer file & send to store */
-
-
     // ftp
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;
     $result_id_ftp = $conn->query($ftp);
@@ -69,10 +74,10 @@ function backupfile($filename, $path, $id_ftp)
     $login = ftp_login($connection, $ftp_username, $ftp_password);
 
     if (!$connection || !$login) {
-        
+
         $h4 = "ไม่สามารถทำรายการได้";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";
-        include_once "tamplat/fail.php";        
+        include_once "tamplat/fail.php";
     }
 
     $upload = ftp_put($connection, $name_zip_file, $name_zip_file, FTP_BINARY);
@@ -88,8 +93,6 @@ function backupfile($filename, $path, $id_ftp)
     }
 
     ftp_close($connection);
-
     unlink($name_zip_file);
-
 
 }

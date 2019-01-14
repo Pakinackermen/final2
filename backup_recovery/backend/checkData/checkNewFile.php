@@ -1,9 +1,22 @@
 <?php
 
-echo "CheckData=".$_POST["checkdata"];
-if($_POST["checkdata"]){
+// echo "CheckData=".$_POST["checkdata"];
+if( isset($_POST["checkdata"]) ){
+    echo "CheckData=" . $_POST["checkdata"];
     databaseInsert($_POST["checkdata"]);
 }
+//elseif($_POST["backup"]){
+//     echo "backup=" . $_POST["backup"];
+//     databaseInsert($_POST["backup"]);
+// }elseif($_POST["recovery"]){
+//     echo "recovery=" . $_POST["recovery"];
+//     databaseInsert($_POST["recovery"]);
+// }elseif($_POST["autobackup"]){
+//     echo "autobackup=" . $_POST["autobackup"];
+//     databaseInsert($_POST["autobackup"]);
+// }
+
+
 echo  $_POST['status'];
 function databaseInsert($path)
 {
@@ -19,7 +32,7 @@ function databaseInsert($path)
         die("Connection failed: " . $conn->connect_error);
     }
     //get path
-    $str_value = implode(directoryToArray('../manage', true));
+    $str_value = implode(directoryToArray($path, true));
     $Table = "checkdata";
     $column = ' `id`, `value`, `datetime`, `status`';
     $value = "NULL,";

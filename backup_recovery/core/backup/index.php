@@ -59,7 +59,7 @@
                     <div class="form-group col-md-12">
                       <label for="feEmailAddress">เลือก User FTP</label>
                       <select id="pathBackup" class="form-control" name="id_ftp">
-                        <option value=NULL>USER...</option>
+                        <option value="NULL">USER...</option>
                         <?php
                           while($row = $selectftp->fetch_assoc()) {
                             echo "<option value='".$row['id_ftp']."'>".$row['ftp_username']."</option>";                        
@@ -71,7 +71,7 @@
                   </div>
                            
                   <span class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-accent col-md-3 ">ยืนยัน</button>
+                    <button type="submit" value="B" name="status" class="btn btn-accent col-md-3 ">ยืนยัน</button>
                   </span>                                    
             </form>            
             </div>
