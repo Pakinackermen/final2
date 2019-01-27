@@ -11,7 +11,6 @@ $Row = $row->fetch_assoc();
 echo "<br>".$Row['dir_src'];
  */
 
- 
 echo $idSetting = $_POST["idSetting"];
 $classDB = new allDB();
 $classConn = new FTP_connect("127.0.0.1", "backup", "");
@@ -22,27 +21,33 @@ $Row = $row->fetch_assoc();
 echo "<br>dir_src=" . $Row["dir_src"];
 echo "<br>id_setting=" . $Row["id_setting"];
 
-$namefile = $Row["id_setting"];
-$namefile .= ".zip";
+echo $path = $Row["dir_src"];
+echo "<br>";
+$name_zip_file = $Row["id_setting"];
+echo "<br>";
 
+echo $name_zip_file .= ".zip";
 
-// 7z e archive.zip -oc:\soft *.cpp -r
-shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . $name_zip_file . '  -o'.$path ." -r");
 $server = $classConn->getServer();
 $ftp_username = $classConn->getUsername();
 $ftp_password = $classConn->getPassword();
 
-if ($classConn->dowload($namefile)) {
+if ($classConn->dowload($name_zip_file)) {
     $h4 = "การกู้ข้อมูล";
     $txt = "ท่านต้องการกู้ข้อมูลที่ " . $Row["dir_src"] . "";
     $action = "recovery_unzip.php";
-    $value = $namefile;
+    $value = $name_zip_file;
     include_once "tamplat/success.php";
 } else {
     $h4 = "การกู้ข้อมูล";
     $txt = "เกิดข้อผิดพลาดในการดำเนินการ กรุณาดำเนินการใหม่ภายหลัง ";
     include_once "tamplat/fail.php";
 }
+// remove file
+shell_exec('rmdir /s /q '.$name_zip_file);
+// 7z e archive.zip -oc:\soft *.cpp -r
+echo shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . '"store\"' . $name_zip_file . '  -o' . $path . " -r");
+unlink('store/' . $name_zip_file);
 
 // $connection = ftp_connect($server);
 // $login = ftp_login($connection, $ftp_username, $ftp_password);
@@ -53,4 +58,4 @@ if ($classConn->dowload($namefile)) {
 // ftp_putAll($connection, 'store', '');
 // ftp_close($connection);
 // include 'recovery_unzip.php';
-// unzipfile('store/m.zip');
+// unzipfile('"store\"' .$name_zip_file);
