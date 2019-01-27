@@ -17,16 +17,27 @@
 // list($month, $day, $year) = split('[/.-]', $date);
 // echo "Month= $month Day= $day; Year= $year<br />\n";
 
-$arr = array('Hello', 'World!', 'Beautiful', 'Day!');
-implode($arr);
-echo "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
-echo "\tCheckDataRun";
-echo "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
-echo __DIR__;
-$path = 'C:\xampp\htdocs\backup_recovery\core\report';
-$pathBackup = "myzip2";
-'"C:\Program Files\7-Zip\7z.exe " a -r ' .$pathBackup.'.zip -w '. $path;
-shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $pathBackup . '.zip -w ' . $path);
+// $arr = array('Hello', 'World!', 'Beautiful', 'Day!');
+// implode($arr);
+// echo "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+// echo "\tCheckDataRun";
+// echo "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+// echo __DIR__;
+// $path = 'C:\xampp\htdocs\backup_recovery\core\report';
+// $pathBackup = "myzip2";
+// '"C:\Program Files\7-Zip\7z.exe " a -r ' .$pathBackup.'.zip -w '. $path;
+// shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $pathBackup . '.zip -w ' . $path);
+
+// echo shell_exec("cd");
+echo shell_exec("ftp localhost");
+// echo shell_exec("backup");
+// echo shell_exec("quit");
+
+
+
+
+
+
 
 // sleep(5);
 

@@ -25,6 +25,9 @@ echo "<br>id_setting=" . $Row["id_setting"];
 $namefile = $Row["id_setting"];
 $namefile .= ".zip";
 
+
+// 7z e archive.zip -oc:\soft *.cpp -r
+shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . $name_zip_file . '  -o'.$path ." -r");
 $server = $classConn->getServer();
 $ftp_username = $classConn->getUsername();
 $ftp_password = $classConn->getPassword();

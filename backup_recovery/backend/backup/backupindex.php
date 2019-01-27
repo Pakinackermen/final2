@@ -50,7 +50,10 @@ function backupfile($filename, $path, $id_ftp)
 
     $name_zip_file = $filename.".zip"; /* id table setting */
     // zip file
+    // shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . name.zip . ' -w ' . $path);
     shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
+
+
 
     // $files_to_zip = directoryToArray($path, true);
     /*Zip file*/
