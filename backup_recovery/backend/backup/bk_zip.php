@@ -32,17 +32,13 @@ function create_zip($files = array(), $destination = '', $overwrite = false)
             $zip->addEmptyDir($file);
             if(is_file($file)){
                 $zip->addFile($file, $file);
-            }
-            
-                        
-
+            }                                    
         }
         //debug
         //echo 'The zip archive contains ',$zip->numFiles,' files with a status of ',$zip->status;
 
         //close the zip -- done!
         $zip->close();
-
         //check to make sure the file exists
         return file_exists($destination);
     } else {
@@ -61,12 +57,9 @@ function directoryToArray($directory, $recursive)
 
             if ($file != '.' && $file != '..' && $file != 'Thumbs.db' && $file != 'error_log') {
                 if (is_dir($directory . '/' . $file)) {
-                    //echo "$directory". '/' . "$file<br>";
-                    
-
+                    //echo "$directory". '/' . "$file<br>";                    
                     if ($recursive) {
                         $array_items[] = $directory . '/' . $file;
-
                         $array_items = array_merge($array_items, directoryToArray($directory . '/' . $file, $recursive));
                     }
 
@@ -79,11 +72,8 @@ function directoryToArray($directory, $recursive)
                     $file = $directory . '/' . $file;
                     $newplace = preg_replace('/\/\//si', '/', $file);
 
-                    $array_items[] = $newplace;
-                    
-
+                    $array_items[] = $newplace;                    
                     // echo $file . "<br>";
-
                 }
             }
         }

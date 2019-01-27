@@ -1,30 +1,53 @@
 <?php
-    
-    class FTP_connect{
-        
-        var $server;
-        var $ftp_username ;
-        var $ftp_password ; 
 
-        function __construct($server, $ftp_username, $ftp_password) {
-            $this->server       = "localhost";
-            $this->ftp_username   = $ftp_username;
-            $this->ftp_password     = $ftp_password;
-        }
-        public function connect_ftp(){
-            $connection = ftp_connect($this->server);
-            $login = ftp_login($connection, $this->ftp_username, $this->ftp_password);
-        }
-        public function getServer(){                        
-            return $this->server;
-        }    
-        public function getUsername(){
-            return $this->ftp_username;
-        }
-        public function getPassword(){
-            return $this->ftp_password;
-        }
-        
+class FTP_connect
+{
+
+    public $server;
+    public $ftp_username;
+    public $ftp_password;
+    private $connection;
+
+    public function __construct($server, $ftp_username, $ftp_password)
+    {
+        $this->server = "localhost";
+        $this->ftp_username = $ftp_username;
+        $this->ftp_password = $ftp_password;
     }
-    
-?>
+    public function connect_ftp()
+    {
+        $this->connection = ftp_connect($this->server);
+        $login = ftp_login($connection, $this->ftp_username, $this->ftp_password);
+    }
+    public function getServer()
+    {
+        return $this->server;
+    }
+    public function getUsername()
+    {
+        return $this->ftp_username;
+    }
+    public function getPassword()
+    {
+        return $this->ftp_password;
+    }
+    public function dowload($namefile)
+    {
+        $connection = ftp_connect($this->server);
+        $login = ftp_login($connection, $this->ftp_username, $this->ftp_password)
+        or die("Could not connect to $ftp_server");
+        $dowloadFile = ftp_get($connection, "../recovery/store/" . $namefile, $namefile, FTP_BINARY);
+        ftp_close($connection);
+        return $dowloadFile;
+    }
+    public function upload()
+    {
+        $connection = ftp_connect($this->server);
+        $login = ftp_login($connection, $this->ftp_username, $this->ftp_password)
+        or die("Could not connect to $ftp_server");
+        $uploadFile = ftp_put();
+        ftp_close($connection);
+        return $uploadFile;
+
+    }
+}

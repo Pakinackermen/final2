@@ -1,6 +1,6 @@
 <?php
 include_once "../config/connectDB.php";
-// include_once "../checkData/checkNewFile.php";
+include_once "../checkData/checkNewFile.php";
 
 //set not show wanning and error
 // ini_set('log_errors', 'On');
@@ -10,15 +10,15 @@ include_once "../config/connectDB.php";
 // define('WP_DEBUG_LOG', true);
 // define('WP_DEBUG_DISPLAY', false);
 
-"CWD=" . getcwd() . "<br>";
 $idSetting = $_POST['idSetting'];
 $id_ftp = $_POST['id_ftp'];
 
 if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     isset($_POST['id_ftp']) && $_POST['id_ftp'] != "NULL") {
+
     echo $_POST['idSetting'];
     echo $_POST['id_ftp'];
-    
+
     $class = new allDB();
     $row = $class->select("setting where id_setting = " . $idSetting);
     $filename = "";
@@ -26,40 +26,35 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     $filename = $Row['id_setting'];
     $path = null;
     $path .= str_replace('\\', '/', $Row['dir_src']);
-    //databaseInsert($path);//from checkData        
-    backupfile($filename, $path, $id_ftp);    
+    backupfile($filename, $path, $id_ftp);
+    databaseInsert($path);//when click botton isnert checkData status B
 } else {
     $h4 = "ไม่สามารถทำรายการได้";
     $txt = "โปรดตรวจสอบข้อมูลที่กรอก";
     include_once "tamplat/fail.php";
-
 }
 
 function backupfile($filename, $path, $id_ftp)
 {
     //  "PATH=" . $path . " filename=" . $filename;
-
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "backup";
     $files_to_zip = array();
     $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
     date_default_timezone_set("Asia/Bangkok");
-    require_once 'bk_zip.php'; /* include zip lib */
 
-    $name_zip_file = $filename; /* get date now  */
-    $name_zip_file .= '.zip';
-    $files_to_zip = directoryToArray($path, true);  
-    
+    $name_zip_file = $filename.".zip"; /* id table setting */
+    // zip file
+    shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
 
+    // $files_to_zip = directoryToArray($path, true);
     /*Zip file*/
-    $result = create_zip($files_to_zip, $name_zip_file);
+    //$result = create_zip($files_to_zip, $name_zip_file);
 
     /*Transfer file & send to store */
     // ftp
@@ -74,8 +69,7 @@ function backupfile($filename, $path, $id_ftp)
     $login = ftp_login($connection, $ftp_username, $ftp_password);
 
     if (!$connection || !$login) {
-
-        $h4 = "ไม่สามารถทำรายการได้";
+        $h4 = "ไม่สามารถทำรายการได้ กรุณาตรวจสอบการส่งข้อมูล";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";
         include_once "tamplat/fail.php";
     }
@@ -84,7 +78,7 @@ function backupfile($filename, $path, $id_ftp)
     if ($upload) {
         $h4 = "สำเร็จ";
         $txt = "ท่านได้ทำการสำรองข้อมูลเรียบร้อยแล้ว";
-        include_once "tamplat/success.php";
+        // include_once "tamplat/success.php";
     } else {
         $h4 = "ไม่สามารถทำรายการได้";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";

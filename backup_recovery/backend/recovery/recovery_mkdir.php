@@ -2,8 +2,7 @@
     // makedirfile('name file it dir', 'sub path in connect to ftp');
     makedirfile('store');
 function makedirfile($namedir)
-{
-    
+{    
   $server = '127.0.0.1';
   $ftp_username ="recovery";
   $ftp_password =""; 
