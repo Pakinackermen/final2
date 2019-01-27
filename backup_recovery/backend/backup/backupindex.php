@@ -27,7 +27,7 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     $path = null;
     $path .= str_replace('\\', '/', $Row['dir_src']);
     backupfile($filename, $path, $id_ftp);
-    databaseInsert($path);//when click botton isnert checkData status B
+    databaseInsert($path);//when click botton insert checkData status B
 } else {
     $h4 = "ไม่สามารถทำรายการได้";
     $txt = "โปรดตรวจสอบข้อมูลที่กรอก";

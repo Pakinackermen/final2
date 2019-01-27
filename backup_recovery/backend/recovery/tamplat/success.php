@@ -2,7 +2,7 @@
 <?php
 include_once "../../link/linkup.php";
 ?>
-<form action="<?=$action?>" method="post">
+<form action="/backup_recovery/core.php" method="post">
 <div class="card card-small  text-center mb-4 ">
   <div class="card-header border-bottom">
     <h4 class="m-0"><?=$h4?></h4>
@@ -16,7 +16,7 @@ include_once "../../link/linkup.php";
               <span style="color:green;" ><?=$txt?></span>
           </div>
           <div class="form-group col-md-12 justify-content-center">
-            <button type="submit" value="<?=$value.",".$path?>" name="idSetting" class="btn btn-success col-md-2">ตกลง</button>
+            <button type="submit" value="S" name="settingInsert" class="btn btn-success col-md-2">ตกลง</button>
           </div>
         </div>
       </div>

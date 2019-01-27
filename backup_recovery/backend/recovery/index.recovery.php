@@ -10,23 +10,18 @@ $row = $class->select("setting WHERE id_setting = ".$idSetting);
 $Row = $row->fetch_assoc();
 echo "<br>".$Row['dir_src'];
  */
-
-echo $idSetting = $_POST["idSetting"];
+$idSetting = $_POST["idSetting"];
 $classDB = new allDB();
 $classConn = new FTP_connect("127.0.0.1", "backup", "");
 // $classAllFtp = new allFtp();
 
 $row = $classDB->select("setting WHERE id_setting = " . $idSetting);
 $Row = $row->fetch_assoc();
-echo "<br>dir_src=" . $Row["dir_src"];
-echo "<br>id_setting=" . $Row["id_setting"];
-
-echo $path = $Row["dir_src"];
-echo "<br>";
+//  $Row["dir_src"];
+//  $Row["id_setting"];
+$path = $Row["dir_src"]; 
 $name_zip_file = $Row["id_setting"];
-echo "<br>";
-
-echo $name_zip_file .= ".zip";
+$name_zip_file .= ".zip";
 
 $server = $classConn->getServer();
 $ftp_username = $classConn->getUsername();
@@ -34,9 +29,7 @@ $ftp_password = $classConn->getPassword();
 
 if ($classConn->dowload($name_zip_file)) {
     $h4 = "การกู้ข้อมูล";
-    $txt = "ท่านต้องการกู้ข้อมูลที่ " . $Row["dir_src"] . "";
-    $action = "recovery_unzip.php";
-    $value = $name_zip_file;
+    $txt = "ท่านได้ดำเนินการกู้คืนข้อมูลแล้ว ";
     include_once "tamplat/success.php";
 } else {
     $h4 = "การกู้ข้อมูล";
@@ -44,18 +37,12 @@ if ($classConn->dowload($name_zip_file)) {
     include_once "tamplat/fail.php";
 }
 // remove file
-shell_exec('rmdir /s /q '.$name_zip_file);
-// 7z e archive.zip -oc:\soft *.cpp -r
-echo shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . '"store\"' . $name_zip_file . '  -o' . $path . " -r");
+shell_exec('rmdir /s /q "'.$path.'"');
+$PathCutSlash = explode("\\",$path);//ตัด split  /(slash)
+$sizePathCutSlash = sizeof($PathCutSlash); 
+$dataEndOfArray =  $PathCutSlash[$sizePathCutSlash - 1]; 
+$xPath = str_replace($dataEndOfArray, "", $path); 
+// // 7z e archive.zip -oc:\soft *.cpp -r
+echo shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . '"store\"' . $name_zip_file . '  -o' . $xPath." -r -y" );
 unlink('store/' . $name_zip_file);
 
-// $connection = ftp_connect($server);
-// $login = ftp_login($connection, $ftp_username, $ftp_password);
-// $connection = $classConn->connect_ftp($server);
-// echo $connection == null ? "connect null" : "con not null";
-// $dowloadFile = ftp_get($connection, "store/". $namefile, $namefile, FTP_BINARY);
-
-// ftp_putAll($connection, 'store', '');
-// ftp_close($connection);
-// include 'recovery_unzip.php';
-// unzipfile('"store\"' .$name_zip_file);
