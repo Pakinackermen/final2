@@ -15,7 +15,7 @@
     <!-- include page -->
     <?php
           
-        $page  = (isset($_GET['page'])) ?  $_GET['page'] : 'No page' ;        
+        $page  = (isset($_GET['page'])) ?  $_GET['page'] : 'No page' ;              
         if($page == 'backup'){
           include 'core/backup/index.php';
         }elseif($page == 'recovery'){
@@ -26,15 +26,32 @@
           $report  = (isset($_GET['report'])) ?  $_GET['report'] : 'No page' ; 
           include 'core/report/index.php';
           if($report == 'backup'){
-            include 'core/report/report_backup.php';
+            include 'backend/report/report_backup.php';
           }elseif($report == 'recovery'){
-            include 'core/report/report_recovery.php';
+            include 'backend/report/report_recovery.php';
           }else{
-            include 'core/report/report_fileserver.php';
+            include 'backend/report/report_fileserver.php';
           }
         }elseif($page == "setting"){
           include 'setting/index.setting.php';
         }
+       
+        if($page == "No page" && !isset($_GET["Backup"])){
+          include_once "public/showImg.php";
+        }
+
+        // next report
+        if(isset($_GET["Backup"])){
+          include_once "backend/report/backupDetail.php";          
+        }else if(isset($_GET["Report"])){
+          include_once "backend/report/backupDetail.php";          
+        }else if(isset($_GET["CheckData"])){
+          include_once "backend/report/backupDetail.php";
+
+        }
+
+          
+        
       
       ?>
 

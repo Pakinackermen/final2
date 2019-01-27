@@ -1,6 +1,6 @@
 
   <div >
-    <a href="index1.php" class="color-switcher-toggle animated pulse infinite">
+    <a href="core.php?page=setting" class="color-switcher-toggle animated pulse infinite">
       <i class="material-icons">settings</i>
     </a>    
   </div>
@@ -10,7 +10,7 @@
       <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
         <div class="main-navbar">
           <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-            <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+            <a class="navbar-brand w-100 mr-0" href="core.php" style="line-height: 25px;">
               <div class="d-table m-auto">
                 <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/shards-dashboards-logo.png"
                   alt="Shards Dashboard">

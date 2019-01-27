@@ -1,9 +1,21 @@
 <?php
 
 // echo "CheckData=".$_POST["checkdata"];
-if( isset($_POST["checkdata"]) ){
-    echo "CheckData=" . $_POST["checkdata"];
-    databaseInsert($_POST["checkdata"]);
+if (isset($_POST["checkdata"])) {
+    $path = $_POST["checkdata"];
+
+    if (is_dir($path)) {
+        echo $_POST['status'];
+        echo "CheckData=" . $_POST["checkdata"];
+        databaseInsert($path);
+
+    } else {
+        $h4 = "ไม่สามารถดำเนินการได้";
+        $txt = "กรุณาตรวจสอบการข้อมูลใหม่อีกครั้ง";
+        include_once "tamplat/fail.php";
+
+    }
+
 }
 //elseif($_POST["backup"]){
 //     echo "backup=" . $_POST["backup"];
@@ -16,8 +28,6 @@ if( isset($_POST["checkdata"]) ){
 //     databaseInsert($_POST["autobackup"]);
 // }
 
-
-echo  $_POST['status'];
 function databaseInsert($path)
 {
     date_default_timezone_set("Asia/Bangkok");
@@ -34,17 +44,20 @@ function databaseInsert($path)
     //get path
     $str_value = implode(directoryToArray($path, true));
     $Table = "checkdata";
-    $column = ' `id`, `value`, `datetime`, `status`';
-    $value = "NULL,";
-    $value .= "'" . $str_value . "',";
-    $value .= "'" . date("Y-m-d H:i:s") . "',";
-    $value .= "'" . $_POST['status'] . "'";
+    $column = ' `id`, `value`, `directory`, `datetime`, `status`';
+    $id = "NULL,";
+    $value = "'" . $str_value . "',";
+    $directory = "' ". $path ." ', ";
+    $datetime = "'" . date("Y-m-d H:i:s") . "',";
+    $statusDB = "'" . $_POST['status'] . "'";
+    
+    $valueInsert = $id.$value.$directory.$datetime.$statusDB;
 
-    echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $value . ")";
+    echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $valueInsert . ")";
     if ($conn->query($insertDB)) {
         echo "=::TRUE::=";
         $h4 = "สำเร็จ";
-        $txt = "ท่านได้ทำการสำรองข้อมูลเรียบร้อยแล้ว";
+        $txt = "ท่านได้ทำการตรวจสอบเรียบร้อยแล้ว";
         include_once "tamplat/success.php";
 
     } else {
@@ -52,7 +65,6 @@ function databaseInsert($path)
         $h4 = "ไม่สามารถดำเดินการได้ กรุณาลองใหม่อีกครั้ง";
         $txt = "กรุณาลองใหม่อีกครั้ง";
         include_once "tamplat/fail.php";
-
     }
     $conn->close();
 
