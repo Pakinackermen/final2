@@ -22,7 +22,7 @@
           <a href="core.php?report=recovery&page=report">รายงานการกู้คืนข้อมูล</a>
         </li>
         <li class="list-group-item">
-          <a href="core.php?report=report_fileserver&page=report">รายงานการเพิ่มลดและขนาดของไฟล์</a>
+          <a href="core.php?report=checkdata&page=report">รายงานการเพิ่มลดและขนาดของไฟล์</a>
         </li>
       </ul>
     </div>

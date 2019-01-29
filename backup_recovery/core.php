@@ -29,8 +29,11 @@
             include 'backend/report/report_backup.php';
           }elseif($report == 'recovery'){
             include 'backend/report/report_recovery.php';
+          }elseif($report == 'checkdata'){
+            include 'backend/report/report_checkdata.php';
           }else{
-            include 'backend/report/report_fileserver.php';
+            include 'backend/report/report_backup.php';
+
           }
         }elseif($page == "setting"){
           include 'setting/index.setting.php';

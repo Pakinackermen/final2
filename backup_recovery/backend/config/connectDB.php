@@ -11,7 +11,6 @@ INSERT INTO `report_new_fileserver` (`id_newfileserver`, `name`, `hash`, `size`,
 */
 
 class connectDB{
-
     
     public function __construct($servername = "localhost",
                             $username = "root",
@@ -33,7 +32,7 @@ class allDB extends connectDB{
             die("Connection failed: " . $conn->connect_error);
         }                          
         // SELECT column_name(s) FROM table_name                 
-        $select = "select * from ".$Table;        
+      echo   $select = "select * from ".$Table;        
         return $result = $conn->query($select);                               
     }      
                     

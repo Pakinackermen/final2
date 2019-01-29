@@ -11,7 +11,7 @@
               <div class="col">
                 <div class="card card-small mb-4">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">ss</h6>
+                    <h6 class="m-0">ตรวจสอบข้อมูล</h6>
                   </div>
                   <div class="card-body p-0 pb-3 text-center">
                     <table class="table mb-0">
@@ -23,26 +23,13 @@
                           <th scope="col" class="border-0">ขนาด</th>                    
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <<tr>
-                          <td>1</td>
-                          <td>m</td>
-                          <td>20-สค-61</td>
-                          <td>1.4MB</td>  
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>test</td>
-                          <td>25-สค-61</td>
-                          <td>1.8MB</td>  
+                      <tbody>                        
                         <tr>
                           <td>3</td>
                           <td>backupname</td>
                           <td>22-ตค-61</td>
                           <td>1.82MB</td>                         
-                        </tr>                                         
-                        </tr>                       
+                        </tr>                                                             
                       </tbody>
                     </table>
                   </div>

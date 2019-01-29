@@ -5,9 +5,7 @@ $count = 0;
 $class = new allDB();
 $sql = "checkdata where status = 'B'";
 $row = $class->select($sql);
-
 ?>
-
 
 <div class="main-content-container container-fluid px-4">
             <!-- Page Header -->
@@ -31,8 +29,7 @@ $row = $class->select($sql);
                           <th scope="col" class="border-0">#</th>
                           <th scope="col" class="border-0">ที่อยู่</th>
                           <th scope="col" class="border-0">วันที่</th>
-                          <th scope="col" class="border-0">เพิ่มเติม</th>
-                          
+                          <th scope="col" class="border-0">เพิ่มเติม</th>                          
                         </tr>
                       </thead>
                       <tbody>
