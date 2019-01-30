@@ -58,9 +58,7 @@ function filesize_formatted($sizeFile)
                 <div class="card card-small mb-4">
                   <div class="card-header border-bottom">
                     <h6 class="m-0">รายละเอียดการสำรองข้อมูล</h6>
-                    <h6 class="m-0"><?=str_replace('C:/xampp/', '', $Row["directory"])?></h6>
-                    
-
+                    <h6 class="m-0"><?=str_replace('C:/xampp/', '', $Row["directory"])?></h6>                    
                   </div>
                   <div class="card-body p-0 pb-3 text-center">
                     <table class="table mb-0">

@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     <span class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-accent col-md-3 ">ยืนยัน</button>
+                                        <button type="submit"value="R" name="status" class="btn btn-accent col-md-3 ">ยืนยัน</button>
                                     </span>
                         </form>
                         </div>

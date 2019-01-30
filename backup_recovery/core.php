@@ -39,17 +39,20 @@
           include 'setting/index.setting.php';
         }
        
-        if($page == "No page" && !isset($_GET["Backup"])){
+        if($page == "No page" 
+          && !isset($_GET["Backup"])
+          && !isset($_GET["Recovery"])
+          && !isset($_GET["CheckData"])){
           include_once "public/showImg.php";
         }
 
         // next report
         if(isset($_GET["Backup"])){
           include_once "backend/report/backupDetail.php";          
-        }else if(isset($_GET["Report"])){
-          include_once "backend/report/backupDetail.php";          
+        }else if(isset($_GET["Recovery"])){
+          include_once "backend/report/recoveryDetail.php";          
         }else if(isset($_GET["CheckData"])){
-          include_once "backend/report/backupDetail.php";
+          include_once "backend/report/checkdataDetail.php";
 
         }
 

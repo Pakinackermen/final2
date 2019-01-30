@@ -50,13 +50,6 @@ $row = $class->select($sql);
                         </tr>
                       </tbody>
                     </table>
-                      
-                      <!-- show detail report -->
-                    <?php if (isset($_GET["Backup"]) ) {?>
-                        <h1>TURE</h1>
-                    <?php }else {?>
-                        <h1>FALSE</h1>
-                    <?php }?>
                   </div>
                 </div>  
               </div>
