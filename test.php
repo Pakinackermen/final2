@@ -29,7 +29,6 @@
 // shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $pathBackup . '.zip -w ' . $path);
 
 // echo shell_exec("cd");
-echo shell_exec("ftp localhost");
 // echo shell_exec("backup");
 // echo shell_exec("quit");
 
@@ -93,3 +92,20 @@ echo shell_exec("ftp localhost");
 //     return $return_array;
 // }
 // sleep(10);
+
+
+
+$dir = 'www';
+
+$conn_id = ftp_connect("localhost");
+
+$login_result = ftp_login($conn_id, 'backup', '');
+
+
+if (ftp_mkdir($conn_id, $dir)) {
+    echo "successfully created $dir\n";
+} else {    
+    echo "There was a problem while creating $dir\n";
+}
+ftp_close($conn_id);
+

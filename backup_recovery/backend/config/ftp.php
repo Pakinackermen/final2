@@ -50,4 +50,17 @@ class FTP_connect
         return $uploadFile;
 
     }
+    public function newFolder($foldel)
+    {
+        
+        $connection = ftp_connect($this->server);
+        $login = ftp_login($connection, $this->ftp_username, $this->ftp_password);
+        if (ftp_mkdir($conn_id, $dir)) {
+            echo "successfully created $dir\n";
+        } else {
+            echo "There was a problem while creating $dir\n";
+        }
+        ftp_close($conn_id);
+
+            }
 }
