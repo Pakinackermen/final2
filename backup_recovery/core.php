@@ -33,19 +33,21 @@
             include 'backend/report/report_checkdata.php';
           }else{
             include 'backend/report/report_backup.php';
-
           }
         }elseif($page == "setting"){
           include 'setting/index.setting.php';
-        }
-       
+        }elseif($page == 'Previous'){ //เลือก Path
+          include 'backend/report/report_previous.php';
+        }elseif($page == 'Previous2'){ //เลือกไฟล์ 1 ไฟล์ 2
+          include 'backend/report/report_previous2.php';
+        }      
+
         if($page == "No page" 
           && !isset($_GET["Backup"])
           && !isset($_GET["Recovery"])
           && !isset($_GET["CheckData"])){
           include_once "public/showImg.php";
         }
-
         // next report
         if(isset($_GET["Backup"])){
           include_once "backend/report/backupDetail.php";          
@@ -53,12 +55,7 @@
           include_once "backend/report/recoveryDetail.php";          
         }else if(isset($_GET["CheckData"])){
           include_once "backend/report/checkdataDetail.php";
-
-        }
-
-          
-        
-      
+        }                    
       ?>
 
   </main>

@@ -1,6 +1,4 @@
-<?php 
-       
-?>
+
 <div class="col-lg-12">
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
@@ -22,7 +20,10 @@
           <a href="core.php?report=recovery&page=report">รายงานการกู้คืนข้อมูล</a>
         </li>
         <li class="list-group-item">
-          <a href="core.php?report=checkdata&page=report">รายงานการเพิ่มลดและขนาดของไฟล์</a>
+          <a href="core.php?report=checkdata&page=report">รายงานการตรวจสอบข้อมูลด้วยตัวเอง</a>
+        </li>
+        <li class="list-group-item">
+          <a href="core.php?page=Previous">รายงานการตรวจสอบข้อมูลย้อนหลัง</a>
         </li>
       </ul>
     </div>
