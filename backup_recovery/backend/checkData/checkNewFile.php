@@ -53,15 +53,15 @@ function databaseInsert($path)
     
     $valueInsert = $id.$value.$directory.$datetime.$statusDB;
 
-    echo $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $valueInsert . ")";
+     $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $valueInsert . ")";
     if ($conn->query($insertDB)) {
-        echo "=::TRUE::=";
+         "=::TRUE::=";
         $h4 = "สำเร็จ";
         $txt = "ท่านได้ทำการตรวจสอบเรียบร้อยแล้ว";
         include_once "tamplat/success.php";
 
     } else {
-        echo "=::FALSE::=" . $conn->connect_error;
+         "=::FALSE::=" . $conn->connect_error;
         $h4 = "ไม่สามารถดำเดินการได้ กรุณาลองใหม่อีกครั้ง";
         $txt = "กรุณาลองใหม่อีกครั้ง";
         include_once "tamplat/fail.php";
