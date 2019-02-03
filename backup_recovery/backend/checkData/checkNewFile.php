@@ -36,6 +36,9 @@ function databaseInsert($path)
     $password = "";
     $dbname = "backup";
 
+     $path = str_replace('\\', '/', $path);
+    //  $path = str_replace('/', '//', $path);
+
     $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
     if ($conn->connect_error) {

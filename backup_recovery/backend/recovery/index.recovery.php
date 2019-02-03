@@ -46,7 +46,7 @@ if ($classConn->dowload($name_zip_file , $idSetting)) {
     // include_once "tamplat/fail.php";
 }
 if($path != null or $path != ""){
-    databaseInsert($path); //when click botton insert checkData status R
+    databaseInsert(str_replace('\\', '/', $Row['dir_src'])); //when click botton insert checkData status R
 }
 // remove file
 shell_exec('rmdir /s /q "'.$path.'"');
