@@ -85,11 +85,11 @@
                             <div class="form-row ">
                                 <div class="form-group col-md-12">
                                     <label>เลือกไฟล์ที่ต้องการ</label>
-                                    <select id="pathBackup" class="form-control" name="id_filebackup">
+                                    <select  class="form-control" name="id_filebackup">
                                         <option selected>ไฟล์...</option>
                                        <?php
                                             while($row = $recoveryStep2->fetch_assoc()) {                                                                                               
-                                               echo '<option value=" '.$row["id_filebackup"].' ">'.$row["file_name"].'</option>';
+                                               echo '<option value=" '.$row["id_filebackup"].'" >'.$row["file_name"].'</option>';
                                             }                                                    
                                             $conn->close();
                                         ?>
