@@ -3,7 +3,7 @@
     $line_api = 'https://notify-api.line.me/api/notify';
     $access_token = 'D1Uyqtjz5ejEYtHzGNXFhfQmLTNQFEHk1a2DSzhsjf4';
 
-    $str = 'ได้ทำการสำรองข้อมูลที่';    //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
+    $str = "Backup :: \n".$path;    //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
     $image_thumbnail_url = '';  // ขนาดสูงสุด 240×240px JPEG
     $image_fullsize_url = '';  // ขนาดสูงสุด 1024×1024px JPEG
     $sticker_package_id = '';  // Package ID ของสติกเกอร์

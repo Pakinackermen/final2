@@ -46,6 +46,7 @@ if ($classConn->dowload($name_zip_file , $idSetting)) {
     // include_once "tamplat/fail.php";
 }
 if($path != null or $path != ""){
+
     databaseInsert(str_replace('\\', '/', $Row['dir_src'])); //when click botton insert checkData status R
 }
 // remove file
@@ -56,6 +57,7 @@ $dataEndOfArray =  $PathCutSlash[$sizePathCutSlash - 1];
 $xPath = str_replace($dataEndOfArray, "", $path); //path Unzip file
 echo "<br>xpath = ".$xPath;
 // // 7z e archive.zip -oc:\soft *.cpp -r
+include_once "linealert.php";
 shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . '"store\"' . $name_zip_file . '  -o' . $xPath." -r -y" );
 unlink('store/' . $name_zip_file);
 

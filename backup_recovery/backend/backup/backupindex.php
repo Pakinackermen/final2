@@ -54,10 +54,9 @@ function backupfile($filename, $path, $id_ftp)
     $date = date('Y-m-d-H-i-s');    
     $name_zip_file = $date . ".zip"; /* id table setting */
     $newFolder = $filename;
-    // shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . name.zip . ' -w ' . $path);
     shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
 
-    // ftp
+    //ft p
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;
     echo $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`) VALUES (null, '$filename', '$name_zip_file')";
 
@@ -95,6 +94,7 @@ function backupfile($filename, $path, $id_ftp)
         'FTP upload failed!';
     }
 
+    include_once "linealert.php";
     ftp_close($connection);
     unlink($name_zip_file);
 
