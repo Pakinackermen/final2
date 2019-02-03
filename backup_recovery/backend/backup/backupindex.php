@@ -1,7 +1,6 @@
 <?php
 include_once "../config/connectDB.php";
 include_once "../config/ftp.php";
-
 include_once "../checkData/checkNewFile.php";
 
 //set not show wanning and error
@@ -75,7 +74,6 @@ function backupfile($filename, $path, $id_ftp)
     } else {
         echo "There was a problem while creating $newFolder";
     }
-
     if (!$connection || !$login) {
         $h4 = "ไม่สามารถทำรายการได้ กรุณาตรวจสอบการส่งข้อมูล";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";
