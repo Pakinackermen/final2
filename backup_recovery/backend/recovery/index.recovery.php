@@ -11,20 +11,27 @@ $row = $class->select("setting WHERE id_setting = ".$idSetting);
 $Row = $row->fetch_assoc();
 echo "<br>".$Row['dir_src'];
  */
-$idSetting = $_POST["idSetting"];
+$idSetting = $_POST["idSetting"];//ชื่อโฟเดอร
+$id_filebackup = $_POST["id_filebackup"];//ชื่อไฟล์
 $classDB = new allDB();
 $classConn = new FTP_connect("127.0.0.1", "backup", "");
 
+//select path re
 $row = $classDB->select("setting WHERE id_setting = " . $idSetting);
+//select name file
+$namefile = $classDB->select("filebackup WHERE id_filebackup = " . $id_filebackup);
 $Row = $row->fetch_assoc();
+$Namefile = $namefile->fetch_assoc();
 $path = $Row["dir_src"]; 
-$name_zip_file = $Row["id_setting"];
+
+$name_zip_file = $Namefile["file_name"];
 $name_zip_file .= ".zip";
 $server = $classConn->getServer();
 $ftp_username = $classConn->getUsername();
 $ftp_password = $classConn->getPassword();
 
-if ($classConn->dowload($name_zip_file)) {
+// dowload($namefile, $foldel)
+if ($classConn->dowload($name_zip_file , $idSetting)) {
     $h4 = "การกู้ข้อมูล";
     $txt = "ท่านได้ดำเนินการกู้คืนข้อมูลแล้ว ";
     // include_once "tamplat/success.php";

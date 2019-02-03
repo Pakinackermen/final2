@@ -87,7 +87,7 @@ function backupfile($filename, $path, $id_ftp)
     if ($upload) { // send file
         $h4 = "สำเร็จ";
         $txt = "ท่านได้ทำการสำรองข้อมูลเรียบร้อยแล้ว";
-        include_once "tamplat/success.php";
+        // include_once "tamplat/success.php";
     } else {
         $h4 = "ไม่สามารถทำรายการได้";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";

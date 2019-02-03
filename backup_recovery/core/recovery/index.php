@@ -32,7 +32,7 @@
             <li class="list-group-item p-4">
                 <div class="row">
                     <div class="col">
-                        <form action="../../backup_recovery/backend/recovery/index.recovery.php" method="post">
+                        <form action="core.php?page=recovery" method="post">
                             <div class="form-row ">
                                 <div class="form-group col-md-12">
                                     <label>เลือกไดเรกทอรี่ที่ต้องการ</label>
@@ -42,28 +42,72 @@
                                             while($row = $result->fetch_assoc()) {
                                                echo '<option value=" '.$row["id_setting"].' ">'.$row["dir_src"].'</option>';
                                             }                                                    
+                                            
+                                        ?>
+                                    </select>
+                                    </br>
+                                   
+                                    <span class="d-flex justify-content-center">
+                                        <button type="submit" value="R" name="status" class="btn btn-accent col-md-3 ">ถัดไป</button>
+                                    </span>
+                        </form>
+                        
+                       
+                        </div>
+                        </div>
+            </li>
+
+            <?php                  
+                if(isset($_POST["idSetting"])){ 
+                $id_setting = $_POST["idSetting"];        
+                $sql = "SELECT * FROM filebackup ";        
+                $sql .= "where id_setting = ".$id_setting;
+                $recoveryStep2 = $conn->query($sql);
+            ?>
+
+<div class="col-lg-6">
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-12 text-center text-sm-left mb-0">
+            <!-- <span class="text-uppercase page-subtitle">Overview</span> -->
+            <h3 class="page-title"> Ster 2</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+
+            <!-- <h6 class="m-0"><?= $_GET[""]?></h6> -->
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item p-4">
+                <div class="row">
+                    <div class="col">
+                        <form action="../../backup_recovery/backend/recovery/index.recovery.php" method="post">
+                            <div class="form-row ">
+                                <div class="form-group col-md-12">
+                                    <label>เลือกไฟล์ที่ต้องการ</label>
+                                    <select id="pathBackup" class="form-control" name="id_filebackup">
+                                        <option selected>ไฟล์...</option>
+                                       <?php
+                                            while($row = $recoveryStep2->fetch_assoc()) {                                                                                               
+                                               echo '<option value=" '.$row["id_filebackup"].' ">'.$row["file_name"].'</option>';
+                                            }                                                    
                                             $conn->close();
                                         ?>
                                     </select>
                                     </br>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <br><label for="feDescription">เหตุผล</label>
-                                                    <textarea class="form-control" name="feDescription" pa rows="5"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="d-flex justify-content-center">
+                                   
+                                    <span class="d-flex justify-content-center">                                                                          
+                                         <input type="hidden" name="idSetting" value='<?=$id_setting?>'>                                
                                         <button type="submit"value="R" name="status" class="btn btn-accent col-md-3 ">ยืนยัน</button>
                                     </span>
                         </form>
-                        </div>
-                        </div>
+                     
             </li>
+        </ul>
+        </div>
+        </div>
+
+            <?php }?>
         </ul>
         </div>
         </div>

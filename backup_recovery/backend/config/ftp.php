@@ -31,12 +31,12 @@ class FTP_connect
     {
         return $this->ftp_password;
     }
-    public function dowload($namefile)
+    public function dowload($namefile, $foldel)
     {
         $connection = ftp_connect($this->server);
         $login = ftp_login($connection, $this->ftp_username, $this->ftp_password)
         or die("Could not connect to $ftp_server");
-        $dowloadFile = ftp_get($connection, "../recovery/store/" . $namefile, $namefile, FTP_BINARY);
+        $dowloadFile = ftp_get($connection, "../recovery/store/" . $namefile, $foldel.'/'.$namefile, FTP_BINARY);
         ftp_close($connection);
         return $dowloadFile;
     }
