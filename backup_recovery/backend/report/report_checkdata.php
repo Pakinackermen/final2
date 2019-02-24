@@ -41,7 +41,7 @@ while ($Row = $row->fetch_assoc()) {
                         <td><?=$Row["directory"]?></td>
                         <td><?=$Row["datetime"]?></td>
                         <td>
-                          <a href="core.php?CheckData=<?=$Row["id"]?>" onclick="doDisiplay()">รายละเอียด </a>
+                          <a href="core.php?CheckData=<?=$Row["id"]?>" >รายละเอียด </a>
                         </td>
                        </tr>
 

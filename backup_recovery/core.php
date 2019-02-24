@@ -22,7 +22,7 @@
           include 'core/recovery/index.php';
         }elseif($page == 'check'){
           include_once 'core/checkData/index.php';
-        }elseif($page == 'report'){
+        }elseif($page == 'report'){          
           $report  = (isset($_GET['report'])) ?  $_GET['report'] : 'No page' ; 
           include 'core/report/index.php';
           if($report == 'backup'){
@@ -42,10 +42,12 @@
           include 'backend/report/report_previous2.php';
         }      
 
+        // slide show
         if($page == "No page" 
           && !isset($_GET["Backup"])
           && !isset($_GET["Recovery"])
-          && !isset($_GET["CheckData"])){
+          && !isset($_GET["CheckData"])
+          && !isset($_GET["previousDetail"])){
           include_once "public/showImg.php";
         }
         // next report
@@ -55,7 +57,10 @@
           include_once "backend/report/recoveryDetail.php";          
         }else if(isset($_GET["CheckData"])){
           include_once "backend/report/checkdataDetail.php";
-        }                    
+        }else if(isset($_GET["previousDetail"])){
+          include_once "backend/report/previousDetail.php";
+
+        }        
       ?>
 
   </main>

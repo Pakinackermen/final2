@@ -23,7 +23,7 @@
           <a href="core.php?report=checkdata&page=report">รายงานการตรวจสอบข้อมูลด้วยตัวเอง</a>
         </li>
         <li class="list-group-item">
-          <a href="core.php?page=Previous">รายงานการตรวจสอบข้อมูลย้อนหลัง</a>
+          <a href="core.php?page=Previous">รายงานการตรวจสอบเพิ่มและลดของข้อมูล</a>
         </li>
       </ul>
     </div>

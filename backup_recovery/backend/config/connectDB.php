@@ -42,7 +42,7 @@ class allDB extends connectDB{
             die("Connection failed: " . $conn->connect_error);
         }                   
                          
-        $insertDB = "INSERT INTO ".$Table." ( ".$column." ) VALUES ( ".$value.")";
+       echo $insertDB = "INSERT INTO ".$Table." ( ".$column." ) VALUES ( ".$value.")";
         return $result = $conn->query($insertDB);    
         // INSERT INTO table_name (column1, column2, column3,...)
         // VALUES (value1, value2, value3,...)                                   

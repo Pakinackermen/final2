@@ -1,5 +1,5 @@
 <?php
-
+include_once("change.php");
 // echo "CheckData=".$_POST["checkdata"];
 if (isset($_POST["checkdata"])) {
     $path = $_POST["checkdata"];
@@ -8,6 +8,8 @@ if (isset($_POST["checkdata"])) {
         echo $_POST['status'];
         echo "CheckData=" . $_POST["checkdata"];
         databaseInsert($path);
+        changeCheckData($_POST['status'], $path);
+
 
     } else {
         $h4 = "ไม่สามารถดำเนินการได้";
@@ -17,16 +19,7 @@ if (isset($_POST["checkdata"])) {
     }
 
 }
-//elseif($_POST["backup"]){
-//     echo "backup=" . $_POST["backup"];
-//     databaseInsert($_POST["backup"]);
-// }elseif($_POST["recovery"]){
-//     echo "recovery=" . $_POST["recovery"];
-//     databaseInsert($_POST["recovery"]);
-// }elseif($_POST["autobackup"]){
-//     echo "autobackup=" . $_POST["autobackup"];
-//     databaseInsert($_POST["autobackup"]);
-// }
+
 
 function databaseInsert($path)
 {
@@ -49,8 +42,8 @@ function databaseInsert($path)
     $Table = "checkdata";
     $column = ' `id`, `value`, `directory`, `datetime`, `status`';
     $id = "NULL,";
-    $value = "'" . $str_value . "',";
-    $directory = "' ". $path ." ', ";
+    $value = "'" . $str_value . "', ";
+    $directory = "'". $path ."', ";
     $datetime = "'" . date("Y-m-d H:i:s") . "',";
     $statusDB = "'" . $_POST['status'] . "'";
     
@@ -70,11 +63,9 @@ function databaseInsert($path)
         include_once "tamplat/fail.php";
     }
     $conn->close();
-
 }
 
-function directoryToArray($directory, $recursive)
-{
+function directoryToArray($directory, $recursive){
 
     $json = array();
     $data = array();
