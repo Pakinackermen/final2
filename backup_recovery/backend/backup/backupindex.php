@@ -53,7 +53,8 @@ function backupfile($filename, $path, $id_ftp)
     $date = date('Y-m-d-H-i-s');    
     $name_zip_file = $date . ".zip"; /* id table setting */
     $newFolder = $filename;
-    shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
+    // shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
+    shell_exec('"C:\Program Files\7-Zip\7z.exe " a  ' . $name_zip_file . ' -w ' . $path);
 
     //ft p
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;

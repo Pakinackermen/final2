@@ -4,6 +4,8 @@
     $access_token = 'D1Uyqtjz5ejEYtHzGNXFhfQmLTNQFEHk1a2DSzhsjf4';
 
     $str = "Backup :: \n".$path;    //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
+    $str .= "reduce :: ...\n";
+    $str .= "new :: ....\n"  ;
     $image_thumbnail_url = '';  // ขนาดสูงสุด 240×240px JPEG
     $image_fullsize_url = '';  // ขนาดสูงสุด 1024×1024px JPEG
     $sticker_package_id = '';  // Package ID ของสติกเกอร์

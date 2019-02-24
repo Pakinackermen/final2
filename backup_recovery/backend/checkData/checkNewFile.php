@@ -8,7 +8,7 @@ if (isset($_POST["checkdata"])) {
         echo $_POST['status'];
         echo "CheckData=" . $_POST["checkdata"];
         databaseInsert($path);
-        changeCheckData($_POST['status'], $path);
+        
 
 
     } else {
@@ -63,6 +63,7 @@ function databaseInsert($path)
         include_once "tamplat/fail.php";
     }
     $conn->close();
+    changeCheckData($_POST['status'], $path); //change.php
 }
 
 function directoryToArray($directory, $recursive){
