@@ -30,7 +30,7 @@
                   <label class="form-check-label" for="day">รายวัน</label>
                 </div>
 
-                 <div class="form-check form-check-inline  col-md-12" >
+                 <div class="form-check form-check-inline  col-md-12" >                 
                   <select class="form-control form-control-sm" id="day_select" name="isday">
                     <option value="">เวลา/ชม</option>
                     <?php
@@ -38,7 +38,7 @@
                           if ($i <= 9) {
                             echo "<option value='".$i."'>0".$i.":00</option>";
                           }else{
-                            echo "<option value='".$i.":00'>".$i.":00</option>";
+                            echo "<option value='".$i."'>".$i.":00</option>";
                           }                                                    
                         }
                         echo "<option value='00'>00:00</option>";
@@ -54,13 +54,13 @@
                 <div class="form-check form-check-inline  col-md-12" >
                   <select class="form-control form-control-sm " id="week_select" display = "none" name="isweek">
                     <option value="">วัน...</option>
-                    <option value="จันทร์">จันทร์</option>
-                    <option value="อังคาร">อังคาร</option>
-                    <option value="พุธ">พุธ</option>
-                    <option value="พฤหัส">พฤหัส</option>
-                    <option value="ศุกร์">ศุกร์</option>
-                     <option value="เสาร์">เสาร์</option>
-                      <option value="อาทิตย์">อาทิตย์</option>
+                    <option value="1">จันทร์</option>
+                    <option value="2">อังคาร</option>
+                    <option value="3">พุธ</option>
+                    <option value="4">พฤหัส</option>
+                    <option value="5">ศุกร์</option>
+                     <option value="6">เสาร์</option>
+                      <option value="0">อาทิตย์</option>
                   </select>
                 </div>
                  
@@ -74,7 +74,11 @@
                     <option value="">วันที่...</option>
                     <?php
                       for ($i=1; $i <= 30; $i++) { 
-                        echo '<option value="'.$i.'">'.$i.'</option>';
+                         if ($i <= 9) {
+                          echo '<option value="0'.$i.'">'.$i.'</option>';
+                         }else{
+                           echo '<option value="'.$i.'">'.$i.'</option>';
+                         }
                       }
                     ?>
                   </select>

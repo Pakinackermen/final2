@@ -1,42 +1,41 @@
-<?php
+<?php 
+    include_once "../config/connectDB.php";
+    date_default_timezone_set("Asia/Bangkok");
 
-$line_api = 'https://notify-api.line.me/api/notify';
-$access_token = 'D1Uyqtjz5ejEYtHzGNXFhfQmLTNQFEHk1a2DSzhsjf4';
+    $classDB = new allDB();
+    $setting = $classDB->select("setting");
+    $setting = $classDB->select("ftp where ftp_username = ");
 
-$str = 'auto Run time'; //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
-$image_thumbnail_url = ''; // ขนาดสูงสุด 240×240px JPEG
-$image_fullsize_url = ''; // ขนาดสูงสุด 1024×1024px JPEG
-$sticker_package_id = ''; // Package ID ของสติกเกอร์
-$sticker_id = ''; // ID ของสติกเกอร์
+    while( $Row = $setting->fetch_assoc()){
+        echo $Row["id_setting"]."<br>";
+        if($Row["day"] == date("w")){
+            // echo "document.forms[0].submit();";
+        }
+        if ($Row["week"] == date("w")) {
 
-$message_data = array(
-    'message' => $str,
-    'imageThumbnail' => $image_thumbnail_url,
-    'imageFullsize' => $image_fullsize_url,
-    'stickerPackageId' => $sticker_package_id,
-    'stickerId' => $sticker_id,
-);
-
-$result = send_notify_message($line_api, $access_token, $message_data);
-// print_r($result);
-
-function send_notify_message($line_api, $access_token, $message_data)
-{
-    $headers = array('Method: POST', 'Content-type: multipart/form-data', 'Authorization: Bearer ' . $access_token);
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $line_api);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $message_data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($ch);
-    // Check Error
-    if (curl_error($ch)) {
-        $return_array = array('status' => '000: send fail', 'message' => curl_error($ch));
-    } else {
-        $return_array = json_decode($result, true);
+        }
+        if ($Row["month"] == date("H")) {
+            
+        }
     }
-    curl_close($ch);
-    return $return_array;
-}
+
+    
+    // echo date("Y-m-d H:i:s");
+    // echo "<br>";
+    // echo date("D");
+    // echo "<br>";
+    // echo date("d");
+    // echo "<br>";
+    // echo date("m");
+    // echo "<br>";
+    // echo date("Y");
+    echo "<br>";
+    echo date("H");
+    // echo "<br>";
+    // echo date("w");
+   
+?>
+
+<form action="" method="post" name="autoBackup">
+    <input type="hidden" name="idSetting">
+</form>

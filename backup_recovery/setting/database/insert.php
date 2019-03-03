@@ -40,7 +40,7 @@ if (isset($_POST['month'])) {
 
 mysqli_set_charset($conn, "utf8");
 
-$sql = "INSERT INTO `setting` (
+$sqlSetting = "INSERT INTO `setting` (
         `id_setting`,
         `name`,
         `dir_src`,
@@ -65,7 +65,8 @@ $sql = "INSERT INTO `setting` (
         '" . $database_name . "',
         '" . $database_host . "',
         '" . $token_line . "');";
-$sql .= "INSERT INTO `ftp` (
+
+$sqlFtp .= "INSERT INTO `ftp` (
         `id_ftp`,
         `ftp_server`,
         `ftp_username`,
@@ -77,11 +78,18 @@ $sql .= "INSERT INTO `ftp` (
         '" . $ftp_pass . "'
         );";
 
-if ($conn->multi_query($sql) === true) {
-    include_once "tamplat/success.php";    
-} else {
-   include_once "tamplat/fail.php";
+if(isset($_POST["add"])){
+    if ($conn->multi_query($sqlSetting) === true) {
+        include_once "tamplat/success.php";
+    } else {
+        include_once "tamplat/fail.php";
+    }
 
+}else{
+    if ($conn->multi_query($sqlFtp) === true) {
+    include_once "tamplat/success.php";
+    } else {
+    include_once "tamplat/fail.php";
+    }
 }
-
 $conn->close();
