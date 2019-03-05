@@ -1,3 +1,24 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "backup";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+$sql = "SELECT * FROM setting";
+$result = $conn->query($sql);
+
+$ftp = "SELECT * FROM ftp";
+$resultFtp = $conn->query($ftp);
+
+
+?>
+
 <div class="col-lg-6">
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">
@@ -17,25 +38,8 @@
                   <button type="button" class="btn btn-accent col-md-3" onclick="window.history.back()" name="edit">กลับ</button>
                 </div>'; 
             echo'</from>';  
-        }elseif(isset($_POST['edit'])){
-         
-      ?>
-          <!-- edit -->
-          <?php
-              $servername = "localhost";
-              $username = "root";
-              $password = "";
-              $dbname = "backup";
-
-              // Create connection
-              $conn = new mysqli($servername, $username, $password, $dbname);
-              // Check connection
-              if ($conn->connect_error) {
-                  die("Connection failed: " . $conn->connect_error);
-              } 
-              $sql = "SELECT * FROM setting";
-              $result = $conn->query($sql);           
-            ?>
+        }elseif(isset($_POST['edit'])){ ?>
+          <!-- edit -->          
           <form action="setting\database\formedit.php" method="post">
               <table class="table">
                 <thead>
@@ -56,7 +60,7 @@
                     <th scope="row"><?=$c++?></th>                    
                     <td><?= $row["dir_src"] ?></td>
                     <td>
-                      <button type="submit" name="edit_setting" value="<?= $row["id_setting"] ?>">แก้ไข</button>
+                      <button type="submit" name="edit_setting" class="btn btn-warning" value="<?= $row["id_setting"] ?>">แก้ไข</button>
                     </td>
                   </tr>                
                           
@@ -68,24 +72,56 @@
               </tbody>
               </table>
           </form>
-
-      <?php 
-        // end edit
-
-        //add ftp 
-      } elseif( isset($_POST['addFtp']) ){
+        
+      <?php }  //edit end 
+      
+      // ftp
+        elseif( isset($_POST['addFtp']) ){
         echo '<form action="setting\database\insert.php" method="POST">';
 
         include "setting.ftp.php";
 
         echo '<div class="form-control d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success col-md-5 mx-2" name="add">ตกลง</button>
+                  <button type="submit" class="btn btn-success col-md-5 mx-2" name="addFtp">ตกลง</button>
                   <button type="button" class="btn btn-accent col-md-3" onclick="window.history.back()" name="edit">กลับ</button>
               </div>';              
         echo '</from>';
-
         
-      } // else if 
+      }elseif( isset($_POST['editFtp']) ){ //edit FTP
+        ?>
+         <form action="setting\database\formFtpEdit.php" method="post">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">FTP Name</th>                    
+                    <th scope="col">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody>
+              <?php 
+              // select setting ID
+              $c = 1;
+                while($row = $resultFtp->fetch_assoc()) {
+                               
+              ?>                 
+                  <tr>
+                    <th scope="row"><?=$c++?></th>                    
+                    <td><?= $row["ftp_username"] ?></td>
+                    <td>
+                      <button type="submit" class="btn btn-warning" name="edit_ftp" value="<?= $row["id_ftp"] ?>">แก้ไข</button>
+                    </td>
+                  </tr>                
+                          
+               <?php 
+               } // end loop 
+                $conn->close();
+              ?>
+              <!-- end table -->
+              </tbody>
+              </table>
+          </form>
+      <?php }
       else{
           echo'
           <form action="core.php?page=setting" method="POST">
@@ -98,11 +134,11 @@
             </div>
 
             <div class="form-control d-flex justify-content-center">
-              <button type="submit" class="btn btn-accent col-md-5 " name="addFtp">เพิ่มผู้ใช้ FTP</button>          
+              <button type="submit" class="btn btn-info col-md-5 " name="addFtp">เพิ่มผู้ใช้ FTP</button>          
             </div>            
 
             <div class="form-control d-flex justify-content-center">
-              <button type="submit" class="btn btn-accent col-md-5 " name="editFtp">แก้ไขเพิ่มผู้ใช้ FTP</button>          
+              <button type="submit" class="btn btn-info col-md-5 " name="editFtp">แก้ไขเพิ่มผู้ใช้ FTP</button>          
             </div>
           </form>';
         }          

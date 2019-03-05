@@ -56,7 +56,7 @@ class allDB extends connectDB{
         // UPDATE table_name
         // SET column1=value, column2=value2,...
         // WHERE some_column=some_value                                       
-        $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
+        echo $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
         return $result = $conn->query($update);                           
     }  
 

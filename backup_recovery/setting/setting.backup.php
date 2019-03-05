@@ -11,14 +11,7 @@
                   <label>ไดเรกทอรี่ต้นทาง</label>
                   <input type="text" class="form-control" id="pathfile" name="dir_src" placeholder="กำหนดไดเรกทอรี่ต้นทาง">
                 </div>                
-                <div class="form-group col-md-12">
-                  <label>FTP User</label>
-                  <input type="text" class="form-control" id="pathfile" name="ftp_user" placeholder="FTP User">
-                </div>
-                <div class="form-group col-md-12">
-                  <label>FTP Password</label>
-                  <input type="password" class="form-control" id="pathfile" name="ftp_pass" placeholder="Password">
-                </div>
+                
               </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
@@ -59,8 +52,8 @@
                     <option value="3">พุธ</option>
                     <option value="4">พฤหัส</option>
                     <option value="5">ศุกร์</option>
-                     <option value="6">เสาร์</option>
-                      <option value="0">อาทิตย์</option>
+                    <option value="6">เสาร์</option>
+                    <option value="0">อาทิตย์</option>
                   </select>
                 </div>
                  

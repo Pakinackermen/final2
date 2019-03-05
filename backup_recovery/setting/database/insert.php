@@ -12,7 +12,7 @@ $dir_src = $_POST['dir_src'];
 $dir_src = str_replace("/", "//", $dir_src);
 $dir_src = str_replace("\\", "\\\\", $dir_src);
 
-$ftp_server = "127.0.0.1";
+$ftp_server = $_POST['ftp_server'];
 $ftp_user = $_POST['ftp_user'];
 $ftp_pass = $_POST['ftp_pass'];
 

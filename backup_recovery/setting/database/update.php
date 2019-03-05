@@ -1,6 +1,14 @@
 <?php
+//set not show wanning and error
+// ini_set('log_errors', 'On');
+// ini_set('display_errors', 'Off');
+// ini_set('error_reporting', E_ALL);
+// define('WP_DEBUG', false);
+// define('WP_DEBUG_LOG', true);
+// define('WP_DEBUG_DISPLAY', false);
 
 include_once "connect.php";
+
 
 // Check connection
 if ($conn->connect_error) {
@@ -13,7 +21,7 @@ if (isset($_POST['update'])) {
     $dir_src = $_POST['dir_src'];
     $dir_src = str_replace("/", "/", $dir_src);
     $dir_src = str_replace("\\", "\\\\", $dir_src);
-    $id_ftp = $_POST['id_ftp'];
+    $id_ftp = $_POST['update'];
     $ftp_server = $_POST['ftp_server'];
     $ftp_user = $_POST['ftp_user'];
     $ftp_pass = $_POST['ftp_pass'];
@@ -54,16 +62,30 @@ if (isset($_POST['update'])) {
         `database_host`= '$database_host',
         `token_line`= '$token_line' WHERE `id_setting` ='" . $_POST['update'] . "' ;";
     // FTP table
-    $updateSQL .= "UPDATE ftp SET
+    $updateFtp .= "UPDATE ftp SET
+        ftp_server = '$ftp_server',
         ftp_username = '$ftp_user',
         ftp_password = '$ftp_pass' WHERE id_ftp = " . $id_ftp;
 
-    if ($conn->multi_query($updateSQL) === true) {
-        include_once "success.php";
+if(isset($_POST['ftp_server'])){
+
+    if ($conn->multi_query($updateFtp) === true) {
+        include "tamplat/success.php";
 
     } else {
-        include_once "fail.php";
+        include_once "tamplat/fail.php";
     }
+}else{
+    
+if ($conn->multi_query($updateSQL) === true) {
+   include "tamplat/success.php";
+
+} else {
+    include_once "tamplat/fail.php";
+
+}
+
+}
 
 }
 

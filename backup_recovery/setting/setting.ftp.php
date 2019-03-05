@@ -8,8 +8,8 @@
             <div class="col">
               <div class="form-row">              
                 <div class="form-group col-md-12">
-                  <label>ไดเรกทอรี่ต้นทาง</label>
-                  <input type="text" class="form-control" id="pathfile" name="dir_src" placeholder="กำหนดไดเรกทอรี่ต้นทาง">
+                  <label>FTP Server</label>
+                  <input type="text" class="form-control" id="pathfile" name="ftp_server" placeholder="กำหนดไดเรกทอรี่ต้นทาง">
                 </div>                
                 <div class="form-group col-md-12">
                   <label>FTP User</label>
