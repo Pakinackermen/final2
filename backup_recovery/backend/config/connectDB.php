@@ -49,6 +49,7 @@ class allDB extends connectDB{
     }         
 
      public function update($Table, $column, $id) {  
+      try{
         $conn = parent::__construct();                
         if ($conn->connect_error) { 
             die("Connection failed: " . $conn->connect_error);
@@ -57,7 +58,11 @@ class allDB extends connectDB{
         // SET column1=value, column2=value2,...
         // WHERE some_column=some_value                                       
         echo $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
-        return $result = $conn->query($update);                           
+        return $result = $conn->query($update); 
+        }catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage();
+
+        }                          
     }  
 
     public function delete($Table, $id) {  
