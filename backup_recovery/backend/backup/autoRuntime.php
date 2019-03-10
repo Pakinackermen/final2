@@ -6,7 +6,6 @@ $_POST['status'] = "B";
 $classDB = new allDB();
 $setting = $classDB->select("setting");
 
-
 while ($Row = $setting->fetch_assoc()) {
     $id_setting = $Row["id_setting"];
     $day = explode(",", $Row["day"]);
@@ -30,7 +29,11 @@ while ($Row = $setting->fetch_assoc()) {
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
     } elseif ($day[0] == date("H") && $day[1] == null) {
-
+        $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") , date("Y"));
+        $Table = "setting";
+        $column = "day = " . $day[0].','.$day[1];
+        $id = "id_setting = " . $id_setting;
+        $classDB->update($Table, $column, $id);
     }
 
     // week
