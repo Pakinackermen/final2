@@ -2,13 +2,14 @@
 include_once "../config/connectDB.php";
 include_once "backupindex.php";
 date_default_timezone_set("Asia/Bangkok");
-
+$_POST['status'] = "B";
 $classDB = new allDB();
 $setting = $classDB->select("setting");
 
+
 while ($Row = $setting->fetch_assoc()) {
     $id_setting = $Row["id_setting"];
-    $day = $Row["day"];
+    $day = explode(",", $Row["day"]);
     $week = explode(",", $Row["week"]);
     $month = $Row["month"];
 
@@ -17,16 +18,19 @@ while ($Row = $setting->fetch_assoc()) {
     // mktime(hour, minute, second, month, day, year);
 
     // day
-    $getDatabaseDay = mktime((int) $day, 0, 0, 0, 0, 0);
-    $cerrentDate = mktime(date("H"), 0, 0, 0, 0, 0);
+    $getDatabaseDay = mktime((int) $day, 0, 0, date("m"), date("d"), date("Y"));
+    $cerrentDate = mktime(date("H"), 0, 0, date("m"), date("d"), date("Y"));
     if ($getDatabaseDay == $cerrentDate) {
 
         echo "DAY";
-        $day += 1;
+        $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") + 1, date("Y"));
+
         $Table = "setting";
-        $column = "day = " . $day;
+        $column = "day = " . $day[0];
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
+    } elseif ($day[0] == date("H") && $day[1] == null) {
+
     }
 
     // week
@@ -44,7 +48,6 @@ while ($Row = $setting->fetch_assoc()) {
         $column = "week = '" . $week[0] . ',' . $week[1] . "'";
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
-
     }
 
     // month

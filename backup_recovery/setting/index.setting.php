@@ -16,6 +16,14 @@ $result = $conn->query($sql);
 $ftp = "SELECT * FROM ftp";
 $resultFtp = $conn->query($ftp);
 
+    
+if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
+ echo $que = "UPDATE setting 
+    SET ftp_user = '".$_POST['ftp_username'] ."' 
+    WHERE id_setting = ".$_POST['idSetting'];
+  $conn->query($que);
+}
+ 
 
 ?>
 
@@ -121,8 +129,13 @@ $resultFtp = $conn->query($ftp);
               </tbody>
               </table>
           </form>
-      <?php }
-      else{
+      <?php }elseif( isset($_POST['editFtpUser']) )
+       { 
+       
+        include_once "setting.ftpmap.php";
+        
+
+      } else{
           echo'
           <form action="core.php?page=setting" method="POST">
             <div class="form-control d-flex justify-content-center">
@@ -139,6 +152,10 @@ $resultFtp = $conn->query($ftp);
 
             <div class="form-control d-flex justify-content-center">
               <button type="submit" class="btn btn-info col-md-5 " name="editFtp">แก้ไขเพิ่มผู้ใช้ FTP</button>          
+            </div>
+
+            <div class="form-control d-flex justify-content-center">
+              <button type="submit" class="btn btn-info col-md-5 " name="editFtpUser">เปลี่ยนผู้ใช้ FTP สำหรับกู้ข้อมูล</button>          
             </div>
           </form>';
         }          

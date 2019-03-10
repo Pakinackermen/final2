@@ -13,7 +13,7 @@ $dir_src = str_replace("/", "//", $dir_src);
 $dir_src = str_replace("\\", "\\\\", $dir_src);
 
 $ftp_server = $_POST['ftp_server'];
-$ftp_user = $_POST['ftp_user'];
+$ftp_user = $_POST['ftp_user'] = "backup";
 $ftp_pass = $_POST['ftp_pass'];
 
 $database_user = $_POST['database_user'];
