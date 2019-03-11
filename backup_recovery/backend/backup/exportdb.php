@@ -9,15 +9,72 @@
 /**
  * Define database parameters here
  */
-define("DB_USER", 'root');
-define("DB_PASSWORD", '');
-define("DB_NAME", 'backup');
-define("DB_HOST", 'localhost');
-define("BACKUP_DIR", 'C:/xampp/htdocs/data/backup'); // Comment this line to use same script's directory ('.')
-define("TABLES", '*'); // Full backup
+
+ // set not show wanning and error
+ini_set('log_errors', 'On');
+ini_set('display_errors', 'Off');
+ini_set('error_reporting', E_ALL);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
+
+
+
+// define("DB_USER", $userDB);
+// define("DB_PASSWORD", $userDB);
+// define("DB_NAME", $nameDb);
+// define("DB_HOST", $host);
 //define("TABLES", 'table1, table2, table3'); // Partial backup
+// define("GZIP_BACKUP_FILE", false);  // Set to false if you want plain SQL backup files (not gzipped)
+define("BACKUP_DIR", ''); // Comment this line to use same script's directory ('.')
+define("TABLES", '*'); // Full backup
 define("CHARSET", 'utf8');
-define("GZIP_BACKUP_FILE", false);  // Set to false if you want plain SQL backup files (not gzipped)
+define("BACKUP_NAME", '-' . date("mdY_His", time()) . '.sql');
+
+
+$userDB = "";
+$pasdDB = "";
+$nameDb = "";
+$host = "";
+
+if ((!isset($_POST['database_user']) 
+    && !isset($_POST['database_pass']) 
+    && !isset($_POST['database_name']) 
+    && !isset($_POST['database_host']))
+) {
+    $userDB = $_POST['database_user'];
+    $pasdDB = $_POST['database_pass'];
+    $nameDb = $_POST['database_name'];
+    $host = $_POST['database_host'];
+
+    
+    $backupDatabase = new Backup_Database($host, $userDB, $pasdDB, $nameDb);
+    $result = $backupDatabase->backupTables(TABLES, BACKUP_DIR) ? 'OK' : 'KO';
+    // $backupDatabase->obfPrint('Backup result: ' . $result, 1);
+
+    $h4 = 'ทำการสำรองข้อมูลฐานข้อมูลสำเร็จ';
+    $txt = $nameDb.BACKUP_NAME;
+    $backupDatabase->obfPrint( include_once "tamplat/success.php" , 1);
+
+
+// Use $output variable for further processing, for example to send it by email
+    $output = $backupDatabase->getOutput();
+    if (php_sapi_name() != "cli") {
+        echo '</div>';
+    }
+    $server = '127.0.0.1';
+    $ftp_username = 'backup';
+    $ftp_password = '';
+    $connection = ftp_connect($server);
+    $login = ftp_login($connection, $ftp_username, $ftp_password);    
+    $newFolder = 'database';
+    $upload = ftp_put($connection, $newFolder . "/" . $nameDb.BACKUP_NAME, $nameDb.BACKUP_NAME, FTP_BINARY);
+    unlink($nameDb.BACKUP_NAME);
+} else {
+    $txt = "กรุณาทำรายการใหม่ภายหลังอีกครั้ง";
+    $h4 = "ระบบขัดข้อง";
+    include_once "tamplat/fail.php";
+}
 
 /**
 * for send variable is name file
@@ -70,7 +127,7 @@ class Backup_Database {
     /**
      * Output backup file
      */
-    var $backupFile;
+     var $backupFile;
 
     /**
      * Use gzip compression on backup file
@@ -93,8 +150,8 @@ class Backup_Database {
         $this->charset         = $charset;
         $this->conn            = $this->initializeDatabase();
         $this->backupDir       = BACKUP_DIR ? BACKUP_DIR : '.';
-        $this->backupFile      = 'DB_backup'.$this->dbName.'-'.date("mdY_His", time()).'.sql';
-        $this->gzipBackupFile  = defined('GZIP_BACKUP_FILE') ? GZIP_BACKUP_FILE : true;
+        $this->backupFile      = $this->dbName.BACKUP_NAME;
+        // $this->gzipBackupFile  = defined('GZIP_BACKUP_FILE') ? GZIP_BACKUP_FILE : true;
         $this->output          = '';
     }
 
@@ -102,7 +159,11 @@ class Backup_Database {
         try {
             $conn = mysqli_connect($this->host, $this->username, $this->passwd, $this->dbName);
             if (mysqli_connect_errno()) {
-                throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
+                $txt = "กรุณาตรวจสอบข้อมูลที่ท่านกรอก";
+                $h4 = "ระบบขัดข้อง";
+                include_once "tamplat/fail.php";
+
+                // throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
                 die();
             }
             if (!mysqli_set_charset($conn, $this->charset)) {
@@ -144,7 +205,9 @@ class Backup_Database {
             * Iterate tables
             */
             foreach($tables as $table) {
-                $this->obfPrint("Backing up `".$table."` table...".str_repeat('.', 50-strlen($table)), 0, 0);
+                // $this->obfPrint("Backing up `".$table."` table...".str_repeat('.', 50-strlen($table)), 0, 0);
+                // $this->obfPrint("Backup ".$table." table...", 0, 0);
+
 
                 /**
                  * CREATE TABLE
@@ -188,6 +251,8 @@ class Backup_Database {
                             }
 
                             $sql.= ");\n";
+                            // $sql.= ");";
+
                         }
                     }
 
@@ -197,13 +262,13 @@ class Backup_Database {
 
                 $sql.="\n\n\n";
 
-                $this->obfPrint(" OK");
+                $this->obfPrint(" ");
             }
 
             if ($this->gzipBackupFile) {
                 $this->gzipBackupFile();
             } else {
-                $this->obfPrint('Backup file succesfully saved to ' . $this->backupDir.'/'.$this->backupFile, 1, 1);
+                // $this->obfPrint('Backup file succesfully ' . $this->backupDir.'/'.$this->backupFile, 1, 1);
             }
         } catch (Exception $e) {
             print_r($e->getMessage());
@@ -301,7 +366,7 @@ class Backup_Database {
 
         if ($lineBreaksAfter > 0) {
             for ($i = 1; $i <= $lineBreaksAfter; $i++) {
-                $output .= $lineBreak;
+                // $output .= $lineBreak;
             }
         }
 
@@ -309,7 +374,7 @@ class Backup_Database {
         // Save output for later use
         $this->output .= str_replace('<br />', '\n', $output);
 
-        echo $output;
+        // echo $output;
 
 
         if (php_sapi_name() != "cli") {
@@ -342,13 +407,7 @@ if (php_sapi_name() != "cli") {
     echo '<div style="font-family: monospace;">';
 }
 
-$backupDatabase = new Backup_Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-$result = $backupDatabase->backupTables(TABLES, BACKUP_DIR) ? 'OK' : 'KO';
-$backupDatabase->obfPrint('Backup result: ' . $result, 1);
 
-// Use $output variable for further processing, for example to send it by email
-$output = $backupDatabase->getOutput();
 
-if (php_sapi_name() != "cli") {
-    echo '</div>';
-}
+
+

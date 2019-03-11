@@ -1,6 +1,6 @@
 <?php
 include_once "../config/connectDB.php";
-include_once "backupindex.php";
+// include_once "backupindex.php";
 date_default_timezone_set("Asia/Bangkok");
 $_POST['status'] = "B";
 $classDB = new allDB();
@@ -13,27 +13,34 @@ while ($Row = $setting->fetch_assoc()) {
     $month = $Row["month"];
 
     echo "<br>";
-    echo "Date NOW:" . (int) $Row["day"];
+    // echo "Date NOW:===" . (int) $Row["day"];
     // mktime(hour, minute, second, month, day, year);
 
     // day
-    $getDatabaseDay = mktime((int) $day, 0, 0, date("m"), date("d"), date("Y"));
-    $cerrentDate = mktime(date("H"), 0, 0, date("m"), date("d"), date("Y"));
-    if ($getDatabaseDay == $cerrentDate) {
-
-        echo "DAY";
-        $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") + 1, date("Y"));
-
-        $Table = "setting";
-        $column = "day = " . $day[0];
-        $id = "id_setting = " . $id_setting;
-        $classDB->update($Table, $column, $id);
-    } elseif ($day[0] == date("H") && $day[1] == null) {
-        $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") , date("Y"));
-        $Table = "setting";
-        $column = "day = " . $day[0].','.$day[1];
-        $id = "id_setting = " . $id_setting;
-        $classDB->update($Table, $column, $id);
+    if ($day[0] != 'N') {                
+        // echo $day[1];
+       
+        $getDay = mktime($day[0], 0, 0, date("m"), date("d"), date("Y"));
+        $cerrentDate = mktime(15, 0, 0, date("m"), date("d"), date("Y"));
+        
+        // echo $getDay == $cerrentDate && $day[1] == $cerrentDate ? "TURE":"F";
+        
+        echo $day[1] == $cerrentDate ? "D1 T":"D1 F";
+        echo $getDay == $cerrentDate ? "GET T":"GET F";        
+        if ($getDay == $cerrentDate && $day[1] == $cerrentDate) {
+            
+            $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") + 1, date("Y"));
+            $Table = "setting";
+            $column = "day = " . "'" . $day[0] . "," . $day[1] . "'";
+            $id = "id_setting = " . $id_setting;
+            $classDB->update($Table, $column, $id);
+        } elseif ($day[0] == 15 && $day[1] == null) {           
+            $day[1] = mktime(15, 0, 0, date("m"), date("d"), date("Y"));
+            $Table = "setting";
+            $column = "day = " ."'". $day[0] . "," . $day[1]."'";
+            $id = "id_setting = " . $id_setting;
+            $classDB->update($Table, $column, $id);
+        }
     }
 
     // week
@@ -86,7 +93,7 @@ function weekOfMonth($strDate)
 // echo date("m");
 // echo "<br>";
 // echo date("Y");
-echo "<br>";
-echo date("H");
+// echo "<br>";
+// echo date("H");
 // echo "<br>";
 // echo date("d");

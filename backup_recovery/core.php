@@ -40,6 +40,8 @@
           include 'backend/report/report_previous.php';
         }elseif($page == 'Previous2'){ //เลือกไฟล์ 1 ไฟล์ 2
           include 'backend/report/report_previous2.php';
+        }elseif($page == "backupDatabase"){
+          include 'core/backup/database.php';
         }      
 
         // slide show
@@ -47,7 +49,8 @@
           && !isset($_GET["Backup"])
           && !isset($_GET["Recovery"])
           && !isset($_GET["CheckData"])
-          && !isset($_GET["previousDetail"])){
+          && !isset($_GET["previousDetail"])
+          && !isset($_GET["backupDatabase"])){
           include_once "public/showImg.php";
         }
         // next report

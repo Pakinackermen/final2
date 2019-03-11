@@ -78,27 +78,6 @@
                 </div>
 
                 </div>
-              </div>
-              <div class="card-header border-bottom">
-               <h6 class="m-0">ฐานข้อมูล</h6>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="feEmailAddress">ผู้ใช้ฐาน</label>
-                  <input type="text" class="form-control" id="nameBackup" placeholder="root" name="database_user">
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="feEmailAddress">รหัสผ่าน</label>
-                  <input type="password" class="form-control" id="nameBackup" placeholder="******" name="database_pass">
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="feEmailAddress">ชื่อฐาน</label>
-                  <input type="text" class="form-control" id="nameBackup" placeholder="Mydatabase" name="database_name" >
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="feEmailAddress">ที่อยู่</label>
-                  <input type="text" class="form-control" id="nameBackup" placeholder="localhost" name="database_host">
-                </div>
               </div>                                
             </div>
           </div>

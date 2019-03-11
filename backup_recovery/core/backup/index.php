@@ -38,7 +38,12 @@
         <div class="row">
           <div class="col">
             <div class="col-12 col-sm-12 text-center text-sm-left mb-0">
-              <strong><a href="../../backup_recovery\backend\backup\exportdb.php">สำรองฐานข้อมูล</a></strong>
+            
+            <form action="../../backup_recovery" method="get"></form>
+              <div  class="form-group col-md-12">
+              <a class="btn btn-secondary  d-flex justify-content-center" href="../../backup_recovery\core.php?page=backupDatabase">สำรองฐานข้อมูล</a>
+              </div>
+              <!-- <strong><a href="../../backup_recovery\backend\backup\exportdb.php">สำรองฐานข้อมูล</a></strong> -->
             </div>
             <form action="backend\backup\backupindex.php" method="post">
               <div class="form-row">
