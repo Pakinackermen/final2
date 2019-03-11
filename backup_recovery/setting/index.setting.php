@@ -39,6 +39,7 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
         if( isset($_POST['add']) ){
           echo'<form action="setting\database\insert.php" method="POST">';
             include "setting.backup.php";
+            include "setting.selectUserftp.php";
             include "setting.line.php";     
             
             echo '<div class="form-control d-flex justify-content-center">

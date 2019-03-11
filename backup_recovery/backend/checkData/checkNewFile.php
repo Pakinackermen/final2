@@ -9,8 +9,6 @@ if (isset($_POST["checkdata"])) {
         echo "CheckData=" . $_POST["checkdata"];
         databaseInsert($path);
         
-
-
     } else {
         $h4 = "ไม่สามารถดำเนินการได้";
         $txt = "กรุณาตรวจสอบการข้อมูลใหม่อีกครั้ง";

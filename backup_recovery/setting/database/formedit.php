@@ -6,8 +6,10 @@ $id_setting = $_POST['edit_setting'];
 $edit_setting = "SELECT * FROM setting WHERE id_setting = " . $id_setting;
 $result = $conn->query($edit_setting);
 $row = $result->fetch_assoc();
-
 $editftp = "SELECT * FROM ftp WHERE ftp_username = '" . $row['ftp_user'] . "'";
+$queFtp = "SELECT * FROM ftp";
+$resultFtp = $conn->query($queFtp);
+
 $result1 = $conn->query($editftp);
 $row1 = $result1->fetch_assoc();
 ?>
@@ -21,7 +23,7 @@ $row1 = $result1->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
+
 </head>
 
 <body style="margin: 0 10% 10% 10%;">
@@ -55,15 +57,15 @@ $row1 = $result1->fetch_assoc();
                                         <select class="form-control form-control-sm" id="day_select" name="isday">
                                             <option value="">เวลา/ชม</option>
                                             <?php
-                                            for ($i = 1; $i < 24; $i++) {
-                                                if ($i <= 9) {
-                                                    echo "<option value='" . $i . "'>0" . $i . ":00</option>";
-                                                } else {
-                                                    echo "<option value='" . $i . "'>" . $i . ":00</option>";
-                                                }
-                                            }
-                                            echo "<option value='00'>00:00</option>";
-                                            ?>
+for ($i = 1; $i < 24; $i++) {
+    if ($i <= 9) {
+        echo "<option value='" . $i . "'>0" . $i . ":00</option>";
+    } else {
+        echo "<option value='" . $i . "'>" . $i . ":00</option>";
+    }
+}
+echo "<option value='00'>00:00</option>";
+?>
                                         </select>
                                     </div>
 
@@ -97,46 +99,33 @@ $row1 = $result1->fetch_assoc();
                                         <select class="form-control form-control-sm" id="month_select" name="ismonth">
                                             <option value="">วันที่...</option>
                                             <?php
-                                            for ($i = 1; $i <= 30; $i++) {
-                                                if ($i <= 9) {
-                                                    echo '<option value="0' . $i . '">' . $i . '</option>';
-                                                } else {
-                                                    echo '<option value="' . $i . '">' . $i . '</option>';
-                                                }
-                                            }
-
-?>
+for ($i = 1; $i <= 30; $i++) {
+    if ($i <= 9) {
+        echo '<option value="0' . $i . '">' . $i . '</option>';
+    } else {
+        echo '<option value="' . $i . '">' . $i . '</option>';
+    }
+}?>
                                         </select>
                                     </div>
+                                    <div class="card-header border-bottom">
+                                        <h6 class="m-0">เลือก USER FTP</h6>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 p-2">
+                                            <select id="pathBackup" class="form-control" name="ftp_user">
+                                                <option value="NULL">USER...</option>
+                                                <?php
+while ($Row = $resultFtp->fetch_assoc()) {
+    echo "<option value='" . $Row['ftp_username'] . "'>" . $Row['ftp_username'] . "</option>";
+}
+?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                </div>
-                            </div>
-                            <div class="card-header border-bottom">
-                                <h6 class="m-0">ฐานข้อมูล</h6>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="feEmailAddress">ผู้ใช้ฐาน</label>
-                                    <input type="text" class="form-control" id="nameBackup" placeholder="root"
-                                        name="database_user" value="<?=$row['database_user']?>">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="feEmailAddress">รหัสผ่าน</label>
-                                    <input type="password" class="form-control" id="nameBackup" placeholder="******"
-                                        name="database_pass" value="<?=$row['database_pass']?>">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="feEmailAddress">ชื่อฐาน</label>
-                                    <input type="text" class="form-control" id="nameBackup" placeholder="Mydatabase"
-                                        name="database_name" value="<?=$row['database_name']?>">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="feEmailAddress">ที่อยู่</label>
-                                    <input type="text" class="form-control" id="nameBackup" placeholder="localhost"
-                                        name="database_host" value="<?=$row['database_host']?>">
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </li>
@@ -155,7 +144,7 @@ $row1 = $result1->fetch_assoc();
                                     <label for="feEmailAddress">Token</label>
                                     <input type="text" class="form-control" id="nameBackup"
                                         placeholder="กำหนด Token application LINE" name="token_line"
-                                        value="<?=$row['token_line']?>">
+                                        value=<?php echo "'".$row['token_line']."'";?> 
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 // changeCheckData('R');
-echo "<br>Change.php<br>";
+// echo "<br>Change.php<br>";
 function changeCheckData($status, $path)
 {
     echo "<br>Change.php changeCheckData<br>";

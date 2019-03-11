@@ -42,7 +42,7 @@ class allDB extends connectDB{
             die("Connection failed: " . $conn->connect_error);
         }                   
                          
-       echo $insertDB = "INSERT INTO ".$Table." ( ".$column." ) VALUES ( ".$value.")";
+        $insertDB = "INSERT INTO ".$Table." ( ".$column." ) VALUES ( ".$value.")";
         return $result = $conn->query($insertDB);    
         // INSERT INTO table_name (column1, column2, column3,...)
         // VALUES (value1, value2, value3,...)                                   
@@ -57,7 +57,7 @@ class allDB extends connectDB{
         // UPDATE table_name
         // SET column1=value, column2=value2,...
         // WHERE some_column=some_value                                       
-        echo $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
+         $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
         return $result = $conn->query($update); 
         }catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage();

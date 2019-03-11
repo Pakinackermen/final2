@@ -1,43 +1,58 @@
 <?php
 include_once "../config/connectDB.php";
-// include_once "backupindex.php";
+
+
 date_default_timezone_set("Asia/Bangkok");
 $_POST['status'] = "B";
+
 $classDB = new allDB();
 $setting = $classDB->select("setting");
+$day = array();
+
 
 while ($Row = $setting->fetch_assoc()) {
+    
     $id_setting = $Row["id_setting"];
     $day = explode(",", $Row["day"]);
     $week = explode(",", $Row["week"]);
     $month = $Row["month"];
 
     echo "<br>";
-    // echo "Date NOW:===" . (int) $Row["day"];
     // mktime(hour, minute, second, month, day, year);
 
     // day
-    if ($day[0] != 'N') {                
+    if ($day[0] != 'N') {
         // echo $day[1];
-       
-        $getDay = mktime($day[0], 0, 0, date("m"), date("d"), date("Y"));
-        $cerrentDate = mktime(15, 0, 0, date("m"), date("d"), date("Y"));
-        
+
+        $getDay = mktime((int)$day[0], 0, 0, date("m"), date("d"), date("Y"));
+        $cerrentDate = mktime(date("H"), 0, 0, date("m"), date("d"), date("Y"));
+
         // echo $getDay == $cerrentDate && $day[1] == $cerrentDate ? "TURE":"F";
-        
-        echo $day[1] == $cerrentDate ? "D1 T":"D1 F";
-        echo $getDay == $cerrentDate ? "GET T":"GET F";        
-        if ($getDay == $cerrentDate && $day[1] == $cerrentDate) {
+        // echo $day[1] == $cerrentDate ? "D1 T" : "D1 F";
+        // echo $getDay == $cerrentDate ? "GET T" : "GET F";
+        // if ($getDay == $cerrentDate && $day[1] == $cerrentDate) {
+            if (true) {
             
             $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") + 1, date("Y"));
             $Table = "setting";
             $column = "day = " . "'" . $day[0] . "," . $day[1] . "'";
             $id = "id_setting = " . $id_setting;
             $classDB->update($Table, $column, $id);
-        } elseif ($day[0] == 15 && $day[1] == null) {           
-            $day[1] = mktime(15, 0, 0, date("m"), date("d"), date("Y"));
+
+            
+            $ftp = $classDB->select("ftp where ftp_username = '".$Row['ftp_user']."'");
+            $Rowftp = $ftp->fetch_assoc();
+            $_POST['id_ftp'] = $Rowftp['id_ftp'];
+            echo $_POST['idSetting'] = $id_setting;
+            echo $id_setting;
+
+
+            include_once "backupindex.php";
+        } elseif ($day[0] == date("H") && $day[1] == null) {
+            echo "else";
+            $day[1] = mktime(date("H"), 0, 0, date("m"), date("d"), date("Y"));
             $Table = "setting";
-            $column = "day = " ."'". $day[0] . "," . $day[1]."'";
+            $column = "day = " . "'" . $day[0] . "," . $day[1] . "'";
             $id = "id_setting = " . $id_setting;
             $classDB->update($Table, $column, $id);
         }
@@ -50,6 +65,13 @@ while ($Row = $setting->fetch_assoc()) {
         $column = "week = '" . $week[0] . ',' . $week[1] . "'";
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
+
+        $setting = $classDB->select("setting where ftp_username = ".$Row['ftp_user']);
+        $Rowftp = $setting->fetch_assoc();
+        $_POST['id_ftp'] = $Rowftp['id_ftp'];
+        $_POST['idSetting'] = $Row['idSetting'];
+        include_once "backupindex.php";
+
 
     } elseif ($week[0] == date("w") && $week[1] == null) {
 
@@ -69,6 +91,13 @@ while ($Row = $setting->fetch_assoc()) {
         $column = "month = " . $month;
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
+
+        $setting = $classDB->select("setting where ftp_username = " . $Row['ftp_user']);
+        $Rowftp = $setting->fetch_assoc();
+        $_POST['id_ftp'] = $Rowftp['id_ftp'];
+        $_POST['idSetting'] = $Row['idSetting'];
+        include_once "backupindex.php";
+
     }
 }
 
