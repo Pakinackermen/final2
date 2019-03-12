@@ -5,8 +5,8 @@ if (isset($_POST["checkdata"])) {
     $path = $_POST["checkdata"];
 
     if (is_dir($path)) {
-        echo $_POST['status'];
-        echo "CheckData=" . $_POST["checkdata"];
+        // echo $_POST['status'];
+        // echo "CheckData=" . $_POST["checkdata"];
         databaseInsert($path);
         
     } else {

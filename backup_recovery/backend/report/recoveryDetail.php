@@ -10,7 +10,7 @@ include_once "config/connectDB.php";
 $backupDetail = new allDB();
 
 if (isset($_GET["Recovery"])) {
-    echo $idCheckdata = $_GET["Recovery"];
+     $idCheckdata = $_GET["Recovery"];
     $row = $backupDetail->select("checkdata where id = " . $idCheckdata);
     $Row = $row->fetch_assoc();
 

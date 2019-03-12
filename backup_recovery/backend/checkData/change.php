@@ -3,7 +3,7 @@
 // echo "<br>Change.php<br>";
 function changeCheckData($status, $path)
 {
-    echo "<br>Change.php changeCheckData<br>";
+    // echo "<br>Change.php changeCheckData<br>";
 
     include_once "../config/connectDB.php";
     $classDb = new allDB();
@@ -22,8 +22,7 @@ function changeCheckData($status, $path)
     $id =  array();
     $change = array();
 
-    while ($checkdata = $row->fetch_assoc()) {
-        echo "ID::=" . $checkdata["id"] . "<br>";
+    while ($checkdata = $row->fetch_assoc()) {        
         $id[$value] = $checkdata["id"];
         $_path = $checkdata["directory"];
         $change[$value++] = $checkdata["value"];

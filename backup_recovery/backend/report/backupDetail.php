@@ -10,7 +10,7 @@ include_once "config/connectDB.php";
 $backupDetail = new allDB();
 
 if (isset($_GET["Backup"])) {
-    echo $idCheckdata = $_GET["Backup"];
+    $idCheckdata = $_GET["Backup"];
     $row = $backupDetail->select("checkdata where id = " . $idCheckdata);
     $Row = $row->fetch_assoc();
 
@@ -77,8 +77,7 @@ $countTable = 0;
 
 
 foreach ($value as $count => $item) {
-    // echo "<br>".$count."+++++++<br>";
-    // echo "<br>".$item; 
+
     
    
 

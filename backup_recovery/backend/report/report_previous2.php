@@ -11,7 +11,7 @@ $noHave = "ไม่มี";
 $count = 0;
 $class = new allDB();
 $sql = "changedata where status = '$status' ";
-echo $sql .= "AND path = '$dirSrc'";
+ $sql .= "AND path = '$dirSrc'";
 $row = $class->select($sql);
 
 // echo $_POST['dir_src'];

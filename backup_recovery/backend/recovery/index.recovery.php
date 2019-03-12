@@ -24,7 +24,7 @@ $Row = $row->fetch_assoc();
 $Namefile = $namefile->fetch_assoc();
 
 $path = $Row['dir_src'];
-echo$token = $Row['token_line'];
+$token = $Row['token_line'];
 
 $name_zip_file = trim($Namefile["file_name"], " ");
 

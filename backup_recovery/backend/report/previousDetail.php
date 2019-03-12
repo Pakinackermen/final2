@@ -18,7 +18,7 @@ if(isset($_POST['new'])){
     $show = explode("|", $_POST['hash_change']); //array
     $show = array_filter($show, function ($e) {return $e !== '';});
 }
-print_r($show);
+// print_r($show);
 function filesize_formatted($sizeFile){
     $bytes = $sizeFile;
     if ($bytes >= 1073741824) {

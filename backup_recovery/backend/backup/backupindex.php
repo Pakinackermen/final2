@@ -75,9 +75,9 @@ function backupfile($filename, $path, $id_ftp, $token)
     $login = ftp_login($connection, $ftp_username, $ftp_password);
 
     if (ftp_mkdir($connection, $newFolder)) { //create folder
-        echo "successfully created $path\n";
+        // echo "successfully created $path\n";
     } else {
-        echo "There was a problem while creating $newFolder";
+        // echo "There was a problem while creating $newFolder";
     }
     if (!$connection || !$login) {
         $h4 = "ไม่สามารถทำรายการได้ กรุณาตรวจสอบการส่งข้อมูล";
