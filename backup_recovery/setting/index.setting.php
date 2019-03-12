@@ -16,12 +16,20 @@ $result = $conn->query($sql);
 $ftp = "SELECT * FROM ftp";
 $resultFtp = $conn->query($ftp);
 
-    
+  // ftp map
 if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
- echo $que = "UPDATE setting 
+  $que = "UPDATE setting 
     SET ftp_user = '".$_POST['ftp_username'] ."' 
     WHERE id_setting = ".$_POST['idSetting'];
-  $conn->query($que);
+  
+  if($conn->query($que)){
+
+    include_once "tamplat/success.php";
+    die();
+  }else{
+    include_once "tamplat/fail.php";
+    die();
+  }
 }
  
 

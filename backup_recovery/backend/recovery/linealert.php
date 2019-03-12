@@ -1,7 +1,9 @@
 <?php
 
     $line_api = 'https://notify-api.line.me/api/notify';
-    $access_token = 'D1Uyqtjz5ejEYtHzGNXFhfQmLTNQFEHk1a2DSzhsjf4';
+    // $access_token = 'D1Uyqtjz5ejEYtHzGNXFhfQmLTNQFEHk1a2DSzhsjf4';
+    $access_token = $token;
+
 
     $str = "Recovery :: \n".$path;    //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
     $image_thumbnail_url = '';  // ขนาดสูงสุด 240×240px JPEG

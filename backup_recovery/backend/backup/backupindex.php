@@ -3,13 +3,15 @@ include_once "../config/connectDB.php";
 include_once "../config/ftp.php";
 include_once "../checkData/checkNewFile.php";
 
+
+
 // set not show wanning and error
-// ini_set('log_errors', 'On');
-// ini_set('display_errors', 'Off');
-// ini_set('error_reporting', E_ALL);
-// define('WP_DEBUG', false);
-// define('WP_DEBUG_LOG', true);
-// define('WP_DEBUG_DISPLAY', false);
+ini_set('log_errors', 'On');
+ini_set('display_errors', 'Off');
+ini_set('error_reporting', E_ALL);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 
 $idSetting = $_POST['idSetting'];
 $id_ftp = $_POST['id_ftp'];
@@ -17,8 +19,8 @@ $id_ftp = $_POST['id_ftp'];
 if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     isset($_POST['id_ftp']) && $_POST['id_ftp'] != "NULL") {
 
-    echo $_POST['idSetting'];
-    echo $_POST['id_ftp'];
+     $_POST['idSetting'];
+     $_POST['id_ftp'];
 
     $class = new allDB();
     $row = $class->select("setting where id_setting = " . $idSetting);
@@ -27,7 +29,9 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     $filename = $Row['id_setting'];
     $path = null;
     $path .= str_replace('\\', '/', $Row['dir_src']);
-    backupfile($filename, $path, $id_ftp);
+    $token = $Row['token_line'];
+
+    backupfile($filename, $path, $id_ftp, $token);
     databaseInsert($path); //when click botton insert checkData status B
 } else {
     $h4 = "ไม่สามารถทำรายการได้";
@@ -35,7 +39,7 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     include_once "tamplat/fail.php";
 }
 
-function backupfile($filename, $path, $id_ftp)
+function backupfile($filename, $path, $id_ftp, $token)
 {
     //  "PATH=" . $path . " filename=" . $filename;
     $servername = "localhost";
@@ -58,7 +62,7 @@ function backupfile($filename, $path, $id_ftp)
 
     //ft p
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;
-    echo $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`) VALUES (null, '$filename', '$name_zip_file')";
+    $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`) VALUES (null, '$filename', '$name_zip_file')";
 
 
     $result_id_ftp = $conn->query($ftp);

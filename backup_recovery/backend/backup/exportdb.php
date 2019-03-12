@@ -11,12 +11,12 @@
  */
 
  // set not show wanning and error
-ini_set('log_errors', 'On');
-ini_set('display_errors', 'Off');
-ini_set('error_reporting', E_ALL);
-define('WP_DEBUG', false);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
+// ini_set('log_errors', 'On');
+// ini_set('display_errors', 'Off');
+// ini_set('error_reporting', E_ALL);
+// define('WP_DEBUG', false);
+// define('WP_DEBUG_LOG', true);
+// define('WP_DEBUG_DISPLAY', false);
 
 
 
@@ -37,18 +37,19 @@ $pasdDB = "";
 $nameDb = "";
 $host = "";
 
-if ((!isset($_POST['database_user']) 
-    && !isset($_POST['database_pass']) 
-    && !isset($_POST['database_name']) 
-    && !isset($_POST['database_host']))
+
+if ((isset($_POST['database_user']) 
+    && isset($_POST['database_pass']) 
+    && isset($_POST['database_name']) 
+    && isset($_POST['database_host']))
 ) {
     $userDB = $_POST['database_user'];
-    $pasdDB = $_POST['database_pass'];
+    $passDB = $_POST['database_pass'];
     $nameDb = $_POST['database_name'];
     $host = $_POST['database_host'];
 
     
-    $backupDatabase = new Backup_Database($host, $userDB, $pasdDB, $nameDb);
+    $backupDatabase = new Backup_Database($host, $userDB, $passDB, $nameDb);
     $result = $backupDatabase->backupTables(TABLES, BACKUP_DIR) ? 'OK' : 'KO';
     // $backupDatabase->obfPrint('Backup result: ' . $result, 1);
 
@@ -70,6 +71,7 @@ if ((!isset($_POST['database_user'])
     $newFolder = 'database';
     $upload = ftp_put($connection, $newFolder . "/" . $nameDb.BACKUP_NAME, $nameDb.BACKUP_NAME, FTP_BINARY);
     unlink($nameDb.BACKUP_NAME);
+
 } else {
     $txt = "กรุณาทำรายการใหม่ภายหลังอีกครั้ง";
     $h4 = "ระบบขัดข้อง";
@@ -163,7 +165,7 @@ class Backup_Database {
                 $h4 = "ระบบขัดข้อง";
                 include_once "tamplat/fail.php";
 
-                // throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
+                throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
                 die();
             }
             if (!mysqli_set_charset($conn, $this->charset)) {

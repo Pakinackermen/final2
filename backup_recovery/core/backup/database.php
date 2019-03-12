@@ -15,7 +15,7 @@
         <input type="password" class="form-control" id="nameBackup" placeholder="******" name="database_pass">
     </div>
     <div class="form-control col-md-12 m-1">
-        <label for="feEmailAddress">ชื่อฐาน</label>
+        <label for="feEmailAddress">ชื่อฐานข้อมูล</label>
         <input type="text" class="form-control" id="nameBackup" placeholder="Mydatabase" name="database_name">
     </div>
     <div class="form-control col-md-12 m-1">
