@@ -95,6 +95,8 @@ function directoryToArray($directory, $recursive){
         } //while
 
         closedir($handle);
+    }else{
+        throw new Exception();
     }
 
     return $array_items;

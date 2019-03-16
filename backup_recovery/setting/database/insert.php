@@ -2,6 +2,14 @@
 
 include_once "connect.php";
 // Check connection
+// set not show wanning and error
+ini_set('log_errors', 'On');
+ini_set('display_errors', 'Off');
+ini_set('error_reporting', E_ALL);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -21,6 +29,10 @@ $database_pass = $_POST['database_pass'];
 $database_name = $_POST['database_name'];
 $database_host = $_POST['database_host'];
 $token_line = $_POST['token_line'];
+
+$_username = $_POST['username'];
+$_password = $_POST['_password'];
+
 if (isset($_POST['day'])) {
     $isday = $_POST['isday'];
 } else {
@@ -66,7 +78,7 @@ $sqlSetting = "INSERT INTO `setting` (
         '" . $database_host . "',
         '" . $token_line . "');";
 
-$sqlFtp .= "INSERT INTO `ftp` (
+$sqlFtp = "INSERT INTO `ftp` (
         `id_ftp`,
         `ftp_server`,
         `ftp_username`,
@@ -78,19 +90,42 @@ $sqlFtp .= "INSERT INTO `ftp` (
         '" . $ftp_pass . "'
         );";
 
-if(isset($_POST["add"])){
-    if ($conn->multi_query($sqlSetting) === true) {
+echo $addnewUser = "INSERT INTO person (
+    id_person,
+    username,
+    _password)
+    VALUES(
+        NULL,
+        '" . $_username. "',
+        '". $_password."'
+    )
+)";
+
+
+if(!empty($_POST["add"])){
+    if ($conn->query($sqlSetting) === true) {
+        echo "setting";
         include_once "tamplat/success.php";
     } else {
         include_once "tamplat/fail.php";
     }
 
+}elseif(!empty($_POST['addnewUser'])) {
+    if ($conn->query($addnewUser) === true) {
+        echo "person";
+        include_once "tamplat/success.php";
+    } else {
+        include_once "tamplat/fail.php";
+    }
 }else{
-    if ($conn->multi_query($sqlFtp) === true) {
+    if ($conn->query($sqlFtp) === true) {
+        echo "ftp";
     include_once "tamplat/success.php";
     
     } else {
     include_once "tamplat/fail.php";
     }
 }
+
+
 $conn->close();

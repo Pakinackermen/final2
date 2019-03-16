@@ -3,8 +3,6 @@ include_once "../config/connectDB.php";
 include_once "../config/ftp.php";
 include_once "../checkData/checkNewFile.php";
 
-
-
 // set not show wanning and error
 ini_set('log_errors', 'On');
 ini_set('display_errors', 'Off');
@@ -18,10 +16,7 @@ $id_ftp = $_POST['id_ftp'];
 
 if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     isset($_POST['id_ftp']) && $_POST['id_ftp'] != "NULL") {
-
-     $_POST['idSetting'];
-     $_POST['id_ftp'];
-
+        
     $class = new allDB();
     $row = $class->select("setting where id_setting = " . $idSetting);
     $filename = "";
@@ -31,8 +26,15 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     $path .= str_replace('\\', '/', $Row['dir_src']);
     $token = $Row['token_line'];
 
-    backupfile($filename, $path, $id_ftp, $token);
-    databaseInsert($path); //when click botton insert checkData status B
+    try{
+        databaseInsert($path); //when click botton insert checkData status B
+        backupfile($filename, $path, $id_ftp, $token);
+    }catch(Exception $e){
+        $h4 = "ไม่สามารถทำรายการได้";
+        $txt = "โปรดตรวจสอบข้อมูลที่กรอก";
+        include_once "tamplat/fail.php";
+
+    }
 } else {
     $h4 = "ไม่สามารถทำรายการได้";
     $txt = "โปรดตรวจสอบข้อมูลที่กรอก";
@@ -81,8 +83,9 @@ function backupfile($filename, $path, $id_ftp, $token)
     }
     if (!$connection || !$login) {
         $h4 = "ไม่สามารถทำรายการได้ กรุณาตรวจสอบการส่งข้อมูล";
-        $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";
+        $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน ftp login";
         include_once "tamplat/fail.php";
+        die();
     }
 
     $upload = ftp_put($connection, $newFolder."/".$name_zip_file, $name_zip_file, FTP_BINARY);
@@ -92,13 +95,14 @@ function backupfile($filename, $path, $id_ftp, $token)
         // include_once "tamplat/success.php";
     } else {
         $h4 = "ไม่สามารถทำรายการได้";
-        $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน";
+        $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน ftp push";
         include_once "tamplat/fail.php";
         'FTP upload failed!';
     }
 
-    include_once "linealert.php";
+    // include_once "linealert.php";
     ftp_close($connection);
     unlink($name_zip_file);
 
 }
+?>

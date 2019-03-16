@@ -151,8 +151,13 @@ while ($Row = $resultFtp->fetch_assoc()) {
                     </div>
                 </li>
                 <div class="form-group col-md-12 justify-content-center">
-                    <button type="submit" class="btn btn-primary col-md-12 " value="<?=$_POST['edit_setting']?>"
+                <div  class="justify-content-center">
+                    <button type="submit" class="btn btn-primary col-md-3 m-1 justify-content-center" value="<?=$_POST['edit_setting']?>"
                         name="update">แก้ไข</button>
+
+                    <a class="btn btn-primary col-md-3 m-1" href="/backup_recovery/core.php?page=setting">กลับ</a>
+                        
+                </div>
                 </div>
             </ul>
     </form>
