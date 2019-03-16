@@ -1,5 +1,5 @@
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" -->
-    <!-- crossorigin="anonymous"> -->
+<!-- crossorigin="anonymous"> -->
 
 <form action="\backup_recovery\setting\database\insert.php" method="post">
     <div class="card card-small mb-4">
@@ -29,11 +29,8 @@
                                 </div>
                                 <div class="form-group col-md-12 justify-content-center">
 
-                                    <button type="button" onclick="validate();" class="btn btn-primary col-md-6 " 
-                                    value="addnew"
-                                    name="addnew"
-                                    id="btnAddNew"    
-                                    >เพิ่ม</button>
+                                    <button type="button" onclick="validate();" class="btn btn-primary col-md-6 " value="addnew"
+                                        name="addnew" id="btnAddNew">เพิ่ม</button>
                                     <button type="button" class="btn btn-accent col-md-4" onclick="window.history.back()">กลับ</button>
                                 </div>
                             </div>
@@ -49,17 +46,17 @@
         let user = document.getElementsByName('_username')[0];
         let pass1 = document.getElementsByName('_password')[0];
         let pass2 = document.getElementsByName('_passwordConfrim')[0];
-        
-        console.log(pass1.value == pass2.value)
-        
 
-        if (pass1.value == pass2.value && 
+        console.log(pass1.value == pass2.value)
+
+
+        if (pass1.value == pass2.value &&
             pass1.value &&
             pass2.value &&
             user.value) {
             console.log('BLUR TURE');
-            document.getElementById("btnAddNew").setAttribute("type", "submit"); 
-            document . getElementById("btnAddNew").addEventListener("click");
+            document.getElementById("btnAddNew").setAttribute("type", "submit");
+            document.getElementById("btnAddNew").addEventListener("click");
             // document.getElementById("addnew").submit();
         } else {
             alert("กรุณากรอกข้อมูลให้ครบถ้วนและรหัสผ่านต้องตรงกัน");
