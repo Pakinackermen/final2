@@ -88,6 +88,7 @@ if(isset($_POST["add"])){
 }else{
     if ($conn->multi_query($sqlFtp) === true) {
     include_once "tamplat/success.php";
+    
     } else {
     include_once "tamplat/fail.php";
     }

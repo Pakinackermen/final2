@@ -3,7 +3,7 @@
 include_once "config/connectDB.php";
 $count = 0;
 $class = new allDB();
-$sql = "setting";
+$sql = "setting ORDER BY id_setting DESC";
 $row = $class->select($sql);
 ?>
 

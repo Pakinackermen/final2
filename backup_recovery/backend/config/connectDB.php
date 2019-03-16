@@ -27,13 +27,20 @@ class allDB extends connectDB{
         return $conn->close();
     }
     public function select($Table) {  
+        
         $conn = parent::__construct();        
         if ($conn->connect_error) { 
             die("Connection failed: " . $conn->connect_error);
         }                          
         // SELECT column_name(s) FROM table_name                 
-        $select = "select * from ".$Table;        
-        return $result = $conn->query($select);                               
+        $select = "select * from ".$Table; 
+        if($result = $conn->query($select)){
+            return $result ;
+
+        }       
+        throw new Exception();
+        return 0;
+        // return $result = $conn->query($select);                               
     }      
                     
     public function insert($Table, $column, $value) {  
@@ -52,11 +59,9 @@ class allDB extends connectDB{
       try{
         $conn = parent::__construct();                
         if ($conn->connect_error) { 
-            die("Connection failed: " . $conn->connect_error);
+            throw new Exception();
         }        
-        // UPDATE table_name
-        // SET column1=value, column2=value2,...
-        // WHERE some_column=some_value                                       
+                                     
          $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
         return $result = $conn->query($update); 
         }catch (Exception $e) {

@@ -11,8 +11,12 @@ $noHave = "ไม่มี";
 $count = 0;
 $class = new allDB();
 $sql = "changedata where status = '$status' ";
- $sql .= "AND path = '$dirSrc'";
+$sql .= "AND path = '$dirSrc'";
+$sql .= " ORDER BY id_change DESC";
 $row = $class->select($sql);
+
+
+
 
 // echo $_POST['dir_src'];
 // echo $_POST['status'];

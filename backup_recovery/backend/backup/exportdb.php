@@ -11,12 +11,12 @@
  */
 
  // set not show wanning and error
-// ini_set('log_errors', 'On');
-// ini_set('display_errors', 'Off');
-// ini_set('error_reporting', E_ALL);
-// define('WP_DEBUG', false);
-// define('WP_DEBUG_LOG', true);
-// define('WP_DEBUG_DISPLAY', false);
+ini_set('log_errors', 'On');
+ini_set('display_errors', 'Off');
+ini_set('error_reporting', E_ALL);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 
 
 
@@ -37,11 +37,15 @@ $pasdDB = "";
 $nameDb = "";
 $host = "";
 
+//  echo !empty($_POST['database_user']) ; //!= null ture
+//  echo $pass = !empty($_POST['database_pass']); // ==null true 
+//  echo !empty($_POST['database_name']) ;
+//  echo !empty($_POST['database_host']);
 
-if ((isset($_POST['database_user']) 
-    && isset($_POST['database_pass']) 
-    && isset($_POST['database_name']) 
-    && isset($_POST['database_host']))
+  
+if (!empty($_POST['database_user'])&&
+!empty($_POST['database_name'])&&
+!empty($_POST['database_host'])
 ) {
     $userDB = $_POST['database_user'];
     $passDB = $_POST['database_pass'];
@@ -74,7 +78,7 @@ if ((isset($_POST['database_user'])
 
 } else {
     $txt = "กรุณาทำรายการใหม่ภายหลังอีกครั้ง";
-    $h4 = "ระบบขัดข้อง";
+    $h4 = "ระบบขัดข้องข้อมูลไม่ถูกต้อง";
     include_once "tamplat/fail.php";
 }
 
@@ -165,7 +169,7 @@ class Backup_Database {
                 $h4 = "ระบบขัดข้อง";
                 include_once "tamplat/fail.php";
 
-                throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
+                // throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
                 die();
             }
             if (!mysqli_set_charset($conn, $this->charset)) {

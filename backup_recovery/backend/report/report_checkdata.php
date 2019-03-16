@@ -3,7 +3,7 @@
 include_once "config/connectDB.php";
 $count = 0;
 $class = new allDB();
-$sql = "checkdata where status = 'C'";
+$sql = "checkdata where status = 'C' ORDER BY id DESC";
 $row = $class->select($sql);
 ?>
 

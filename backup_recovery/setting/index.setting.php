@@ -138,11 +138,10 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
               </tbody>
               </table>
           </form>
-      <?php }elseif( isset($_POST['editFtpUser']) )
+      <?php 
+      }elseif( isset($_POST['editFtpUser']) )
        { 
-       
         include_once "setting.ftpmap.php";
-        
 
       } else{
           echo'
@@ -167,7 +166,7 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
               <button type="submit" class="btn btn-info col-md-5 " name="editFtpUser">เปลี่ยนผู้ใช้ FTP สำหรับกู้ข้อมูล</button>          
             </div>
           </form>';
-        }          
+        }
       ?>
 </div>
 <script src="setting/setting.js"></script>

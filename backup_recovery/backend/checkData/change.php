@@ -2,8 +2,7 @@
 // changeCheckData('R');
 // echo "<br>Change.php<br>";
 function changeCheckData($status, $path)
-{
-    // echo "<br>Change.php changeCheckData<br>";
+{    
 
     include_once "../config/connectDB.php";
     $classDb = new allDB();
@@ -12,7 +11,7 @@ function changeCheckData($status, $path)
     $sql = "checkdata ";
     $sql .= "WHERE status = '$status' ";
     $sql .= "AND directory = '$path' ";
-    $sql .= "ORDER BY id DESC LIMIT 2";
+    $sql .= "ORDER BY id ASC LIMIT 2";
     $sql;
     
 
@@ -22,7 +21,7 @@ function changeCheckData($status, $path)
     $id =  array();
     $change = array();
 
-    while ($checkdata = $row->fetch_assoc()) {        
+    while ($checkdata = $row->fetch_assoc()) {
         $id[$value] = $checkdata["id"];
         $_path = $checkdata["directory"];
         $change[$value++] = $checkdata["value"];
@@ -33,8 +32,7 @@ function changeCheckData($status, $path)
 
 function checkFile($change, $id_checkdata, $_path, $_status)
 {
-
-    // print_r($change);
+    
     date_default_timezone_set("Asia/Bangkok");
     $classDb = new allDB();
     $reduce = "";

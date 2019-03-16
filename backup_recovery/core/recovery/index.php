@@ -74,8 +74,7 @@
         </div>
     </div>
     <!-- End Page Header -->
-
-            <!-- <h6 class="m-0"><?= $_GET[""]?></h6> -->
+            
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item p-4">

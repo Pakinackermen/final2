@@ -68,7 +68,7 @@ function backupfile($filename, $path, $id_ftp, $token)
     $result_id_ftp = $conn->query($ftp);
     $conn->query($filebackupDB);
     $row_ftp = $result_id_ftp->fetch_assoc();
-    $server = '127.0.0.1';
+    $server = $row_ftp['ftp_server'];
     $ftp_username = $row_ftp['ftp_username'];
     $ftp_password = $row_ftp['ftp_password'];
     $connection = ftp_connect($server);
