@@ -143,7 +143,11 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
        { 
         include_once "setting.ftpmap.php";
 
-      } else{
+      }elseif( isset($_POST['addnew']) ){
+        include_once "addnewUsers.php";
+
+      }
+       else{
           echo'
           <form action="core.php?page=setting" method="POST">
             <div class="form-control d-flex justify-content-center">
@@ -162,11 +166,16 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
               <button type="submit" class="btn btn-info col-md-5 " name="editFtp">แก้ไขเพิ่มผู้ใช้ FTP</button>          
             </div>
 
+            
             <div class="form-control d-flex justify-content-center">
-              <button type="submit" class="btn btn-info col-md-5 " name="editFtpUser">เปลี่ยนผู้ใช้ FTP สำหรับกู้ข้อมูล</button>          
+              <button type="submit" class="btn btn-info col-md-5 " name="addnew">เพิ่มผู้ใช้ในระบบ</button>          
             </div>
           </form>';
         }
+        // <div class="form-control d-flex justify-content-center">
+        //   <button type="submit" class="btn btn-info col-md-5 " name="editFtpUser">เปลี่ยนผู้ใช้ FTP สำหรับกู้ข้อมูล</button>
+        // </div>
+
       ?>
 </div>
 <script src="setting/setting.js"></script>
