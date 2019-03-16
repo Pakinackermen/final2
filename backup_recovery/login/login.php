@@ -22,9 +22,12 @@ if ($result->num_rows > 0) {
     header('Location: ../core.php');
     
 } else {
-    echo "<div style='text-align: center'><h1 >Wrong!! Signin again</h1>";
-    echo "<button onclick='goBack()'>signin </button>";
-    echo "</div>";
+    
+    // include_once "tamplat/success.php";
+
+    $h4 = 'ไม่สามารถเข้าสู้ระบบได้';
+    $txt = 'ผู้ใช้หรือรหัสผ่านไม่ถูกต้องลองใหม่อีกครั้ง';
+    include_once "tamplat/fail.php";
 }
 $conn->close();
 ?>

@@ -31,7 +31,7 @@ $database_host = $_POST['database_host'];
 $token_line = $_POST['token_line'];
 
 $_username = $_POST['_username'];
-$_password = $_POST['_password'];
+$_password = md5($_POST['_password']);
 
 if (isset($_POST['day'])) {
     $isday = $_POST['isday'];
@@ -102,7 +102,7 @@ $sqlFtp = "INSERT INTO `ftp` (
 
 if(!empty($_POST["add"])){
     if ($conn->query($sqlSetting) === true) {
-        echo "setting";
+        // echo "setting";
         include_once "tamplat/success.php";
     } else {
         include_once "tamplat/fail.php";
@@ -110,14 +110,14 @@ if(!empty($_POST["add"])){
 
 }elseif(!empty($_POST['addnew'])) {
     if ($conn->query($addnewUser) === true) {
-        echo "person";
+        // echo "person";
         include_once "tamplat/success.php";
     } else {
         include_once "tamplat/fail.php";
     }
 }else{
-    if ($connn->query($sqlFtp) === true) {
-        echo "ftp";
+    if ($conn->query($sqlFtp) === true) {
+        // echo "ftp";
     include_once "tamplat/success.php";
     
     } else {
