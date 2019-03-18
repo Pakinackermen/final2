@@ -46,12 +46,13 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
       <?php 
         if( isset($_POST['add']) ){
           echo'<form action="setting\database\insert.php" method="POST">';
+        // echo '<form action="http://localhost:9000/index.php" method="POST">';
             include "setting.backup.php";
             include "setting.selectUserftp.php";
             include "setting.line.php";     
             
             echo '<div class="form-control d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success col-md-5 mx-2" name="add">ตกลง</button>   
+                  <button type="submit" class="btn btn-success col-md-5 mx-2" value="backup" name="add">ตกลง</button>   
                   <button type="button" class="btn btn-accent col-md-3" onclick="window.history.back()" name="edit">กลับ</button>
                 </div>'; 
             echo'</from>';  
@@ -99,7 +100,7 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
         include "setting.ftp.php";
 
         echo '<div class="form-control d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success col-md-5 mx-2" name="addFtp">ตกลง</button>
+                  <button type="submit" class="btn btn-success col-md-5 mx-2" value="addftp" name="addFtp">ตกลง</button>
                   <button type="button" class="btn btn-accent col-md-3" onclick="window.history.back()" name="edit">กลับ</button>
               </div>';              
         echo '</from>';

@@ -65,11 +65,12 @@ function checkFile($change, $id_checkdata, $_path, $_status)
                 && stristr($item2, ":", true) === "path") { //เป็น path ไหม
                 if ($item1 === $item2) { // check path
                     // echo "เท่ากัน::$item1 === $item2<br>";
-
+                    
                     ++$countTable;
                     if ($v1[$c1 + 1] !== $v2[$c2 + 1]) { //มีการแก้ไข check hash
                         // echo "มีการแก้ไข::$item1<br>";
                         //check modified file
+                        echo 'Hash เปลี่ยน';
                         array_push($stateHashChange, $v1[$c1]);
                         array_push($stateHashChange, $v1[$c1 + 1]);
                         array_push($stateHashChange, $v1[$c1 + 2]);

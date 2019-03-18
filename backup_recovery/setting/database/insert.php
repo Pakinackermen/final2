@@ -14,9 +14,22 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$rootPath = 'C:\xampp\htdocs';
 $namedata = $_POST['namedata'] = "NULL";
 
 $dir_src = $_POST['dir_src'];
+
+
+if( !invalid($dir_src) ){
+     echo checkInputPath($dir_src);
+
+
+}else{
+    include_once "tamplat/fail.php";
+    die();
+}
+
+
 $dir_src = str_replace("/", "//", $dir_src);
 $dir_src = str_replace("\\", "\\\\", $dir_src);
 
@@ -115,7 +128,7 @@ if(!empty($_POST["add"])){
     } else {
         include_once "tamplat/fail.php";
     }
-}else{
+}elseif(!empty($_POST['addFtp']) ){
     if ($conn->query($sqlFtp) === true) {
         // echo "ftp";
     include_once "tamplat/success.php";
@@ -125,5 +138,36 @@ if(!empty($_POST["add"])){
     }
 }
 
-
 $conn->close();
+function checkInputPath($dir_src)
+{
+    $rootServer = 'C:\xampp\htdocs\\';    
+
+    $dir_src = str_replace("/", "//", $dir_src);
+    $dir_src = str_replace("\\", "\\\\", $dir_src);
+
+    if (!is_dir($rootServer . $dir_src)) {       
+        // create new file
+        if (!mkdir($rootServer . $dir_src, 0777, true)) {
+            include_once "tamplat/fail.php";
+            die();
+        }        
+    }
+}
+
+function invalid($dir_src)
+{
+    preg_match('([//][//])', $dir_src, $matches);
+    preg_match('([\\\][/])', $dir_src, $matches2);
+    preg_match('([/][\\\])', $dir_src, $matches3);
+
+        // echo sizeof($matches) ;
+        // echo sizeof($matches2) ;
+        // echo sizeof($matches3) ;
+    if (sizeof($matches) > 0
+        || sizeof($matches2) > 0
+        || sizeof($matches3) > 0) {
+        return true;
+    }
+    return false;
+}

@@ -26,8 +26,8 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     $path .= str_replace('\\', '/', $Row['dir_src']);
     $token = $Row['token_line'];
 
-    try{
-        databaseInsert($path); //when click botton insert checkData status B
+    try{        
+        // databaseInsert($path); //when click botton insert checkData status B
         backupfile($filename, $path, $id_ftp, $token);
     }catch(Exception $e){
         $h4 = "ไม่สามารถทำรายการได้";
@@ -60,7 +60,7 @@ function backupfile($filename, $path, $id_ftp, $token)
     $name_zip_file = $date . ".zip"; /* id table setting */
     $newFolder = $filename;
     // shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
-    shell_exec('"C:\Program Files\7-Zip\7z.exe " a  ' . $name_zip_file . ' -w ' . $path);
+    // shell_exec('"C:\Program Files\7-Zip\7z.exe " a  ' . $name_zip_file . ' -w ' . $path);
 
     //ft p
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;
@@ -86,6 +86,9 @@ function backupfile($filename, $path, $id_ftp, $token)
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน ftp login";
         include_once "tamplat/fail.php";
         die();
+    }else{
+        databaseInsert($path); //when click botton insert checkData status B
+        shell_exec('"C:\Program Files\7-Zip\7z.exe " a  ' . $name_zip_file . ' -w ' . $path);
     }
 
     $upload = ftp_put($connection, $newFolder."/".$name_zip_file, $name_zip_file, FTP_BINARY);
