@@ -60,10 +60,10 @@ while ($Row = $setting->fetch_assoc()) {
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
         
-        $setting = $classDB->select("setting where ftp_user = '".$Row['ftp_user']."'");
+        $setting = $classDB->select("ftp where ftp_username = '".$Row['ftp_user']."'");
         $Rowftp = $setting->fetch_assoc();
         $_POST['id_ftp'] = $Rowftp['id_ftp'];
-        $_POST['idSetting'] = $Row['idSetting'];
+        $_POST['idSetting'] = $id_setting;
         include_once "backupindex.php";
 
 
@@ -87,10 +87,10 @@ while ($Row = $setting->fetch_assoc()) {
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
 
-        $setting = $classDB->select("setting where ftp_user = '" . $Row['ftp_user']."'" );
+        $setting = $classDB->select("ftp where ftp_username = '" . $Row['ftp_user']."'" );
         $Rowftp = $setting->fetch_assoc();
         $_POST['id_ftp'] = $Rowftp['id_ftp'];
-        $_POST['idSetting'] = $Row['idSetting'];
+        $_POST['idSetting'] = $id_setting;
         include_once "backupindex.php";
 
     }

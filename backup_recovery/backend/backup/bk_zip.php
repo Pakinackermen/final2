@@ -1,6 +1,6 @@
 <?php
 include_once "../config/connectDB.php";
-echo "BK_ZIP.php";
+
 /* creates a compressed zip file */
 function create_zip($files = array(), $destination = '', $overwrite = false)
 {
