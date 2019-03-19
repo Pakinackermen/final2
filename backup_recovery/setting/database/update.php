@@ -39,19 +39,19 @@ if (isset($_POST['update'])) {
         $isday = $_POST['isday'];
 
     } else {
-        $isday = "";
+        $isday = "N";
     }
     if (isset($_POST['week'])) {
         $isweek = $_POST['isweek'];
 
     } else {
-        $isweek = "";
+        $isweek = "N";
     }
     if (isset($_POST['month'])) {
         $ismouth = $_POST['ismonth'];
 
     } else {
-        $ismouth = "";
+        $ismouth = "N";
     }
 
     $updateSQL = "UPDATE `setting` SET

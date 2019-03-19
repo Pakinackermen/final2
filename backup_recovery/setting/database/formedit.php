@@ -116,8 +116,8 @@ for ($i = 1; $i <= 30; $i++) {
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-12 p-2">
-                                            <select id="pathBackup" class="form-control" name="ftp_user">
-                                                <option value="NULL">USER...</option>
+                                            <select id="pathBackup" class="form-control" name="ftp_user" required>
+                                                <option value="">USER...</option>
                                                 <?php
 while ($Row = $resultFtp->fetch_assoc()) {
     echo "<option value='" . $Row['ftp_username'] . "'>" . $Row['ftp_username'] . "</option>";

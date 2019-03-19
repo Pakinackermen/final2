@@ -23,8 +23,8 @@ while ($Row = $setting->fetch_assoc()) {
         
         // $getDay = mktime((int)$day[0], 0, 0, date("m"), date("d"), date("Y"));
         $cerrentDate = mktime(date("H"), 0, 0, date("m"), date("d"), date("Y"));
-        // echo $cerrentDate == $getDay;
-            if (date("H") == $day[0] && $day[0] == $cerrentDate) {
+        
+            if (date("H") == $day[0] && $day[1] == $cerrentDate) {
             echo "IF DAY";
             $day[1] = mktime(date("H"), 0, 0, date("m"), date("d") + 1, date("Y"));
             $Table = "setting";
@@ -59,8 +59,8 @@ while ($Row = $setting->fetch_assoc()) {
         $column = "week = '" . $week[0] . ',' . $week[1] . "'";
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
-
-        $setting = $classDB->select("setting where ftp_username = ".$Row['ftp_user']);
+        
+        $setting = $classDB->select("setting where ftp_user = '".$Row['ftp_user']."'");
         $Rowftp = $setting->fetch_assoc();
         $_POST['id_ftp'] = $Rowftp['id_ftp'];
         $_POST['idSetting'] = $Row['idSetting'];
@@ -68,6 +68,7 @@ while ($Row = $setting->fetch_assoc()) {
 
 
     } elseif ($week[0] == date("w") && $week[1] == null) {
+        echo "else week";
 
         $week[1] = weekOfMonth(date("Y-m-d"));
         $Table = "setting";
@@ -86,7 +87,7 @@ while ($Row = $setting->fetch_assoc()) {
         $id = "id_setting = " . $id_setting;
         $classDB->update($Table, $column, $id);
 
-        $setting = $classDB->select("setting where ftp_username = " . $Row['ftp_user']);
+        $setting = $classDB->select("setting where ftp_user = '" . $Row['ftp_user']."'" );
         $Rowftp = $setting->fetch_assoc();
         $_POST['id_ftp'] = $Rowftp['id_ftp'];
         $_POST['idSetting'] = $Row['idSetting'];
@@ -119,5 +120,5 @@ function weekOfMonth($strDate)
 // echo date("Y");
 // echo "<br>";
 // echo date("H");
-echo "<br>";
-echo date("w");
+// echo "<br>";
+// echo date("w");

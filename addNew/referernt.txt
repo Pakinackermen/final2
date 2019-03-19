@@ -1,0 +1,3 @@
+Run Task Scheduler from the Command Line
+Open a command prompt. To open a command prompt, click Start , click All Programs , click Accessories , and then click Command Prompt .
+At the command prompt, type Taskschd.msc .
