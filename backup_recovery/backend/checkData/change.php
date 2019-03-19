@@ -11,8 +11,7 @@ function changeCheckData($status, $path)
     $sql = "checkdata ";
     $sql .= "WHERE status = '$status' ";
     $sql .= "AND directory = '$path' ";
-    $sql .= "ORDER BY id ASC LIMIT 2";
-    $sql;
+    $sql .= "ORDER BY id ASC LIMIT 2";    
     
 
     $row = $classDb->select($sql);
