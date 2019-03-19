@@ -81,7 +81,9 @@ while ($Row = $setting->fetch_assoc()) {
     $getDatabaseMonth = mktime(0, 0, 0, date("m"), (int) $month, date("Y"));
     $cerrentDate = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
     if ($getDatabaseMonth == $cerrentDate) {
-        $month = (int) $month + 1;
+        // $month = (int) $month + 1;
+        $month = mktime(0, 0, 0, date("m")+1, (int) $month, date("Y"));
+
         $Table = "setting";
         $column = "month = " . $month;
         $id = "id_setting = " . $id_setting;
@@ -92,6 +94,7 @@ while ($Row = $setting->fetch_assoc()) {
         $_POST['id_ftp'] = $Rowftp['id_ftp'];
         $_POST['idSetting'] = $id_setting;
         include_once "backupindex.php";
+    }else{
 
     }
 }
