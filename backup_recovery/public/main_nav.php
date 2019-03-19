@@ -49,6 +49,12 @@
                 <span>รายงาน</span>
               </a>
             </li>
+             <li class="nav-item">             
+              <a class="nav-link " target="_blank" href="backend\alldir\index.php">
+                <i class="material-icons">perm_media</i>
+                <span>ไดเรกทอรีทั้งหมด</span>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link " href="core.php?page=setting">
                 <i class="material-icons">settings</i>

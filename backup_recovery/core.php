@@ -14,7 +14,8 @@
 
     <!-- include page -->
     <?php
-          
+         
+
         $page  = (isset($_GET['page'])) ?  $_GET['page'] : 'No page' ;              
         if($page == 'backup'){
           include 'core/backup/index.php';
@@ -22,7 +23,7 @@
           include 'core/recovery/index.php';
         }elseif($page == 'check'){
           include_once 'core/checkData/index.php';
-        }elseif($page == 'report'){          
+        }elseif($page == 'report'){
           $report  = (isset($_GET['report'])) ?  $_GET['report'] : 'No page' ; 
           include 'core/report/index.php';
           if($report == 'backup'){
@@ -42,7 +43,7 @@
           include 'backend/report/report_previous2.php';
         }elseif($page == "backupDatabase"){
           include 'core/backup/database.php';
-        }      
+        }
 
         // slide show
         if($page == "No page" 

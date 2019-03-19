@@ -61,7 +61,7 @@ $sizePathCutSlash = sizeof($PathCutSlash);
 $dataEndOfArray =  $PathCutSlash[$sizePathCutSlash - 1]; 
 $xPath = str_replace($dataEndOfArray, "", $path); //path Unzip file
 // // 7z e archive.zip -oc:\soft *.cpp -r
-// include_once "linealert.php";
+include_once "linealert.php";
 
 shell_exec('"C:\Program Files\7-Zip\7z.exe " x ' . '"store\"' . $name_zip_file . '  -o' . $xPath." -r -y" );
 unlink('store/' . $name_zip_file);

@@ -103,7 +103,7 @@ function backupfile($filename, $path, $id_ftp, $token)
         'FTP upload failed!';
     }
 
-    // include_once "linealert.php";
+    include_once "linealert.php";
     ftp_close($connection);
     unlink($name_zip_file);
 

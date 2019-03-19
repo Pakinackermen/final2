@@ -1,11 +1,11 @@
 <?php
 //set not show wanning and error
-// ini_set('log_errors', 'On');
-// ini_set('display_errors', 'Off');
-// ini_set('error_reporting', E_ALL);
-// define('WP_DEBUG', false);
-// define('WP_DEBUG_LOG', true);
-// define('WP_DEBUG_DISPLAY', false);
+ini_set('log_errors', 'On');
+ini_set('display_errors', 'Off');
+ini_set('error_reporting', E_ALL);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 
 include_once "connect.php";
 
@@ -18,7 +18,8 @@ mysqli_set_charset($conn, "utf8");
 // update
 if (isset($_POST['update'])) {
     
-    $dir_src = $_POST['dir_src'];    
+    $dir_src = $_POST['dir_src'];  
+    $dir_src = realpath($dir_src);  
     $dir_src = str_replace("/", "/", $dir_src);
     $dir_src = str_replace("\\", "\\\\", $dir_src);
     
@@ -79,16 +80,20 @@ if (isset($_POST['update'])) {
             include_once "tamplat/fail.php";
         }
     } else {
+        
+        if(rename($oldPath, $_POST['dir_src'])){            
+            
+            if ($conn->multi_query($updateSQL) === true ) {
+                // rename($oldPath, $_POST['dir_src']);
+                include "tamplat/success.php";
 
-        if ($conn->multi_query($updateSQL) === true) {
-            rename($oldPath, $_POST['dir_src']);
-            include "tamplat/success.php";
+            } else {
+                include_once "tamplat/fail.php";
 
-        } else {
+            }
+        }else{
             include_once "tamplat/fail.php";
-
-        }
-
+        }//rename
     }
 
 }
