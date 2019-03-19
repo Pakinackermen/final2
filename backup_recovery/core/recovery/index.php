@@ -36,8 +36,8 @@
                             <div class="form-row ">
                                 <div class="form-group col-md-12">
                                     <label>เลือกไดเรกทอรี่ที่ต้องการ</label>
-                                    <select id="pathBackup" class="form-control" name="idSetting">
-                                        <option selected>กู้คืนไดเรกทอรี่...</option>
+                                    <select id="pathBackup" class="form-control" name="idSetting" required>
+                                        <option selected value="">กู้คืนไดเรกทอรี่...</option>
                                        <?php
                                             while($row = $result->fetch_assoc()) {
                                                echo '<option value=" '.$row["id_setting"].' ">'.$row["dir_src"].'</option>';
@@ -84,8 +84,8 @@
                             <div class="form-row ">
                                 <div class="form-group col-md-12">
                                     <label>เลือกไฟล์ที่ต้องการ</label>
-                                    <select  class="form-control" name="id_filebackup">
-                                        <option selected>ไฟล์...</option>
+                                    <select  class="form-control" name="id_filebackup" required>
+                                        <option selected value="">ไฟล์...</option>
                                        <?php
                                             while($row = $recoveryStep2->fetch_assoc()) {                                                                                               
                                                echo '<option value=" '.$row["id_filebackup"].'" >'.$row["file_name"].'</option>';

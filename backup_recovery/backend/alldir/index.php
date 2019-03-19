@@ -48,6 +48,7 @@ $txt2cut = '';
 
 echo '<div class="col">
         <div class="form-row">
+        <h1>ALL DIRECTORY</h1>
             <div class="form-group col-md-12 d-flex align-content-center flex-wrap ">';
 
 foreach ($txt2 as $key => $value) {
