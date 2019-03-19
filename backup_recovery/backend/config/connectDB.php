@@ -33,7 +33,7 @@ class allDB extends connectDB{
             die("Connection failed: " . $conn->connect_error);
         }                          
         // SELECT column_name(s) FROM table_name                 
-        echo $select = "select * from ".$Table; 
+        $select = "select * from ".$Table;
         if($result = $conn->query($select)){
             return $result ;
 
@@ -62,7 +62,7 @@ class allDB extends connectDB{
             throw new Exception();
         }        
                                      
-         $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
+         echo $update = "UPDATE ".$Table." SET ".$column." WHERE ".$id;        
         return $result = $conn->query($update); 
         }catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage();

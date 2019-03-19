@@ -4,7 +4,7 @@
 function changeCheckData($status, $path)
 {    
 
-    include_once "../config/connectDB.php";
+    include_once 'C:\xampp\htdocs\backup_recovery\backend\config\connectDB.php';
     $classDb = new allDB();
     $path = str_replace("\\", "/", $path);
 
