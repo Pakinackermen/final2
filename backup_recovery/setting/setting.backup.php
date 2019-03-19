@@ -9,7 +9,9 @@
               <div class="form-row">              
                 <div class="form-group col-md-12">
                   <label>ไดเรกทอรี่ต้นทาง</label>
-                  <input type="text" class="form-control" id="pathfile" name="dir_src" placeholder="กำหนดไดเรกทอรี่ต้นทาง">
+                  <input type="text" class="form-control" id="pathfile" 
+                  required
+                  name="dir_src" placeholder="กำหนดไดเรกทอรี่ต้นทาง">
                 </div>                
                 
               </div>

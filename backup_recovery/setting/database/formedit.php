@@ -40,7 +40,10 @@ $row1 = $result1->fetch_assoc();
                                 <div class="form-group col-md-12">
                                     <label>ไดเรกทอรี่ต้นทาง</label>
                                     <input type="text" class="form-control" id="pathfile" name="dir_src"
-                                        placeholder="กำหนดไดเรกทอรี่ต้นทาง" value="<?=$row['dir_src']?>">
+                                        required
+                                        placeholder="กำหนดไดเรกทอรี่ต้นทาง" 
+                                        value="<?=$row['dir_src']?>">
+                                    <input type="hidden" name="oldPath" value="<?=$row['dir_src']?>">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -143,22 +146,20 @@ while ($Row = $resultFtp->fetch_assoc()) {
                                 <div class="form-group col-md-12">
                                     <label for="feEmailAddress">Token</label>
                                     <input type="text" class="form-control" id="nameBackup"
+                                        required
                                         placeholder="กำหนด Token application LINE" name="token_line"
-                                        value=<?php echo "'".$row['token_line']."'";?> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <div class="form-group col-md-12 justify-content-center">
-                <div  class="justify-content-center">
-                    <button type="submit" class="btn btn-primary col-md-3 m-1 justify-content-center" value="<?=$_POST['edit_setting']?>"
-                        name="update">แก้ไข</button>
+                                        value=<?php echo "'".$row['token_line']."'";?> </div> </div> </div> </div> </li>
+                                        <div class="form-group col-md-12 justify-content-center">
+                                    <div class="justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-primary col-md-3 m-1 justify-content-center"
+                                            value="<?=$_POST['edit_setting']?>" name="update">แก้ไข</button>
+                                        
+                                        <a class="btn btn-primary col-md-3 m-1"
+                                            href="/backup_recovery/core.php?page=setting">กลับ</a>
 
-                    <a class="btn btn-primary col-md-3 m-1" href="/backup_recovery/core.php?page=setting">กลับ</a>
-                        
-                </div>
-                </div>
+                                    </div>
+                                </div>
             </ul>
     </form>
     <script src="../setting.js"></script>

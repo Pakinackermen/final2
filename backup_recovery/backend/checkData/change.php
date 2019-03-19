@@ -11,8 +11,8 @@ function changeCheckData($status, $path)
     $sql = "checkdata ";
     $sql .= "WHERE status = '$status' ";
     $sql .= "AND directory = '$path' ";
-    $sql .= "ORDER BY id ASC LIMIT 2";    
-    
+    $sql .= "ORDER BY id DESC LIMIT 2";    
+    echo $sql;
 
     $row = $classDb->select($sql);
     $value = 0;
@@ -38,8 +38,8 @@ function checkFile($change, $id_checkdata, $_path, $_status)
     $newfile = "";
     $stateHashChange = array();
 
-    $v1 = $change[0];
-    $v2 = $change[1];
+    $v1 = $change[1];
+    $v2 = $change[0];
     $state = false;
     $v1 = str_replace("{", "", $v1);
     $v1 = str_replace("}", "|", $v1);

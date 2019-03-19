@@ -1,14 +1,13 @@
 <?php
 //set not show wanning and error
-ini_set('log_errors', 'On');
-ini_set('display_errors', 'Off');
-ini_set('error_reporting', E_ALL);
-define('WP_DEBUG', false);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
+// ini_set('log_errors', 'On');
+// ini_set('display_errors', 'Off');
+// ini_set('error_reporting', E_ALL);
+// define('WP_DEBUG', false);
+// define('WP_DEBUG_LOG', true);
+// define('WP_DEBUG_DISPLAY', false);
 
 include_once "connect.php";
-
 
 // Check connection
 if ($conn->connect_error) {
@@ -17,10 +16,14 @@ if ($conn->connect_error) {
 mysqli_set_charset($conn, "utf8");
 
 // update
-if (isset($_POST['update'])) {    
-    $dir_src = $_POST['dir_src'];
+if (isset($_POST['update'])) {
+    
+    $dir_src = $_POST['dir_src'];    
     $dir_src = str_replace("/", "/", $dir_src);
     $dir_src = str_replace("\\", "\\\\", $dir_src);
+    
+    $oldPath = $_POST['oldPath'];   
+
     $id_ftp = $_POST['update'];
     $ftp_server = $_POST['ftp_server'];
     $ftp_user = $_POST['ftp_user'];
@@ -50,7 +53,7 @@ if (isset($_POST['update'])) {
         $ismouth = "";
     }
 
-    $updateSQL = "UPDATE `setting` SET        
+    $updateSQL = "UPDATE `setting` SET
         `dir_src`= '$dir_src',
         `ftp_user`= '$ftp_user',
         `day`= '$isday',
@@ -67,25 +70,26 @@ if (isset($_POST['update'])) {
         ftp_username = '$ftp_user',
         ftp_password = '$ftp_pass' WHERE id_ftp = " . $id_ftp;
 
-if(isset($_POST['ftp_server'])){
+    if (isset($_POST['ftp_server'])) {
 
-    if ($conn->multi_query($updateFtp) === true) {
-        include "tamplat/success.php";
+        if ($conn->multi_query($updateFtp) === true) {            
+            include "tamplat/success.php";
 
+        } else {
+            include_once "tamplat/fail.php";
+        }
     } else {
-        include_once "tamplat/fail.php";
+
+        if ($conn->multi_query($updateSQL) === true) {
+            rename($oldPath, $_POST['dir_src']);
+            include "tamplat/success.php";
+
+        } else {
+            include_once "tamplat/fail.php";
+
+        }
+
     }
-}else{
-    
-if ($conn->multi_query($updateSQL) === true) {
-   include "tamplat/success.php";
-
-} else {
-    include_once "tamplat/fail.php";
-
-}
-
-}
 
 }
 

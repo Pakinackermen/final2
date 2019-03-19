@@ -25,6 +25,7 @@ $row1 = $result1->fetch_assoc();
                                 <div class="form-group col-md-12">
                                     <label>Server</label>
                                     <input type="text"
+                                    required
                                     class="form-control" id="pathfile"
                                     value="<?=$row1['ftp_server']?>" name="ftp_server"
                                     placeholder="Address">
@@ -32,6 +33,7 @@ $row1 = $result1->fetch_assoc();
                                 <div class="form-group col-md-12">
                                     <label>FTP User</label>
                                     <input type="text" class="form-control"
+                                        required
                                         value="<?=$row1['ftp_username']?>"
                                         id="pathfile"
                                         name="ftp_user"
