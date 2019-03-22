@@ -6,8 +6,6 @@
   $authen->authen();
 ?>
 
-
-
 <div class="col-lg-12">
   <!-- Page Header -->
   <div class="page-header row no-gutters py-4">

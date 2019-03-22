@@ -9,7 +9,7 @@
 <?php
 
 include_once "connect.php";
-// Check connection
+
 // set not show wanning and error
 ini_set('log_errors', 'On');
 ini_set('display_errors', 'Off');
@@ -26,16 +26,8 @@ $rootPath = 'C:\xampp\htdocs\\';
 $namedata = $_POST['namedata'] = "NULL";
 
 $dir_src = $_POST['dir_src'];
+// $dir_src = realpath($dir_src);
 
-
-if( !invalid($dir_src) ){
-     $dir_src = checkInputPath($dir_src, $rootPath);
-     $dir_src = realpath($dir_src);
-
-}else{
-    include_once "tamplat/fail.php";
-    die();
-}
 
 
 $dir_src = str_replace("/", "//", $dir_src);
@@ -150,29 +142,14 @@ $conn->close();
 function checkInputPath($dir_src, $rootPath)
 {
     // $rootServer = 'C:\xampp\htdocs\\';    
-
     if (!is_dir($rootPath . $dir_src)) {
         // create new file
-        if (!mkdir($rootPath . $dir_src, 0777, true)) {
-            include_once "tamplat/fail.php";
-            die();
-        }  
+        mkdir($rootPath . $dir_src, 0777, true);
+            
+        
     }
      $rootPath . $dir_src;
 
     return $rootPath . $dir_src;
 }
 
-function invalid($dir_src)
-{
-    preg_match('([//][//])', $dir_src, $matches);
-    preg_match('([\\\][/])', $dir_src, $matches2);
-    preg_match('([/][\\\])', $dir_src, $matches3);
-
-    if (sizeof($matches) > 0
-        || sizeof($matches2) > 0
-        || sizeof($matches3) > 0) {
-        return true;
-    }
-    return false;
-}

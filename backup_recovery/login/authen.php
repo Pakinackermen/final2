@@ -18,7 +18,7 @@ function authen(){
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-        echo $sql = "select * from person where username = '".$_SESSION['username']."' and _password = '".$_SESSION['_password']."'";
+        $sql = "select * from person where username = '".$_SESSION['username']."' and _password = '".$_SESSION['_password']."'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
