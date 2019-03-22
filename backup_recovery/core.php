@@ -1,8 +1,17 @@
+<?php    
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
 <!doctype html>
 <html class="no-js h-100" lang="en">
 
 <head>
-  <?php include 'link/linkup.php'; ?>
+  <?php 
+  
+  include 'link/linkup.php'; ?>
 </head>
 
 <body class="h-100">
@@ -14,8 +23,7 @@
 
     <!-- include page -->
     <?php
-         
-
+                  
         $page  = (isset($_GET['page'])) ?  $_GET['page'] : 'No page' ;              
         if($page == 'backup'){
           include 'core/backup/index.php';

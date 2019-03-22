@@ -1,3 +1,12 @@
+  <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
+
+
 <form action="../../backup_recovery\backend\backup\exportdb.php" method="post">
 
 <div class="form-row">

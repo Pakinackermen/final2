@@ -1,4 +1,12 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
+
+<?php
 //set not show wanning and error
 ini_set('log_errors', 'On');
 ini_set('display_errors', 'Off');

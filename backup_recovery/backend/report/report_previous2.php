@@ -1,4 +1,13 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
+
+
+<?php
 ini_set('post_max_size', '64M');
 
 include_once "config/connectDB.php";

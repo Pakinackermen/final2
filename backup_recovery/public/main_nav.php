@@ -62,7 +62,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="index.php">
+              <a class="nav-link " href="login/logout.php">
                 <i class="material-icons">arrow_right</i>
                 <span>ลงชื่อออก</span>
               </a>

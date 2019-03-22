@@ -1,3 +1,10 @@
+  <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
 
 <?php
 

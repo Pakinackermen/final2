@@ -1,6 +1,15 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
+
+<?php
 // changeCheckData('R');
 // echo "<br>Change.php<br>";
+
 function changeCheckData($status, $path)
 {    
 

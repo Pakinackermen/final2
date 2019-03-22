@@ -1,5 +1,12 @@
 <?php
 session_start();
+// set not show wanning and error
+ini_set('log_errors', 'On');
+ini_set('display_errors', 'Off');
+ini_set('error_reporting', E_ALL);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -17,13 +24,14 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
-    $row = $result->fetch_assoc();
+    $row = $result->fetch_assoc();    
+    $_SESSION['id_person'] = $row['id_person'];
     $_SESSION['username'] = $row["username"];
+    $_SESSION['_password'] = $row['_password'];
+
     header('Location: ../core.php');
     
-} else {
-    
-    // include_once "tamplat/success.php";
+} else {    
 
     $h4 = 'ไม่สามารถเข้าสู้ระบบได้';
     $txt = 'ผู้ใช้หรือรหัสผ่านไม่ถูกต้องลองใหม่อีกครั้ง';

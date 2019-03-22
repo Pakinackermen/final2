@@ -1,4 +1,12 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
+
+<?php
 
 include_once "connect.php";
 // Check connection
@@ -34,7 +42,7 @@ $dir_src = str_replace("/", "//", $dir_src);
 $dir_src = str_replace("\\", "\\\\", $dir_src);
 
 $ftp_server = $_POST['ftp_server'];
-$ftp_user = $_POST['ftp_user'] = "backup";
+$ftp_user = $_POST['ftp_user'];
 $ftp_pass = $_POST['ftp_pass'];
 
 $database_user = $_POST['database_user'];
@@ -91,7 +99,7 @@ $sqlSetting = "INSERT INTO `setting` (
         '" . $database_host . "',
         '" . $token_line . "');";
 
-$sqlFtp = "INSERT INTO `ftp` (
+echo $sqlFtp = "INSERT INTO `ftp` (
         `id_ftp`,
         `ftp_server`,
         `ftp_username`,

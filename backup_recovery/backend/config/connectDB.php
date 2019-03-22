@@ -20,7 +20,7 @@ class connectDB{
     }        
 }
     
-class allDB extends connectDB{      
+class allDB extends connectDB{
     
     public function closeDB(){
         $conn = parent::__construct();

@@ -1,9 +1,19 @@
+<?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+?>
+
+
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <?php
-
-$item = shell_exec('cd ../../../&&dir /a:d /s /b | sort');
+ getcwd();
+ $item = shell_exec('cd ../../../&&dir /a:d /s /b ');
 $arr = str_split($item);
 $flagC = false;
 $flagColon = false;
