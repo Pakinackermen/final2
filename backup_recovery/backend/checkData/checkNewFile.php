@@ -36,7 +36,7 @@ function databaseInsert($path)
     $password = "";
     $dbname = "backup";
 
-     $path = str_replace('\\', '/', $path);
+    $path = str_replace('\\', '/', $path);
     //  $path = str_replace('/', '//', $path);
 
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -66,7 +66,7 @@ function databaseInsert($path)
     } else {
          "=::FALSE::=" . $conn->connect_error;
         $h4 = "ไม่สามารถดำเดินการได้ กรุณาลองใหม่อีกครั้ง";
-        $txt = "กรุณาลองใหม่อีกครั้ง";
+        $txt = "กรุณาลองใหม่อีกครั้ง ".$conn->connect_error;
         include_once "tamplat/fail.php";
     }
     $conn->close();
@@ -105,7 +105,7 @@ function directoryToArray($directory, $recursive){
 
         closedir($handle);
     }else{
-        throw new Exception();
+        throw new Exception('ไม่พบไดเรกทอรี่');
     }
 
     return $array_items;

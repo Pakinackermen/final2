@@ -91,7 +91,7 @@ $sqlSetting = "INSERT INTO `setting` (
         '" . $database_host . "',
         '" . $token_line . "');";
 
-echo $sqlFtp = "INSERT INTO `ftp` (
+$sqlFtp = "INSERT INTO `ftp` (
         `id_ftp`,
         `ftp_server`,
         `ftp_username`,
@@ -131,9 +131,14 @@ if(!empty($_POST["add"])){
 }elseif(!empty($_POST['addFtp']) ){
     if ($conn->query($sqlFtp) === true) {
         // echo "ftp";
-    include_once "tamplat/success.php";
+        include_once 'newFtpUser.php';
+        include_once "tamplat/success.php";
+        $addFtpUser = new AddFtpUser();
+        $addFtpUser->add_ftp_user($ftp_user, $ftp_pass);
+        shell_exec('C:\xampp\filezilla_reload_config.bat');        
     
     } else {
+        echo 'addftp';
     include_once "tamplat/fail.php";
     }
 }

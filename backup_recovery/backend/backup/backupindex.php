@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 <?php
@@ -37,22 +38,22 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
 
     try{        
         // databaseInsert($path); //when click botton insert checkData status B
-        backupfile($filename, $path, $id_ftp, $token);
+        backupfile($filename, $path, $id_ftp, $token, $sessionUsername);
     }catch(Exception $e){
         $h4 = "ไม่สามารถทำรายการได้";
-        $txt = "โปรดตรวจสอบข้อมูลที่กรอก";
+        $txt = "โปรดตรวจสอบข้อมูลที่กรอกไม่สามารถสำรองข้อมูลได้ขณะนี้";
         include_once "tamplat/fail.php";
 
     }
 } else {
     $h4 = "ไม่สามารถทำรายการได้";
-    $txt = "โปรดตรวจสอบข้อมูลที่กรอก";
+    $txt = "โปรดตรวจสอบข้อมูลที่กรอก.";
     include_once "tamplat/fail.php";
 }
 
-function backupfile($filename, $path, $id_ftp, $token)
+function backupfile($filename, $path, $id_ftp, $token, $sessionUsername)
 {
-    //  "PATH=" . $path . " filename=" . $filename;
+    //  "PATH=" . $path . " filename=" . $filename;    
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -71,9 +72,10 @@ function backupfile($filename, $path, $id_ftp, $token)
     // shell_exec('"C:\Program Files\7-Zip\7z.exe " a -r ' . $name_zip_file . ' -w ' . $path);
     // shell_exec('"C:\Program Files\7-Zip\7z.exe " a  ' . $name_zip_file . ' -w ' . $path);
 
-    //ft p
+    //ftp
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;
-    $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`) VALUES (null, '$filename', '$name_zip_file')";
+    $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`, `update_by`) 
+        VALUES (null, '$filename', '$name_zip_file', '$sessionUsername')";
 
 
     $result_id_ftp = $conn->query($ftp);

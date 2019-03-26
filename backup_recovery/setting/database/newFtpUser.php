@@ -1,24 +1,24 @@
 <?php 
 
-add_ftp_user('addFinal','','test' ,'');
 
-	function add_ftp_user ($userid, $password, $username , $permisPath) {
-        // $filezilla = 'FileZilla Server.xml';
-        $filezilla = 'writing.xml';
+class AddFtpUser{
+
+	public function add_ftp_user ($username, $password) {   
+        $filezilla = 'C:\xampp\FileZillaFTP\FileZilla Server.xml';
 		if($password !== ''){
 			echo $password = md5($password);
-			
 		}
 		/*** create a SimpleXML object ***/ 
 		if( ! $xml = simplexml_load_file($filezilla) ) 
-		{ 
+		{
 			echo "Unable to load XML file"; 
-		} 
+		}
 		else 
 		{ 	
+			$this->addDir($username);
 			print_r($xml->Users);
 			$user = $xml->Users->addChild('User');
-			$user->addAttribute('Name', $userid);
+			$user->addAttribute('Name', $username);
 			
 			$option = $user->addChild('Option', $password);
 			$option->addAttribute('Name', 'Pass');
@@ -51,7 +51,7 @@ add_ftp_user('addFinal','','test' ,'');
 					//PERMISSION START
 			$permissions = $user->addChild('Permissions');			
 			$permission = $permissions->addChild('Permission');			
-			$permission->addAttribute('Dir','a-a-a-a-a');
+			$permission->addAttribute('Dir','D:\\'.$username);
 
 			$option = $permission->addChild('Option', '1');
 			$option->addAttribute('Name', 'FileRead');
@@ -96,7 +96,29 @@ add_ftp_user('addFinal','','test' ,'');
 			$speed->addChild('Upload');
 
 			$xml->asXML($filezilla);
-		} 
+		}
 	}
 
+	private function addDir($dir){		
+
+		$ftp_user_name = 'root';
+		$ftp_user_pass = '';
+		$ftp_server = '127.0.0.1';
+		// set up basic connection
+		$conn_id = ftp_connect($ftp_server);
+
+		// login with username and password
+		$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+		
+		if (ftp_mkdir($conn_id, $dir)) {
+			echo 'Sucess MKDIR';
+		} else {
+			include_once "tamplat/fail.php";
+			die();
+		}
+
+		// close the connection
+		ftp_close($conn_id);
+	}
+}
 ?>

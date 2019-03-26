@@ -1,4 +1,13 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
+?>
+
+<?php
 
 include_once "../config/connectDB.php";
 include_once "../config/ftp.php";
@@ -26,7 +35,7 @@ $classConn = new FTP_connect("127.0.0.1", "backup", "");
 //select path recovery
 $row = $classDB->select("setting WHERE id_setting = " . $idSetting);
 //select name file
-$namefile = $classDB->select("filebackup WHERE id_filebackup = " . $id_filebackup);
+$namefile = $classDB->select("filebackup WHERE id_filebackup = " . $id_filebackup. "AND update_by = '$sessionUsername'");
 $Row = $row->fetch_assoc();
 $Namefile = $namefile->fetch_assoc();
 

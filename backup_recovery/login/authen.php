@@ -1,12 +1,20 @@
 <?php
 class authentication{
-        
-function authen(){
 
-        if(!isset($_SESSION)) 
+    function __construct() {
+
+         if(!isset($_SESSION)) 
         { 
             session_start(); 
-        } 
+        }           
+    }
+
+
+static function getSessionUsername(){
+    return $_SESSION['username'];
+}
+ 
+function authen(){ 
         
         $servername = "localhost";
         $username = "root";

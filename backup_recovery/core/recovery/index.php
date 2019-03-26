@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 
@@ -70,7 +71,9 @@
                 if(isset($_POST["idSetting"])){ 
                 $id_setting = $_POST["idSetting"];        
                 $sql = "SELECT * FROM filebackup ";        
-                $sql .= "where id_setting = ".$id_setting. " ORDER BY id_filebackup DESC";
+                $sql .= "WHERE id_setting = ".$id_setting;
+                $sql .= "AND update_by = '$sessionUsername' "; 
+                $sql .= " ORDER BY id_filebackup DESC";
                 $recoveryStep2 = $conn->query($sql);
             ?>
 
