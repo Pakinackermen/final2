@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 
@@ -21,6 +22,7 @@ $count = 0;
 $class = new allDB();
 $sql = "changedata where status = '$status' ";
 $sql .= "AND path = '$dirSrc'";
+$sql .= "AND update_by = '$sessionUsername'";
 $sql .= " ORDER BY id_change DESC";
 $row = $class->select($sql);
 

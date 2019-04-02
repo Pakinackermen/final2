@@ -20,7 +20,7 @@
         die("Connection failed: " . $conn->connect_error);
     } 
 
-    $sql = "SELECT * FROM setting";
+    $sql = "SELECT * FROM setting WHERE name = " ."'$sessionUsername'";    
     $result = $conn->query($sql);
 ?>
 
@@ -72,7 +72,7 @@
                 $id_setting = $_POST["idSetting"];        
                 $sql = "SELECT * FROM filebackup ";        
                 $sql .= "WHERE id_setting = ".$id_setting;
-                $sql .= "AND update_by = '$sessionUsername' "; 
+                $sql .= " AND update_by = '$sessionUsername' "; 
                 $sql .= " ORDER BY id_filebackup DESC";
                 $recoveryStep2 = $conn->query($sql);
             ?>

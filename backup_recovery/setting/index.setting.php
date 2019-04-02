@@ -1,4 +1,13 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
+?>
+
+<?php
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,10 +19,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "SELECT * FROM setting";
+$sql = "SELECT * FROM setting WHERE name = '$sessionUsername' ";
 $result = $conn->query($sql);
 
-$ftp = "SELECT * FROM ftp";
+$ftp = "SELECT * FROM ftp WHERE update_by = '$sessionUsername' ";
 $resultFtp = $conn->query($ftp);
 
   // ftp map
@@ -178,5 +187,6 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
         // </div>
 
       ?>
+      
 </div>
 <script src="setting/setting.js"></script>

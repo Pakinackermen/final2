@@ -36,9 +36,9 @@ if (isset($_POST['idSetting']) && $_POST['idSetting'] != "NULL" &&
     $path .= str_replace('\\', '/', $Row['dir_src']);
     $token = $Row['token_line'];
 
-    try{        
-        // databaseInsert($path); //when click botton insert checkData status B
+    try{              
         backupfile($filename, $path, $id_ftp, $token, $sessionUsername);
+
     }catch(Exception $e){
         $h4 = "ไม่สามารถทำรายการได้";
         $txt = "โปรดตรวจสอบข้อมูลที่กรอกไม่สามารถสำรองข้อมูลได้ขณะนี้";
@@ -74,31 +74,29 @@ function backupfile($filename, $path, $id_ftp, $token, $sessionUsername)
 
     //ftp
     $ftp = "SELECT * FROM ftp WHERE id_ftp = " . $id_ftp;
-    $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`, `update_by`) 
-        VALUES (null, '$filename', '$name_zip_file', '$sessionUsername')";
-
-
     $result_id_ftp = $conn->query($ftp);
-    $conn->query($filebackupDB);
     $row_ftp = $result_id_ftp->fetch_assoc();
     $server = $row_ftp['ftp_server'];
     $ftp_username = $row_ftp['ftp_username'];
     $ftp_password = $row_ftp['ftp_password'];
+
+    $filebackupDB = "INSERT INTO filebackup (`id_filebackup`, `id_setting`, `file_name`, `update_by` ,`ftp_by`) 
+        VALUES (null, '$filename', '$name_zip_file', '$sessionUsername', '$ftp_username')";    
+    $conn->query($filebackupDB);
+    
     $connection = ftp_connect($server);
     $login = ftp_login($connection, $ftp_username, $ftp_password);
 
     if (ftp_mkdir($connection, $newFolder)) { //create folder
         // echo "successfully created $path\n";
-    } else {
-        // echo "There was a problem while creating $newFolder";
-    }
+    } 
     if (!$connection || !$login) {
         $h4 = "ไม่สามารถทำรายการได้ กรุณาตรวจสอบการส่งข้อมูล";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน ftp login";
         include_once "tamplat/fail.php";
         die();
     }else{
-        databaseInsert($path); //when click botton insert checkData status B
+        databaseInsert($path, $sessionUsername); //when click botton insert checkData status B
         shell_exec('"C:\Program Files\7-Zip\7z.exe " a  ' . $name_zip_file . ' -w ' . $path);
     }
 
@@ -111,7 +109,7 @@ function backupfile($filename, $path, $id_ftp, $token, $sessionUsername)
         $h4 = "ไม่สามารถทำรายการได้";
         $txt = "ขออภัยเกิดข้อผิดพลาดในการสำรองข้อมูลกรุณาตรวจสอบข้อมูลของท่าน ftp push";
         include_once "tamplat/fail.php";
-        'FTP upload failed!';
+        die();
     }
 
     include_once "linealert.php";

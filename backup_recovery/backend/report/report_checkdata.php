@@ -5,14 +5,40 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 
 <?php
 include_once "config/connectDB.php";
 $count = 0;
+$maxPage = 0;
+$perpage = 10;
 $class = new allDB();
-$sql = "checkdata where status = 'C' ORDER BY id DESC";
+$maxCheckout = "checkdata where status = 'C' AND update_by = '$sessionUsername' ";
+$maxxe = $class->select($maxCheckout);
+while($m = $maxxe->fetch_assoc()) {
+ $maxPage++;
+}
+$allPage = intval($maxPage / $perpage) == 0 ? 1: intval($maxPage / $perpage);
+
+if(isset($_POST['page'])){
+  $page = $_POST['page'];
+
+  if($page > 0 && $page <= $allPage){
+    $page = $_POST['page'];
+  }else{
+    $page = 1;
+  }
+
+
+}else{
+  $page = 1;
+}
+$start =  ($page - 1) * $perpage;
+$sql = "checkdata where status = 'C' AND update_by = '$sessionUsername'";
+$sql .= "ORDER BY id DESC LIMIT $start, $perpage";
+
 $row = $class->select($sql);
 ?>
 
@@ -63,4 +89,15 @@ while ($Row = $row->fetch_assoc()) {
                 </div>
               </div>
             </div>
-
+<form action="/backup_recovery/core.php?report=checkdata&page=report" method="post">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">    
+     <li class="page-item"><button class="page-link" value="<?=1?>" name="page" type="submit" >&laquo;</button></li>
+      <li class="page-item"><button class="page-link" value="<?=$page - 1?>" name="page" type="submit"><</button></li>
+      <li class="page-item page-item disabled"><button class="page-link" ><?=$page?></button></li>
+      <li class="page-item"><button class="page-link" value="<?=$page+1?>" name="page" type="submit">></button></li>
+      <li class="page-item"><button class="page-link" value="<?=$allPage?>" name="page" type="submit">&raquo;</button></li>
+      <li class="page-item page-item disabled"><span class="page-link" href="#">ทั้งหมด <?=$allPage?> หน้า</span></li>       
+    </ul>
+  </nav>  
+</form>

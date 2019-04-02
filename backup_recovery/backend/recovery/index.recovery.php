@@ -20,48 +20,50 @@ define('WP_DEBUG', false);
 define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);
 
-/*
-echo $idSetting = $_POST['idSetting'];
-$class = new allDB();
-$row = $class->select("setting WHERE id_setting = ".$idSetting);
-$Row = $row->fetch_assoc();
-echo "<br>".$Row['dir_src'];
- */
 try{
 $idSetting = $_POST["idSetting"];//ชื่อโฟเดอร
 $id_filebackup = $_POST["id_filebackup"];//ชื่อไฟล์
 $classDB = new allDB();
-$classConn = new FTP_connect("127.0.0.1", "backup", "");
+
 //select path recovery
-$row = $classDB->select("setting WHERE id_setting = " . $idSetting);
+$setting = $classDB->select("setting WHERE id_setting = " . $idSetting);
+$Setting = $setting->fetch_assoc();
 //select name file
-$namefile = $classDB->select("filebackup WHERE id_filebackup = " . $id_filebackup. "AND update_by = '$sessionUsername'");
-$Row = $row->fetch_assoc();
-$Namefile = $namefile->fetch_assoc();
+$filebackup = $classDB->select("filebackup WHERE id_filebackup = " . $id_filebackup. " AND update_by = '$sessionUsername'");
+$Filebackup = $filebackup->fetch_assoc();
+//select user ftp
+$ftp = $classDB->select("ftp WHERE ftp_username = " ."'".$Filebackup['ftp_by']."'");
+$Ftp = $ftp->fetch_assoc();
 
-$path = $Row['dir_src'];
-$token = $Row['token_line'];
+$path = $Setting['dir_src'];
+$token = $Setting['token_line'];
 
-$name_zip_file = trim($Namefile["file_name"], " ");
+$ftp_server = $Ftp['ftp_server'];
+$ftp_username = $Ftp['ftp_username'];
+$ftp_password = $Ftp['ftp_password'];
 
+$name_zip_file = trim($Filebackup["file_name"], " ");
+
+$classFtp = new FTP_connect($ftp_server , $ftp_username, $ftp_password);
 // echo $name_zip_file .= ".zip";
-$server = $classConn->getServer();
-$ftp_username = $classConn->getUsername();
-$ftp_password = $classConn->getPassword();
+$server = $classFtp->getServer();
+$ftp_username = $classFtp->getUsername();
+$ftp_password = $classFtp->getPassword();
 
-// dowload($namefile, $foldel)
-if ($classConn->dowload($name_zip_file , $idSetting)) {
+// dowload($Filebackup, $foldel)
+if ($classFtp->dowload($name_zip_file , $idSetting)) {
     $h4 = "การกู้ข้อมูล dowload";
     $txt = "ท่านได้ดำเนินการกู้คืนข้อมูลแล้ว ";
     // include_once "tamplat/success.php";
 } else {
     $h4 = "การกู้ข้อมูล";
-    $txt = "เกิดข้อผิดพลาดในการดำเนินการ กรุณาดำเนินการใหม่ภายหลัง ";
-    // include_once "tamplat/fail.php";
+    $txt = "เกิดข้อผิดพลาดในการดำเนินการ ไม่มีข้อมูลที่ท่านต้องการ ";
+    include_once "tamplat/fail.php";
+    die();
 }
 if($path != null or $path != ""){
 
-    databaseInsert(str_replace('\\', '/', $Row['dir_src'])); //when click botton insert checkData status R
+    databaseInsert(str_replace('\\', '/', $Setting['dir_src']), $sessionUsername); //when click botton insert checkData status R
 }
 // remove file
 shell_exec('rmdir /s /q "'.$path.'"');
@@ -78,7 +80,7 @@ unlink('store/' . $name_zip_file);
 }catch(Exception $e){
     // throw new Exception('ERROR connecting database:+1 ');
 $h4 = "การกู้ข้อมูล";
-$txt = "เกิดข้อผิดพลาดในการดำเนินการ กรุณาดำเนินการใหม่ภายหลัง ";
+$txt = "เกิดข้อผิดพลาดในการดำเนินการ กรุณาดำเนินการใหม่ภายหลัง ".$e;
 include_once "tamplat/fail.php";
 
 }catch(mysqli_sql_exception $ex){

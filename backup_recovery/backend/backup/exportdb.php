@@ -73,6 +73,9 @@ if (!empty($_POST['database_user'])&&
     $connection = ftp_connect($server);
     $login = ftp_login($connection, $ftp_username, $ftp_password);    
     $newFolder = 'database';
+    if (ftp_mkdir($connection, $newFolder)) {
+        echo "successfully created $dir\n";
+    }
     $upload = ftp_put($connection, $newFolder . "/" . $nameDb.BACKUP_NAME, $nameDb.BACKUP_NAME, FTP_BINARY);
     unlink($nameDb.BACKUP_NAME);
 
@@ -82,9 +85,6 @@ if (!empty($_POST['database_user'])&&
     include_once "tamplat/fail.php";
 }
 
-/**
-* for send variable is name file
-**/
 class sendvar{
  public function tester()
  {

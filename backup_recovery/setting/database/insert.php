@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 <?php
@@ -23,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 $rootPath = 'C:\xampp\htdocs\\';
-$namedata = $_POST['namedata'] = "NULL";
+$namedata = $sessionUsername;
 
 $dir_src = $_POST['dir_src'];
 // $dir_src = realpath($dir_src);
@@ -95,12 +96,14 @@ $sqlFtp = "INSERT INTO `ftp` (
         `id_ftp`,
         `ftp_server`,
         `ftp_username`,
-        `ftp_password`)
+        `ftp_password`,
+        `update_by`)
         VALUES (
         NULL,
         '" . $ftp_server . "',
         '" . $ftp_user . "',
-        '" . $ftp_pass . "'
+        '" . $ftp_pass . "',
+        '" . $sessionUsername . "'
         );";
 
  $addnewUser = "INSERT INTO person (
@@ -110,7 +113,7 @@ $sqlFtp = "INSERT INTO `ftp` (
     VALUES(
         NULL,
         '" . $_username. "',
-        '". $_password."'
+        '". $_password."',
     )";
 
 if(!empty($_POST["add"])){

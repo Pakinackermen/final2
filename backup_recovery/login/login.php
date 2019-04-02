@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
     $_SESSION['username'] = $row["username"];
     $_SESSION['_password'] = $row['_password'];
 
-    header('Location: ../core.php');
+    header('Location: ../core.php');   
     
 } else {    
 
@@ -37,6 +37,8 @@ if ($result->num_rows > 0) {
     $txt = 'ผู้ใช้หรือรหัสผ่านไม่ถูกต้องลองใหม่อีกครั้ง';
     include_once "tamplat/fail.php";
 }
+
+
 $conn->close();
 ?>
 <script src="login.js"></script>

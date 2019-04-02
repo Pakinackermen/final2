@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 
@@ -17,7 +18,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM setting";
+$sql = "SELECT * FROM setting WHERE name = " ."'$sessionUsername'";
 $result = $conn->query($sql);
 
 // $ftp = "SELECT * FROM ftp";

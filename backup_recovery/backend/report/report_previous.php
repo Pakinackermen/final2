@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 
@@ -11,7 +12,8 @@
 include_once "config/connectDB.php";
 $count = 0;
 $class = new allDB();
-$sql = "setting ORDER BY id_setting DESC";
+ $sql = "setting WHERE name = '$sessionUsername' ";
+$sql .= " ORDER BY id_setting DESC ";
 $row = $class->select($sql);
 ?>
 

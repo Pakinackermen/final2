@@ -4,13 +4,14 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 <?php
 // changeCheckData('R');
 // echo "<br>Change.php<br>";
 
-function changeCheckData($status, $path)
+function changeCheckData($status, $path, $sessionUsername)
 {    
 
     include_once 'C:\xampp\htdocs\backup_recovery\backend\config\connectDB.php';
@@ -35,10 +36,10 @@ function changeCheckData($status, $path)
         $change[$value++] = $checkdata["value"];
     }
 
-    checkFile($change, $id[0], $_path, $status);
+    checkFile($change, $id[0], $_path, $status, $sessionUsername);
 }
 
-function checkFile($change, $id_checkdata, $_path, $_status)
+function checkFile($change, $id_checkdata, $_path, $_status, $update_by)
 {
     
     date_default_timezone_set("Asia/Bangkok");
@@ -99,7 +100,8 @@ function checkFile($change, $id_checkdata, $_path, $_status)
 
     // insert DB
     $table = "changedata ";
-    $column = ' `id_change`, `path`, `status`, `new`, `reduce`, `hash_change`, `id_checkdata`, `date` ';
+    $column = ' `id_change`, `path`, `status`, `new`, `reduce`, 
+    `hash_change`, `id_checkdata`, `date`, `update_by` ';
 
     $reduce = setArrayTostring($checkNewAndReduce1); //reduce
     $newfile = setArrayTostring($checkNewAndReduce2); //new
@@ -113,7 +115,8 @@ function checkFile($change, $id_checkdata, $_path, $_status)
     $value .= "'$reduce',";
     $value .= "'$hashchange',";
     $value .= "'$id_checkdata',";
-    $value .= "'$datetime'";
+    $value .= "'$datetime',";
+    $value .= "'$update_by'";
     // echo "<br>Value::=" . $value .= "'$datetime'";
 
     $classDb->insert($table, $column, $value);

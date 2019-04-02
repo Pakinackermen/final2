@@ -4,6 +4,7 @@
   include_once Path::AuthonFile;
   $authen = new authentication();
   $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
 ?>
 
 
@@ -16,7 +17,7 @@ if (isset($_POST["checkdata"])) {
     if (is_dir($path)) {
         // echo $_POST['status'];
         // echo "CheckData=" . $_POST["checkdata"];
-        databaseInsert($path);
+        databaseInsert($path, $sessionUsername);
         
     } else {
         $h4 = "ไม่สามารถดำเนินการได้";
@@ -28,7 +29,7 @@ if (isset($_POST["checkdata"])) {
 }
 
 
-function databaseInsert($path)
+function databaseInsert($path, $sessionUsername)
 {
     date_default_timezone_set("Asia/Bangkok");
     $servername = "localhost";
@@ -47,14 +48,15 @@ function databaseInsert($path)
     //get path
     $str_value = implode(directoryToArray($path, true));
     $Table = "checkdata";
-    $column = ' `id`, `value`, `directory`, `datetime`, `status`';
+    $column = ' `id`, `value`, `directory`, `datetime`, `status`, `update_by`';
     $id = "NULL,";
     $value = "'" . $str_value . "', ";
     $directory = "'". $path ."', ";
     $datetime = "'" . date("Y-m-d H:i:s") . "',";
-    $statusDB = "'" . $_POST['status'] . "'";
+    $statusDB = "'" . $_POST['status'] . "',";
+    $update_by = "'$sessionUsername'";
     
-    $valueInsert = $id.$value.$directory.$datetime.$statusDB;
+    $valueInsert = $id.$value.$directory.$datetime.$statusDB.$update_by;
 
      $insertDB = "INSERT INTO " . $Table . " ( " . $column . " ) VALUES ( " . $valueInsert . ")";
     if ($conn->query($insertDB)) {
@@ -70,7 +72,7 @@ function databaseInsert($path)
         include_once "tamplat/fail.php";
     }
     $conn->close();
-    changeCheckData($_POST['status'], $path); //change.php
+    changeCheckData($_POST['status'], $path, $sessionUsername); //change.php
 }
 
 function directoryToArray($directory, $recursive){
@@ -111,5 +113,3 @@ function directoryToArray($directory, $recursive){
     return $array_items;
 }
 
-//Start checkData
-//databaseInsert();
