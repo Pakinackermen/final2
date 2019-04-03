@@ -37,7 +37,7 @@ while ($Row = $setting->fetch_assoc()) {
             $ftp = $classDB->select("ftp where ftp_username = '".$Row['ftp_user']."'");
             $Rowftp = $ftp->fetch_assoc();
             $_POST['id_ftp'] = $Rowftp['id_ftp'];
-            $_POST['idSetting'] = $id_setting;
+           echo $_POST['idSetting'] = $id_setting;
             $id_setting;
 
 

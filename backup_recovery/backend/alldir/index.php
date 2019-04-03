@@ -12,8 +12,16 @@
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <?php
- getcwd();
- $item = shell_exec('cd ../../../&&dir /a:d /s /b ');
+getcwd();
+$pathAll = '';
+$flagPathAll = false;
+$item = shell_exec('cd ../../../&& dir /a:d /b');
+if(isset($_GET['pathAll'])){
+    $pathAll = 'cd '.$_GET['pathAll'].'\&& dir /a:d /b';
+    $item = shell_exec($pathAll);    
+    $flagPathAll = true;
+}
+
 $arr = str_split($item);
 $flagC = false;
 $flagColon = false;
@@ -21,39 +29,58 @@ $txt = '';
 $txt2 = '';
 
 foreach ($arr as $key => $value) {
-
-    if ($value == 'C') {
-        $flagC = true;
-        // echo "<br>";
-
-        $txt2 .= $txt .= "|" . $value . ":";
-
-        // echo "<br>";
-        // echo $value ;
-
-    } elseif ($value == ':') {
-        $flagColon = true;
-        $txt .= $value;
-        $value;
-        // echo $value ;
-
-    } else {
-        $txt .= $value;
-        // echo $value ;
-    }
-
-    if ($flagC && $flagColon) {
-
-        $flagC = false;
-        $flagColon = false;
+    //   echo $txt2 = $value;
+    
+    if($value == "\n" && !$flagPathAll){
+         $txt2 .= 'C:\xampp\htdocs\\'.$txt.'|';        
         $txt = '';
+          '<br>37';
+    }else if($value == "\n" && $flagPathAll){
+        
+          $txt2 .= $_GET['pathAll']."\\".$txt.'|';
+           $txt = '';
+           '<br>41';
+
+    }else{
+        $txt .= $value;
     }
+
+    // if ($value == 'C') {
+    //     $flagC = true;
+    //     // echo "<br>";
+
+    //     $txt2 .= $txt .= "|" . $value . ":";
+
+    //     // echo "<br>";
+    //     // echo $value ;
+
+    // } elseif ($value == ':') {
+    //     $flagColon = true;
+    //     $txt .= $value;
+    //     $value;
+    //     // echo $value ;
+
+    // } else {
+    //     $txt .= $value;
+    //     // echo $value ;
+    // }
+
+    // if ($flagC && $flagColon) {
+
+    //     $flagC = false;
+    //     $flagColon = false;
+    //     $txt = '';
+    // }
 
 }
+
+
+    
 
 $txt2 = explode("|", $txt2); //array
 $txt2 = array_filter($txt2, function ($e) {return $e !== 'C:';});
 $txt2 = array_filter($txt2, function ($e) {return $e !== '';});
+
 $txt2cut = '';
 
 echo '<div class="col">
@@ -66,26 +93,35 @@ foreach ($txt2 as $key => $value) {
     if (substr($value, 1)) {
 
     }
-    if (stristr($value, '.git') === false) {
-
-        if (stristr($value, 'backup_recovery') === false) {
-           
-            echo '<ul class="list-group col-md-6 ">
-                    <li class="list-group-item ">'.realpath(trim($value)).'</li>
-                </ul>';
+    if ( (stristr($value, '.git' ) === false) 
+        && (stristr($value, 'backup_recovery') === false )
+        && ( realpath(trim($value)) != '') ) {
+            
+                echo '<ul class="list-group col-md-6 ">';           
+                echo '<li class="list-group-item ">';
+                echo '<a href="/backup_recovery/backend/alldir/index.php?pathAll='.realpath(trim($value)).'">'.realpath(trim($value)).'</a>';
+                echo '</li>';
+                echo '</ul>';            
                             
             // echo realpath('C:\xampp\htdocs\backup');
-            // echo "<br>";
-
-        }
+            // echo "<br>";        
     }
 
 }
+
+
+        echo '<ul class="list-group col-md-6 ">';           
+        echo '<li class="list-group-item ">';         
+        echo '<button class="btn btn-accent col-md-3 " onclick="window.history.back();">กลับ</button>';
+        echo '</li>';
+        echo '</ul>';   
+    
 echo                        '</div>
                         </div>
                     </div>';
 
 ?>
+
 <div class="col">
     <div class="form-row">
 

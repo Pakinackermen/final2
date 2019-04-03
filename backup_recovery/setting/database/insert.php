@@ -106,14 +106,14 @@ $sqlFtp = "INSERT INTO `ftp` (
         '" . $sessionUsername . "'
         );";
 
- $addnewUser = "INSERT INTO person (
+$addnewUser = "INSERT INTO person (
     id_person,
     username,
     _password)
     VALUES(
         NULL,
         '" . $_username. "',
-        '". $_password."',
+        '". $_password."'
     )";
 
 if(!empty($_POST["add"])){

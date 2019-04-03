@@ -171,10 +171,11 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
             <div class="form-control d-flex justify-content-center">
               <button type="submit" class="btn btn-info col-md-5 " name="addFtp">เพิ่มผู้ใช้ FTP</button>          
             </div>            
-
+          <!-- 
             <div class="form-control d-flex justify-content-center">
               <button type="submit" class="btn btn-info col-md-5 " name="editFtp">แก้ไขเพิ่มผู้ใช้ FTP</button>          
-            </div>
+            </div> 
+          -->
 
             
             <div class="form-control d-flex justify-content-center">
@@ -187,6 +188,6 @@ if(isset($_POST['idSetting']) && isset($_POST['ftp_username'])){
         // </div>
 
       ?>
-      
+       
 </div>
 <script src="setting/setting.js"></script>
