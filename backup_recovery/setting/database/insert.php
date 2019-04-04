@@ -141,7 +141,7 @@ if(!empty($_POST["add"])){
         shell_exec('C:\xampp\filezilla_reload_config.bat');        
     
     } else {
-        echo 'addftp';
+        // echo 'addftp';
     include_once "tamplat/fail.php";
     }
 }

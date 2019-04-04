@@ -109,12 +109,15 @@ foreach ($txt2 as $key => $value) {
 
 }
 
+    if($txt2 == null || isset($_GET['pathAll'])){
 
+        
         echo '<ul class="list-group col-md-6 ">';           
         echo '<li class="list-group-item ">';         
         echo '<button class="btn btn-accent col-md-3 " onclick="window.history.back();">กลับ</button>';
         echo '</li>';
         echo '</ul>';   
+    }
     
 echo                        '</div>
                         </div>

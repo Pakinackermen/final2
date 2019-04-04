@@ -33,7 +33,7 @@ class allDB extends connectDB{
             die("Connection failed: " . $conn->connect_error);
         }                          
         // SELECT column_name(s) FROM table_name                 
-       echo $select = "select * from ".$Table;
+        $select = "select * from ".$Table;
         if($result = $conn->query($select)){
             return $result ;
 

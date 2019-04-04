@@ -4,8 +4,8 @@
       </div>
 <div class="form-row">
     <div class="form-group col-md-12 p-2">       
-        <select id="pathBackup" class="form-control" name="ftp_user">
-            <option value="NULL">USER...</option>
+        <select id="pathBackup" class="form-control" name="ftp_user" required>
+            <option value="">USER...</option>
             <?php
  while($row = $resultFtp->fetch_assoc()) {
     echo "<option value='" . $row['ftp_username'] . "'>" . $row['ftp_username'] . "</option>";

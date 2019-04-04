@@ -3,7 +3,7 @@
 
 class AddFtpUser{
 
-	public function add_ftp_user ($username, $password) {   
+	public function add_ftp_user ($username, $password) {
         $filezilla = 'C:\xampp\FileZillaFTP\FileZilla Server.xml';
 		if($password !== ''){
 			echo $password = md5($password);
@@ -16,7 +16,7 @@ class AddFtpUser{
 		else 
 		{ 	
 			$this->addDir($username);
-			print_r($xml->Users);
+			// print_r($xml->Users);
 			$user = $xml->Users->addChild('User');
 			$user->addAttribute('Name', $username);
 			
@@ -111,7 +111,7 @@ class AddFtpUser{
 		$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 		
 		if (ftp_mkdir($conn_id, $dir)) {
-			echo 'Sucess MKDIR';
+			// echo 'Sucess MKDIR';
 		} else {
 			include_once "tamplat/fail.php";
 			die();
