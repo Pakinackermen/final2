@@ -24,11 +24,11 @@ $allPage = intval($maxPage / $perpage) == 0 ? 1: intval($maxPage / $perpage);
 if(isset($_POST['page'])){
   $page = $_POST['page'];
 
-  if($page > 0 && $page <= $allPage){
-    $page = $_POST['page'];
-  }else{
-    $page = 1;
-  }
+  // if($page > 0 && $page <= $allPage){
+  //   $page = $_POST['page'];
+  // }else{
+  //   $page = 1;
+  // }
 
 
 }else{
@@ -99,7 +99,7 @@ $row = $class->select($sql);
       <li class="page-item page-item disabled"><button class="page-link" ><?=$page?></button></li>
       <li class="page-item"><button class="page-link" value="<?=$page+1?>" name="page" type="submit">></button></li>
       <li class="page-item"><button class="page-link" value="<?=$allPage?>" name="page" type="submit">&raquo;</button></li>
-      <li class="page-item page-item disabled"><span class="page-link" href="#">ทั้งหมด <?=$allPage?> หน้า</span></li>       
+      <!-- <li class="page-item page-item disabled"><span class="page-link" href="#">ทั้งหมด <?=$allPage?> หน้า</span></li>        -->
     </ul>
   </nav>  
 </form>

@@ -6,12 +6,12 @@ class AddFtpUser{
 	public function add_ftp_user ($username, $password) {
         $filezilla = 'C:\xampp\FileZillaFTP\FileZilla Server.xml';
 		if($password !== ''){
-			echo $password = md5($password);
+			 $password = md5($password);
 		}
 		/*** create a SimpleXML object ***/ 
 		if( ! $xml = simplexml_load_file($filezilla) ) 
 		{
-			echo "Unable to load XML file"; 
+			 "Unable to load XML file"; 
 		}
 		else 
 		{ 	

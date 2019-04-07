@@ -9,15 +9,15 @@
               <div class="form-row">              
                 <div class="form-group col-md-12">
                   <label>FTP Server</label>
-                  <input type="text" class="form-control" id="pathfile" name="ftp_server" placeholder="กำหนดไดเรกทอรี่ต้นทาง">
+                  <input type="text" class="form-control" id="pathfile" name="ftp_server" placeholder="กำหนดไดเรกทอรี่ต้นทาง" required>
                 </div>                
                 <div class="form-group col-md-12">
                   <label>FTP User</label>
-                  <input type="text" class="form-control" id="pathfile" name="ftp_user" placeholder="FTP User">
+                  <input type="text" class="form-control" id="pathfile" name="ftp_user" placeholder="FTP User" required>
                 </div>
                 <div class="form-group col-md-12">
-                  <label>FTP Password</label>
-                  <input type="password" class="form-control" id="pathfile" name="ftp_pass" placeholder="Password">
+                  <!-- <label>FTP Password</label> -->
+                  <input type="password" hidden class="form-control" id="pathfile" name="ftp_pass" placeholder="Password" >
                 </div>
               </div>             
         </li>

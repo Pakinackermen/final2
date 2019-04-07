@@ -1,4 +1,13 @@
 <?php
+  include_once 'C:\xampp\htdocs\backup_recovery\pathContent\path.php';
+  
+  include_once Path::AuthonFile;
+  $authen = new authentication();
+  $authen->authen();
+  $sessionUsername =  authentication::getSessionUsername();
+?>
+
+<?php
 include_once "connect.php";
 // Create connection
 // เลือก แก้ไข
@@ -6,8 +15,8 @@ $id_setting = $_POST['edit_setting'];
 $edit_setting = "SELECT * FROM setting WHERE id_setting = " . $id_setting;
 $result = $conn->query($edit_setting);
 $row = $result->fetch_assoc();
-$editftp = "SELECT * FROM ftp WHERE ftp_username = '" . $row['ftp_user'] . "'";
-$queFtp = "SELECT * FROM ftp";
+$editftp = "SELECT * FROM ftp WHERE ftp_username = '" . $row['ftp_user'] . "' and update_by= '$sessionUsername' ";
+$queFtp = "SELECT * FROM ftp WHERE update_by= '$sessionUsername'";
 $resultFtp = $conn->query($queFtp);
 
 $result1 = $conn->query($editftp);
